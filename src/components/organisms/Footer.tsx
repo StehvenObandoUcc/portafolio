@@ -38,7 +38,7 @@ export function Footer(props: FooterProps) {
             </a>
           </div>
         </div>
-        <p aria-hidden="true" className="footer-wordmark">
+        <p aria-hidden="true" data-reveal="" data-motion="wordmark" className="footer-wordmark">
           {props.wordmark}
         </p>
         <div className="flex flex-col gap-2 border-t border-line pt-6 sm:flex-row sm:justify-between">

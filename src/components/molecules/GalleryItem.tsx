@@ -12,9 +12,9 @@ interface GalleryItemProps {
 }
 
 const sizes = {
-  tall: "(min-width: 900px) 22vw, 50vw",
-  wide: "(min-width: 900px) 44vw, 100vw",
-  square: "(min-width: 900px) 22vw, 50vw",
+  tall: "(min-width: 900px) 24vw, 50vw",
+  wide: "(min-width: 900px) 50vw, 100vw",
+  square: "(min-width: 900px) 24vw, 50vw",
 };
 
 /** A bento cell: photo that zooms gently on hover, caption in the corner. */

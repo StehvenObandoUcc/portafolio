@@ -534,15 +534,29 @@
   border-block: 1px solid var(--line);
   padding-block: clamp(18px, 3vw, 34px);
 }
+/* Endless marquee: the item list is rendered twice, so sliding by half
+   the track lands exactly where it started. Spacing lives on each item
+   (not as a flex gap) to keep that seam invisible. */
 .kinetic-track {
   display: flex;
   width: max-content;
-  gap: clamp(24px, 3vw, 48px);
+  animation: marquee 140s linear infinite;
+}
+.kinetic-track-right {
+  animation-direction: reverse;
+}
+.kinetic-band:hover .kinetic-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 .kinetic-item {
   display: inline-flex;
   align-items: center;
   gap: clamp(24px, 3vw, 48px);
+  padding-inline-end: clamp(24px, 3vw, 48px);
   font-size: clamp(44px, 8vw, 124px);
   font-weight: 500;
   letter-spacing: -0.045em;
@@ -602,57 +616,14 @@
 }
 
 /* ------------------------------------------------------------------
-   Scroll-driven motion. Plays forward on the way down and rewinds on
-   the way up. Only where supported and motion is welcome; everywhere
-   else the content rests in place.
+   Continuous scroll-linked effects: parallax, drift and progress. They
+   follow the scroll position directly, so their travel is kept short.
    ------------------------------------------------------------------ */
 @supports (animation-timeline: view()) {
-  [data-motion] {
-    animation-timing-function: linear;
-    animation-fill-mode: both;
-  }
-  [data-motion="rise"] {
-    animation-name: sd-rise;
-    animation-timeline: view();
-    animation-range: entry calc(var(--reveal-i, 0) * 5%) cover calc(30% + var(--reveal-i, 0) * 4%);
-  }
-  [data-motion="card"] {
-    transform-origin: 50% 100%;
-    animation-name: sd-card;
-    animation-timeline: view();
-    animation-range: entry calc(var(--reveal-i, 0) * 7%) cover calc(38% + var(--reveal-i, 0) * 5%);
-  }
-  [data-motion="tile"] {
-    animation-name: sd-tile;
-    animation-timeline: view();
-    animation-range: entry calc(var(--reveal-i, 0) * 8%) cover calc(40% + var(--reveal-i, 0) * 5%);
-  }
-  [data-motion="tile"] img {
-    animation: sd-zoom linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 60%;
-  }
-  [data-motion="pop"] {
-    animation-name: sd-pop;
-    animation-timeline: view();
-    animation-range: entry calc(var(--reveal-i, 0) * 6%) cover calc(32% + var(--reveal-i, 0) * 4%);
-  }
-
-  .word {
-    animation: sd-word linear both;
-    animation-timeline: --word;
-    animation-range: entry calc(20% + var(--i, 0) * 9%) cover calc(30% + var(--i, 0) * 5%);
-  }
   .section-numeral {
     animation: sd-drift linear both;
     animation-timeline: view();
     animation-range: cover;
-  }
-  .rule-line {
-    transition: none;
-    animation: sd-draw-x linear both;
-    animation-timeline: view();
-    animation-range: entry 10% cover 40%;
   }
   .parallax-frame {
     animation: sd-parallax linear both;
@@ -663,30 +634,12 @@
     transform-origin: top;
     animation: sd-draw-y linear both;
     animation-timeline: view();
-    animation-range: entry 0% cover 70%;
-  }
-  .timeline-dot {
-    animation: sd-dot linear both;
-    animation-timeline: view();
-    animation-range: entry 30% cover 35%;
-  }
-  .kinetic-track {
-    animation: sd-band linear both;
-    animation-timeline: view();
-    animation-range: cover;
-  }
-  .kinetic-track-right {
-    animation-name: sd-band-right;
-  }
-  .footer-wordmark {
-    animation: sd-wordmark linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 100%;
+    animation-range: entry 0% cover 60%;
   }
   .hero-copy-drift {
     animation: sd-hero-copy linear both;
     animation-timeline: scroll(root);
-    animation-range: 0 95vh;
+    animation-range: 0 100vh;
   }
   .hero-photo-drift {
     animation: sd-hero-photo linear both;
@@ -711,66 +664,27 @@
     animation: sd-progress linear both;
     animation-timeline: scroll(root);
   }
-
 }
 
-@keyframes sd-rise {
-  from { opacity: 0; transform: translateY(90px); }
-}
-@keyframes sd-card {
-  from { opacity: 0; transform: perspective(1100px) translateY(160px) rotateX(30deg) scale(0.88); }
-}
-@keyframes sd-tile {
-  from { clip-path: inset(100% 0 0 0 round 22px); transform: translateY(80px); }
-  to { clip-path: inset(0 0 0 0 round 22px); }
-}
-@keyframes sd-zoom {
-  from { transform: scale(1.4); }
-}
-@keyframes sd-pop {
-  from { opacity: 0; transform: translateY(50px) scale(0.82); }
-}
-@keyframes sd-word {
-  from { transform: translateY(110%) rotate(5deg); }
-}
 @keyframes sd-drift {
-  from { transform: translateX(22vw); }
-  to { transform: translateX(-14vw); }
-}
-@keyframes sd-draw-x {
-  from { transform: scaleX(0); }
+  from { transform: translateX(10vw); }
+  to { transform: translateX(-6vw); }
 }
 @keyframes sd-draw-y {
   from { transform: scaleY(0); }
 }
-@keyframes sd-dot {
-  from { transform: scale(0); }
-  60% { transform: scale(1.7); background: var(--accent-600); }
-  to { transform: scale(1); }
-}
 @keyframes sd-parallax {
-  from { transform: translateY(-7%); }
-  to { transform: translateY(7%); }
-}
-@keyframes sd-band {
-  from { transform: translateX(4%); }
-  to { transform: translateX(-38%); }
-}
-@keyframes sd-band-right {
-  from { transform: translateX(-38%); }
-  to { transform: translateX(4%); }
-}
-@keyframes sd-wordmark {
-  from { opacity: 0; transform: translateY(60%) skewY(4deg); }
+  from { transform: translateY(-5%); }
+  to { transform: translateY(5%); }
 }
 @keyframes sd-hero-copy {
-  to { opacity: 0.1; transform: translateY(-16vh); }
+  to { opacity: 0.25; transform: translateY(-10vh); }
 }
 @keyframes sd-hero-photo {
-  to { transform: translateY(12vh) rotate(-4deg) scale(0.9); }
+  to { transform: translateY(8vh) rotate(-2.5deg) scale(0.94); }
 }
 @keyframes sd-hero-grid {
-  to { transform: translateY(22vh); }
+  to { transform: translateY(14vh); }
 }
 @keyframes sd-progress {
   from { transform: scaleX(0); }
@@ -783,19 +697,125 @@ header:focus-within {
 }
 
 /* ------------------------------------------------------------------
-   Scroll reveal (JS adds data-reveal="hidden" only to off-screen items,
-   so without JS everything stays visible)
+   Timed reveals. <RevealObserver /> parks off-screen blocks as "below" or
+   "above" (the side they will enter from) and flips them to "shown"; the
+   eased transitions below do the rest, smooth at any scroll speed. Without
+   JS nothing is ever parked, so everything stays visible.
    ------------------------------------------------------------------ */
 [data-reveal] {
+  --dir: 1;
   transition:
-    opacity 0.7s var(--ease-out),
-    transform 0.7s var(--ease-out);
-  transition-delay: calc(var(--reveal-i, 0) * 60ms);
+    opacity 0.9s var(--ease-out),
+    transform 1.15s var(--ease-out),
+    clip-path 1.15s var(--ease-out);
+  transition-delay: calc(var(--reveal-i, 0) * 90ms);
 }
-[data-reveal="hidden"] {
+[data-reveal="above"] {
+  --dir: -1;
+}
+[data-reveal="below"],
+[data-reveal="above"] {
+  transition-duration: 0.3s;
+  transition-delay: 0s;
+}
+:is([data-reveal="below"], [data-reveal="above"])[data-motion="rise"] {
   opacity: 0;
-  transform: translateY(20px);
-  transition: none;
+  transform: translateY(calc(var(--dir) * 70px));
+}
+[data-motion="card"] {
+  transform-origin: 50% 100%;
+}
+[data-reveal="above"][data-motion="card"] {
+  transform-origin: 50% 0%;
+}
+:is([data-reveal="below"], [data-reveal="above"])[data-motion="card"] {
+  opacity: 0;
+  transform: perspective(1100px) translateY(calc(var(--dir) * 110px)) rotateX(calc(var(--dir) * 20deg)) scale(0.92);
+}
+:is([data-reveal="below"], [data-reveal="above"])[data-motion="pop"] {
+  opacity: 0;
+  transform: translateY(calc(var(--dir) * 40px)) scale(0.86);
+}
+/* The cut lives on the inner figure: a clip on the observed block itself
+   would hide it from the IntersectionObserver and it would never arrive. */
+[data-motion="tile"] > * {
+  clip-path: inset(0 0 0 0 round 22px);
+  transition: clip-path 1.15s var(--ease-out);
+  transition-delay: inherit;
+}
+[data-reveal="below"][data-motion="tile"] {
+  transform: translateY(50px);
+}
+[data-reveal="above"][data-motion="tile"] {
+  transform: translateY(-50px);
+}
+[data-reveal="below"][data-motion="tile"] > * {
+  clip-path: inset(100% 0 0 0 round 22px);
+  transition-duration: 0.3s;
+}
+[data-reveal="above"][data-motion="tile"] > * {
+  clip-path: inset(0 0 100% 0 round 22px);
+  transition-duration: 0.3s;
+}
+[data-motion="tile"] img {
+  transition: transform 1.5s var(--ease-out);
+}
+:is([data-reveal="below"], [data-reveal="above"])[data-motion="tile"] img {
+  transform: scale(1.3);
+  transition-duration: 0.3s;
+}
+:is([data-reveal="below"], [data-reveal="above"])[data-motion="wordmark"] {
+  opacity: 0;
+  transform: translateY(calc(var(--dir) * 45%)) skewY(3deg);
+}
+
+/* Heading words rise out of their masks one after another. */
+.word {
+  transition: transform 1.05s var(--ease-out);
+  transition-delay: calc(0.12s + var(--i, 0) * 70ms);
+}
+[data-reveal="below"] .word {
+  transform: translateY(110%) rotate(4deg);
+  transition-duration: 0.3s;
+  transition-delay: 0s;
+}
+[data-reveal="above"] .word {
+  transform: translateY(-110%) rotate(-4deg);
+  transition-duration: 0.3s;
+  transition-delay: 0s;
+}
+
+/* Section rules are drawn like a ruled notebook line. */
+.rule-line {
+  transform-origin: left center;
+  transition: transform 1.2s var(--ease-out) 0.25s;
+}
+:is([data-reveal="below"], [data-reveal="above"]) .rule-line {
+  transform: scaleX(0);
+  transition-duration: 0.3s;
+  transition-delay: 0s;
+}
+
+/* Timeline dots pop onto the rule. */
+.timeline-dot {
+  transition: transform 0.7s cubic-bezier(0.34, 1.4, 0.64, 1) 0.2s;
+}
+:is([data-reveal="below"], [data-reveal="above"]) .timeline-dot {
+  transform: scale(0);
+  transition-duration: 0.2s;
+  transition-delay: 0s;
+}
+
+/* Icons draw their own strokes as their block arrives. */
+.icon-draw svg :is(path, rect, circle, ellipse) {
+  stroke-dasharray: 120;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.4s var(--ease-out) 0.25s;
+}
+:is([data-reveal="below"], [data-reveal="above"]) .icon-draw svg :is(path, rect, circle, ellipse) {
+  stroke-dashoffset: 120;
+  transition-duration: 0.2s;
+  transition-delay: 0s;
 }
 
 /* Controls pinned to the top edge open their tooltip downwards. */
@@ -807,16 +827,6 @@ header:focus-within {
 .has-tooltip.tooltip-below:hover::before,
 .has-tooltip.tooltip-below:focus-visible::before {
   transform: translate(-50%, 0);
-}
-
-/* Section rules are drawn like a ruled notebook line when their header reveals. */
-.rule-line {
-  transform-origin: left center;
-  transition: transform 0.9s var(--ease-out) 0.12s;
-}
-[data-reveal="hidden"] .rule-line {
-  transform: scaleX(0);
-  transition: none;
 }
 
 /* Tab panels slide in when they replace each other. */
@@ -901,7 +911,7 @@ svg[data-icon] {
 }
 [data-tilt]:hover {
   transform: perspective(1000px) rotateX(var(--ry, 0deg)) rotateY(var(--rx, 0deg));
-  transition-duration: 0.18s, 0.3s, 0.5s;
+  transition-duration: 0.4s, 0.3s, 0.5s;
 }
 .card-interactive:hover,
 .card-interactive:focus-within {
@@ -1027,19 +1037,4 @@ svg[data-icon] {
   from { translate: 0 100%; opacity: 0; }
 }
 
-/* Icons draw their own strokes as they scroll in */
-.icon-draw {
-  view-timeline-name: --icon;
-}
-@supports (animation-timeline: view()) {
-  .icon-draw svg :is(path, rect, circle, ellipse) {
-    stroke-dasharray: 120;
-    animation: sd-icon linear both;
-    animation-timeline: --icon;
-    animation-range: entry 10% cover 35%;
-  }
-}
-@keyframes sd-icon {
-  from { stroke-dashoffset: 120; }
-  to { stroke-dashoffset: 0; }
-}
+
