@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type MouseEvent } from "react";
 import type { Locale } from "@/data/types";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/lib/cn";
 
 export interface LanguageOption {
@@ -24,7 +23,6 @@ interface LanguageToggleProps {
 /** ES | EN pill switch. The thumb slides before the route changes. */
 export function LanguageToggle({ current, options, label }: LanguageToggleProps) {
   const router = useRouter();
-  const reducedMotion = useReducedMotion();
   const [active, setActive] = useState<Locale>(current);
   const activeIndex = options.findIndex((option) => option.locale === active);
 
@@ -33,7 +31,7 @@ export function LanguageToggle({ current, options, label }: LanguageToggleProps)
     event.preventDefault();
     setActive(locale);
     const target = `/${locale}${window.location.hash}`;
-    window.setTimeout(() => router.push(target, { scroll: false }), reducedMotion ? 0 : 220);
+    window.setTimeout(() => router.push(target, { scroll: false }), 260);
   };
 
   return (

@@ -60,7 +60,7 @@ export function TestimonialCard({ testimonial, linkedinLabel, comingSoonLabel, c
   }
 
   return (
-    <figure className={cn("card flex h-full flex-col gap-4 p-6 sm:p-7", className)}>
+    <figure data-tilt className={cn("card card-interactive flex h-full flex-col gap-4 p-6 sm:p-7", className)}>
       {quoteMark}
       <blockquote className="flex-1">
         <p className="text-[17px] leading-relaxed text-pretty text-ink">{testimonial.quote}</p>

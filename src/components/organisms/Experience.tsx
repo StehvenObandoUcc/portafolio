@@ -9,7 +9,6 @@ import { CourseCard, type CourseCardData } from "@/components/molecules/CourseCa
 import { SectionHeader } from "@/components/molecules/SectionHeader";
 import { SkillGroup } from "@/components/molecules/SkillGroup";
 import { TimelineItem, type TimelineItemData } from "@/components/molecules/TimelineItem";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/lib/cn";
 
 type TabId = "work" | "academic";
@@ -36,7 +35,6 @@ const TAB_ORDER: TabId[] = ["work", "academic"];
 
 export function Experience(props: ExperienceProps) {
   const [tab, setTab] = useState<TabId>("work");
-  const reducedMotion = useReducedMotion();
   const baseId = useId();
   const tabRefs = useRef<Record<TabId, HTMLButtonElement | null>>({ work: null, academic: null });
 
@@ -89,7 +87,7 @@ export function Experience(props: ExperienceProps) {
                     {selected && (
                       <motion.span
                         layoutId={`${baseId}-underline`}
-                        transition={{ duration: reducedMotion ? 0 : 0.4, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                         className="absolute inset-x-0 -bottom-px h-0.5 rounded-pill bg-accent-600"
                       />
                     )}
@@ -131,7 +129,7 @@ export function Experience(props: ExperienceProps) {
         >
           <div className="grid gap-5 md:grid-cols-12 md:gap-6">
             <article className="card flex flex-col gap-4 p-6 sm:p-8 md:col-span-8">
-              <span className="grid size-10 place-items-center rounded-sm bg-accent-600 text-surface">
+              <span className="icon-draw grid size-10 place-items-center rounded-sm bg-accent-600 text-surface">
                 <Icon name="graduation" size={20} />
               </span>
               <h3 className="text-h3 text-ink">{props.degree.title}</h3>
@@ -141,7 +139,7 @@ export function Experience(props: ExperienceProps) {
               <p className="text-label text-accent-700">{props.degree.status}</p>
             </article>
             <article className="card flex flex-col gap-4 p-6 sm:p-8 md:col-span-4">
-              <span className="grid size-10 place-items-center rounded-sm bg-accent-50 text-accent-600">
+              <span className="icon-draw grid size-10 place-items-center rounded-sm bg-accent-50 text-accent-600">
                 <Icon name="globe" size={20} />
               </span>
               <h3 className="text-h3 text-ink">{props.english.title}</h3>

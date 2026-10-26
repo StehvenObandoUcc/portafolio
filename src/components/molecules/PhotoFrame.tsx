@@ -17,7 +17,7 @@ interface PhotoFrameProps {
 /** 4:5 photo with an offset accent block behind it and a location tag. */
 export function PhotoFrame({ src, alt, width, height, tag, priority = false, sizes, className }: PhotoFrameProps) {
   return (
-    <figure className={cn("relative isolate", className)}>
+    <figure data-tilt className={cn("relative isolate", className)}>
       <span
         aria-hidden="true"
         className="enter-offset absolute inset-0 -z-10 translate-x-[14px] translate-y-[14px] rounded-lg bg-accent-100"

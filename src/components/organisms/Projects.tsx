@@ -7,7 +7,6 @@ import { Reveal } from "@/components/atoms/Reveal";
 import { ProjectCard, type ProjectCardData } from "@/components/molecules/ProjectCard";
 import { SectionHeader } from "@/components/molecules/SectionHeader";
 import type { Platform, ProjectFilter } from "@/data/types";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/lib/cn";
 
 export interface ProjectsProps {
@@ -26,7 +25,6 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 export function Projects(props: ProjectsProps) {
   const [filter, setFilter] = useState<ProjectFilter>("all");
-  const reducedMotion = useReducedMotion();
 
   const visible = props.projects.filter(
     (project) => filter === "all" || project.platforms.includes(filter),
@@ -51,7 +49,7 @@ export function Projects(props: ProjectsProps) {
                   aria-pressed={selected}
                   onClick={() => setFilter(chip.id)}
                   className={cn(
-                    "inline-flex h-10 flex-none items-center gap-2 rounded-pill border px-4 text-[14px] font-medium transition-[background-color,color,border-color] duration-200 ease-soft",
+                    "chip inline-flex h-10 flex-none items-center gap-2 rounded-pill border px-4 text-[14px] font-medium transition-[background-color,color,border-color] duration-200 ease-soft",
                     selected
                       ? "border-accent-600 bg-accent-600 text-surface"
                       : "border-line-strong bg-surface/60 text-ink-soft hover:border-accent-500 hover:bg-accent-50 hover:text-accent-600",
@@ -67,16 +65,16 @@ export function Projects(props: ProjectsProps) {
           </div>
         </Reveal>
 
-        <motion.ul layout={!reducedMotion} className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+        <motion.ul layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           <AnimatePresence mode="popLayout" initial={false}>
             {visible.map((project, i) => (
               <motion.li
                 key={project.id}
-                layout={!reducedMotion}
-                initial={{ opacity: 0, scale: reducedMotion ? 1 : 0.97 }}
+                layout
+                initial={{ opacity: 0, scale: 0.9, y: 30 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: reducedMotion ? 1 : 0.97 }}
-                transition={{ duration: reducedMotion ? 0.15 : 0.45, ease }}
+                exit={{ opacity: 0, scale: 0.9, y: 30 }}
+                transition={{ duration: 0.55, ease }}
                 className={cn(project.featured && "sm:col-span-2")}
               >
                 <Reveal index={i} motion="card" className="h-full">

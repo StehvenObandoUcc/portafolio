@@ -39,6 +39,7 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel, priority = 
 
   return (
     <article
+      data-tilt
       aria-labelledby={titleId}
       className={cn(
         "card card-interactive group flex h-full flex-col overflow-clip",

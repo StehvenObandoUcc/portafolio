@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, type RefObject } from "react";
 import { Button } from "@/components/atoms/Button";
 import { NavLink } from "@/components/molecules/NavLink";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 interface MobileMenuProps {
   id: string;
@@ -25,7 +24,6 @@ const DESKTOP_QUERY = "(min-width: 900px)";
 /** Full-screen sheet for < 900px. Escape, link click, outside click and resize close it. */
 export function MobileMenu(props: MobileMenuProps) {
   const { open, onClose, toggleRef } = props;
-  const reducedMotion = useReducedMotion();
   const listRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
@@ -53,7 +51,7 @@ export function MobileMenu(props: MobileMenuProps) {
     };
   }, [open, onClose, toggleRef]);
 
-  const offset = reducedMotion ? 0 : 12;
+  const offset = 24;
 
   return (
     <AnimatePresence>
@@ -62,10 +60,10 @@ export function MobileMenu(props: MobileMenuProps) {
           id={props.id}
           key="sheet"
           className="fixed inset-0 z-30 overflow-y-auto bg-[rgba(245,243,238,.96)] pt-[var(--nav-h)] backdrop-blur-[20px] md:hidden"
-          initial={reducedMotion ? { opacity: 0 } : { clipPath: "circle(0px at calc(100% - 42px) 34px)" }}
-          animate={reducedMotion ? { opacity: 1 } : { clipPath: "circle(150% at calc(100% - 42px) 34px)" }}
-          exit={reducedMotion ? { opacity: 0 } : { clipPath: "circle(0px at calc(100% - 42px) 34px)" }}
-          transition={{ duration: reducedMotion ? 0.2 : 0.65, ease: [0.76, 0, 0.24, 1] }}
+          initial={{ clipPath: "circle(0px at calc(100% - 42px) 34px)" }}
+          animate={{ clipPath: "circle(150% at calc(100% - 42px) 34px)" }}
+          exit={{ clipPath: "circle(0px at calc(100% - 42px) 34px)" }}
+          transition={{ duration: 0.65, ease: [0.76, 0, 0.24, 1] }}
           onClick={(event) => {
             if (event.target === event.currentTarget) onClose();
           }}
@@ -78,9 +76,9 @@ export function MobileMenu(props: MobileMenuProps) {
                 <motion.li
                   key={item.id}
                   className="overflow-hidden"
-                  initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: "70%", rotate: 3 }}
+                  initial={{ opacity: 0, y: "70%", rotate: 3 }}
                   animate={{ opacity: 1, y: 0, rotate: 0 }}
-                  transition={{ duration: reducedMotion ? 0.15 : 0.6, delay: reducedMotion ? 0 : 0.18 + index * 0.055, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.6, delay: 0.18 + index * 0.055, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <NavLink
                     variant="sheet"
@@ -97,7 +95,7 @@ export function MobileMenu(props: MobileMenuProps) {
               className="mt-8"
               initial={{ opacity: 0, y: offset }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: reducedMotion ? 0 : 0.2 + props.items.length * 0.055 }}
+              transition={{ duration: 0.5, delay: 0.2 + props.items.length * 0.055 }}
             >
               <Button
                 href={props.cvUrl}

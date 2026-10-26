@@ -13,7 +13,7 @@ interface CountUpProps {
 /**
  * Counts the leading number of `value` up from zero once, on load.
  * The server HTML already holds the final value, so nothing is lost
- * without JavaScript or with reduced motion.
+ * without JavaScript.
  */
 export function CountUp({ value, delay = 0, duration = 1100 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -21,7 +21,7 @@ export function CountUp({ value, delay = 0, duration = 1100 }: CountUpProps) {
   useEffect(() => {
     const el = ref.current;
     const match = value.match(/^(\d+)(.*)$/);
-    if (!el || !match || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!el || !match) return;
 
     const target = Number(match[1]);
     const suffix = match[2];

@@ -23,8 +23,9 @@ interface LearningCardProps {
 export function LearningCard({ item, goalLabel, progressLabel, large = false }: LearningCardProps) {
   return (
     <article
+      data-tilt
       className={cn(
-        "card flex h-full flex-col gap-5 p-6",
+        "card card-interactive flex h-full flex-col gap-5 p-6",
         large && "sm:p-8",
         item.inProgress ? "" : "bg-transparent shadow-none",
       )}

@@ -55,6 +55,7 @@
    ------------------------------------------------------------------ */
 @layer base {
   html {
+    overflow-x: clip;
     scroll-behavior: smooth;
     scroll-padding-top: calc(var(--nav-h) + 12px);
     -webkit-text-size-adjust: 100%;
@@ -606,112 +607,111 @@
    else the content rests in place.
    ------------------------------------------------------------------ */
 @supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    [data-motion] {
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-    }
-    [data-motion="rise"] {
-      animation-name: sd-rise;
-      animation-timeline: view();
-      animation-range: entry calc(var(--reveal-i, 0) * 5%) cover calc(30% + var(--reveal-i, 0) * 4%);
-    }
-    [data-motion="card"] {
-      transform-origin: 50% 100%;
-      animation-name: sd-card;
-      animation-timeline: view();
-      animation-range: entry calc(var(--reveal-i, 0) * 7%) cover calc(38% + var(--reveal-i, 0) * 5%);
-    }
-    [data-motion="tile"] {
-      animation-name: sd-tile;
-      animation-timeline: view();
-      animation-range: entry calc(var(--reveal-i, 0) * 8%) cover calc(40% + var(--reveal-i, 0) * 5%);
-    }
-    [data-motion="tile"] img {
-      animation: sd-zoom linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 60%;
-    }
-    [data-motion="pop"] {
-      animation-name: sd-pop;
-      animation-timeline: view();
-      animation-range: entry calc(var(--reveal-i, 0) * 6%) cover calc(32% + var(--reveal-i, 0) * 4%);
-    }
-
-    .word {
-      animation: sd-word linear both;
-      animation-timeline: --word;
-      animation-range: entry calc(20% + var(--i, 0) * 9%) cover calc(30% + var(--i, 0) * 5%);
-    }
-    .section-numeral {
-      animation: sd-drift linear both;
-      animation-timeline: view();
-      animation-range: cover;
-    }
-    .rule-line {
-      transition: none;
-      animation: sd-draw-x linear both;
-      animation-timeline: view();
-      animation-range: entry 10% cover 40%;
-    }
-    .parallax-frame {
-      animation: sd-parallax linear both;
-      animation-timeline: view();
-      animation-range: cover;
-    }
-    .timeline-rule {
-      transform-origin: top;
-      animation: sd-draw-y linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 70%;
-    }
-    .timeline-dot {
-      animation: sd-dot linear both;
-      animation-timeline: view();
-      animation-range: entry 30% cover 35%;
-    }
-    .kinetic-track {
-      animation: sd-band linear both;
-      animation-timeline: view();
-      animation-range: cover;
-    }
-    .kinetic-track-right {
-      animation-name: sd-band-right;
-    }
-    .footer-wordmark {
-      animation: sd-wordmark linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 100%;
-    }
-    .hero-copy-drift {
-      animation: sd-hero-copy linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 95vh;
-    }
-    .hero-photo-drift {
-      animation: sd-hero-photo linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 100vh;
-    }
-    .hero-grid-drift {
-      animation:
-        grid-draw 1.6s var(--ease-out) calc(var(--intro) - 0.25s) both,
-        sd-hero-grid linear both;
-      animation-timeline: auto, scroll(root);
-      animation-range: normal, 0 100vh;
-    }
-    .scroll-progress {
-      display: block;
-      position: absolute;
-      inset-inline: 0;
-      bottom: -1px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent-600), var(--accent-500) 85%, var(--warm-400));
-      transform-origin: left;
-      animation: sd-progress linear both;
-      animation-timeline: scroll(root);
-    }
+  [data-motion] {
+    animation-timing-function: linear;
+    animation-fill-mode: both;
   }
+  [data-motion="rise"] {
+    animation-name: sd-rise;
+    animation-timeline: view();
+    animation-range: entry calc(var(--reveal-i, 0) * 5%) cover calc(30% + var(--reveal-i, 0) * 4%);
+  }
+  [data-motion="card"] {
+    transform-origin: 50% 100%;
+    animation-name: sd-card;
+    animation-timeline: view();
+    animation-range: entry calc(var(--reveal-i, 0) * 7%) cover calc(38% + var(--reveal-i, 0) * 5%);
+  }
+  [data-motion="tile"] {
+    animation-name: sd-tile;
+    animation-timeline: view();
+    animation-range: entry calc(var(--reveal-i, 0) * 8%) cover calc(40% + var(--reveal-i, 0) * 5%);
+  }
+  [data-motion="tile"] img {
+    animation: sd-zoom linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 60%;
+  }
+  [data-motion="pop"] {
+    animation-name: sd-pop;
+    animation-timeline: view();
+    animation-range: entry calc(var(--reveal-i, 0) * 6%) cover calc(32% + var(--reveal-i, 0) * 4%);
+  }
+
+  .word {
+    animation: sd-word linear both;
+    animation-timeline: --word;
+    animation-range: entry calc(20% + var(--i, 0) * 9%) cover calc(30% + var(--i, 0) * 5%);
+  }
+  .section-numeral {
+    animation: sd-drift linear both;
+    animation-timeline: view();
+    animation-range: cover;
+  }
+  .rule-line {
+    transition: none;
+    animation: sd-draw-x linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 40%;
+  }
+  .parallax-frame {
+    animation: sd-parallax linear both;
+    animation-timeline: view();
+    animation-range: cover;
+  }
+  .timeline-rule {
+    transform-origin: top;
+    animation: sd-draw-y linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 70%;
+  }
+  .timeline-dot {
+    animation: sd-dot linear both;
+    animation-timeline: view();
+    animation-range: entry 30% cover 35%;
+  }
+  .kinetic-track {
+    animation: sd-band linear both;
+    animation-timeline: view();
+    animation-range: cover;
+  }
+  .kinetic-track-right {
+    animation-name: sd-band-right;
+  }
+  .footer-wordmark {
+    animation: sd-wordmark linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 100%;
+  }
+  .hero-copy-drift {
+    animation: sd-hero-copy linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 95vh;
+  }
+  .hero-photo-drift {
+    animation: sd-hero-photo linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 100vh;
+  }
+  .hero-grid-drift {
+    animation:
+      grid-draw 1.6s var(--ease-out) calc(var(--intro) - 0.25s) both,
+      sd-hero-grid linear both;
+    animation-timeline: auto, scroll(root);
+    animation-range: normal, 0 100vh;
+  }
+  .scroll-progress {
+    display: block;
+    position: absolute;
+    inset-inline: 0;
+    bottom: -1px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-600), var(--accent-500) 85%, var(--warm-400));
+    transform-origin: left;
+    animation: sd-progress linear both;
+    animation-timeline: scroll(root);
+  }
+
 }
 
 @keyframes sd-rise {
@@ -835,56 +835,211 @@ header:focus-within {
   animation: icon-pop 0.32s var(--ease-out);
 }
 
+
 /* ------------------------------------------------------------------
-   Reduced motion: no transforms, blur or clip — opacity ≤ .2s only
+   Interaction layer (driven by <PointerEffects /> and pure CSS)
    ------------------------------------------------------------------ */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+
+/* Sections never widen the page on phones: decorative motion is clipped. */
+main > section {
+  overflow-x: clip;
+}
+
+/* Magnetic buttons */
+.btn {
+  translate: var(--mx, 0px) var(--my, 0px);
+  transition:
+    background-color 0.25s var(--ease-soft),
+    color 0.25s var(--ease-soft),
+    border-color 0.25s var(--ease-soft),
+    box-shadow 0.35s var(--ease-out),
+    transform 0.35s var(--ease-out),
+    translate 0.3s var(--ease-out);
+}
+.btn:active {
+  transform: scale(0.95);
+}
+
+/* Each icon has its own gesture when its control is hovered */
+svg[data-icon] {
+  transition:
+    translate 0.35s var(--ease-out),
+    rotate 0.35s var(--ease-out),
+    scale 0.35s var(--ease-out);
+}
+:is(a, button):hover svg[data-icon="arrow-right"] {
+  translate: 5px 0;
+}
+:is(a, button):hover svg[data-icon="arrow-up-right"] {
+  translate: 2px -2px;
+}
+:is(a, button):hover svg[data-icon="arrow-up"] {
+  translate: 0 -4px;
+}
+:is(a, button):hover svg[data-icon="download"] {
+  animation: icon-bob 0.9s var(--ease-soft) infinite;
+}
+:is(a, button):hover svg[data-icon="play"] {
+  scale: 1.25;
+}
+:is(a, button):hover svg:is([data-icon="github"], [data-icon="linkedin"], [data-icon="mail"], [data-icon="whatsapp"], [data-icon="copy"]) {
+  rotate: -10deg;
+  scale: 1.15;
+}
+@keyframes icon-bob {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 4px; }
+}
+
+/* 3D tilt with a glare that follows the cursor */
+[data-tilt] {
+  position: relative;
+  transition:
+    transform 0.5s var(--ease-out),
+    border-color 0.3s var(--ease-soft),
+    box-shadow 0.5s var(--ease-out);
+}
+[data-tilt]:hover {
+  transform: perspective(1000px) rotateX(var(--ry, 0deg)) rotateY(var(--rx, 0deg));
+  transition-duration: 0.18s, 0.3s, 0.5s;
+}
+.card-interactive:hover,
+.card-interactive:focus-within {
+  transform: perspective(1000px) rotateX(var(--ry, 0deg)) rotateY(var(--rx, 0deg)) translateY(-6px);
+}
+[data-tilt]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(380px circle at var(--gx, 50%) var(--gy, 0%), rgba(255, 255, 255, 0.5), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-soft);
+}
+[data-tilt]:hover::after {
+  opacity: 1;
+}
+
+/* Tags lift one after another when their card is hovered */
+.card-interactive li {
+  transition: translate 0.35s var(--ease-out);
+}
+.card-interactive:hover li {
+  translate: 0 -3px;
+}
+.card-interactive:hover li:nth-child(2) { transition-delay: 0.04s; }
+.card-interactive:hover li:nth-child(3) { transition-delay: 0.08s; }
+.card-interactive:hover li:nth-child(4) { transition-delay: 0.12s; }
+.card-interactive:hover li:nth-child(5) { transition-delay: 0.16s; }
+
+/* Hero graph paper lights up in cobalt under the cursor */
+.hero-grid-glow {
+  background-image:
+    linear-gradient(to right, rgba(36, 72, 216, 0.5) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(36, 72, 216, 0.5) 1px, transparent 1px);
+  mask-image: radial-gradient(240px circle at var(--cx, -999px) var(--cy, -999px), #000 0%, rgba(0, 0, 0, 0.45) 45%, transparent 75%);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-soft);
+}
+#home:hover .hero-grid-glow {
+  opacity: 1;
+}
+
+/* Filter chips spring when chosen */
+.chip {
+  transition:
+    background-color 0.2s var(--ease-soft),
+    color 0.2s var(--ease-soft),
+    border-color 0.2s var(--ease-soft),
+    translate 0.3s var(--ease-out);
+}
+.chip:hover {
+  translate: 0 -2px;
+}
+.chip[aria-pressed="true"] {
+  animation: chip-pop 0.5s var(--ease-out);
+}
+@keyframes chip-pop {
+  0% { scale: 0.85; }
+  55% { scale: 1.08; }
+  100% { scale: 1; }
+}
+
+/* Form fields: label leans in on focus, a ring pulses out, errors shake */
+.field label {
+  display: inline-block;
+  transition:
+    color 0.25s var(--ease-soft),
+    translate 0.35s var(--ease-out);
+}
+.field:focus-within label {
+  color: var(--accent-600);
+  translate: 4px 0;
+}
+.field :is(input, textarea):focus {
+  animation: focus-ring 0.7s var(--ease-out);
+}
+.field:has(.message-enter) :is(input, textarea) {
+  animation: field-shake 0.45s var(--ease-out);
+}
+@keyframes focus-ring {
+  from { box-shadow: 0 0 0 0 rgba(52, 96, 255, 0.45); }
+  to { box-shadow: 0 0 0 10px rgba(52, 96, 255, 0); }
+}
+@keyframes field-shake {
+  0%, 100% { translate: 0 0; }
+  20% { translate: -6px 0; }
+  40% { translate: 5px 0; }
+  60% { translate: -3px 0; }
+  80% { translate: 2px 0; }
+}
+
+/* Sending: a light bar runs along the button */
+.btn:disabled::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 35%;
+  background: var(--surface);
+  opacity: 0.85;
+  animation: loading-bar 1s var(--ease-soft) infinite;
+}
+@keyframes loading-bar {
+  from { translate: -100% 0; }
+  to { translate: 300% 0; }
+}
+
+/* Navbar section counter rolls to the current page */
+.nav-counter-window {
+  display: inline-block;
+  overflow: clip;
+  height: 1.4em;
+}
+.nav-counter-roll {
+  display: inline-block;
+  animation: counter-roll 0.5s var(--ease-out);
+}
+@keyframes counter-roll {
+  from { translate: 0 100%; opacity: 0; }
+}
+
+/* Icons draw their own strokes as they scroll in */
+.icon-draw {
+  view-timeline-name: --icon;
+}
+@supports (animation-timeline: view()) {
+  .icon-draw svg :is(path, rect, circle, ellipse) {
+    stroke-dasharray: 120;
+    animation: sd-icon linear both;
+    animation-timeline: --icon;
+    animation-range: entry 10% cover 35%;
   }
-  *,
-  *::before,
-  *::after {
-    transition-duration: 0.2s !important;
-    transition-property: opacity, color, background-color, border-color !important;
-    animation-duration: 0.2s !important;
-    animation-iteration-count: 1 !important;
-  }
-  .enter-nav,
-  .enter-badge,
-  .enter-line,
-  .enter-unblur,
-  .enter-lede,
-  .enter-cta-1,
-  .enter-cta-2,
-  .enter-photo,
-  .enter-offset,
-  .enter-stat {
-    animation-name: fade-in !important;
-    animation-delay: 0s !important;
-  }
-  .pulse-dot::after,
-  .intro-curtain,
-  .hero-grid {
-    animation: none !important;
-  }
-  [data-reveal="hidden"] {
-    transform: none;
-  }
-  [data-reveal="hidden"] .rule-line {
-    transform: none;
-  }
-  .panel-enter:not([hidden]),
-  .message-enter,
-  .icon-swap {
-    animation-name: fade-in !important;
-  }
-  .card-interactive:hover,
-  .card-interactive:focus-within,
-  .btn-primary:hover {
-    transform: none;
-  }
-  .btn-primary:hover::after {
-    transform: translateX(-130%);
-  }
+}
+@keyframes sd-icon {
+  from { stroke-dashoffset: 120; }
+  to { stroke-dashoffset: 0; }
 }

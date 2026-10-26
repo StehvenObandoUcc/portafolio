@@ -22,9 +22,9 @@ interface CourseCardProps {
 
 export function CourseCard({ course, certificateLabel, comingSoonLabel, newTabLabel }: CourseCardProps) {
   return (
-    <article className="card flex h-full flex-col gap-3 p-5">
+    <article data-tilt className="card card-interactive flex h-full flex-col gap-3 p-5">
       <div className="flex items-start justify-between gap-3">
-        <span className="grid size-9 flex-none place-items-center rounded-sm bg-accent-50 text-accent-600">
+        <span className="icon-draw grid size-9 flex-none place-items-center rounded-sm bg-accent-50 text-accent-600">
           <Icon name="award" size={18} />
         </span>
         <Tag tone={course.completed ? "accent" : "outline"}>{course.statusLabel}</Tag>

@@ -30,6 +30,7 @@ export function Hero(props: HeroProps) {
       className="relative isolate overflow-hidden pt-[calc(var(--nav-h)+clamp(28px,6vw,72px))] pb-[clamp(56px,8vw,112px)]"
     >
       <div aria-hidden="true" className="hero-grid hero-grid-drift absolute inset-x-0 top-0 -z-10 h-[min(100%,920px)]" />
+      <div aria-hidden="true" className="hero-grid hero-grid-drift hero-grid-glow absolute inset-x-0 top-0 -z-10 h-[min(100%,920px)]" />
 
       <div className="container-page grid items-center gap-y-12 md:grid-cols-12 md:gap-x-10 lg:gap-x-16">
         <div className="hero-photo-drift mx-auto w-full max-w-[min(72vw,380px)] md:order-2 md:col-span-5 md:max-w-none">

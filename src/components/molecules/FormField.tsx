@@ -19,7 +19,7 @@ export function describedBy(id: string, hasError: boolean, hasHint: boolean): st
 
 export function FormField({ id, label, error, hint, children, className }: FormFieldProps) {
   return (
-    <div className={cn("flex flex-col gap-2", className)}>
+    <div className={cn("field flex flex-col gap-2", className)}>
       <div className="flex items-baseline justify-between gap-3">
         <label htmlFor={id} className="text-[14px] font-medium text-ink">
           {label}

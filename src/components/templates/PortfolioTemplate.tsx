@@ -1,5 +1,6 @@
 import { MotionConfig } from "motion/react";
 import { IntroCurtain } from "@/components/atoms/IntroCurtain";
+import { PointerEffects } from "@/components/atoms/PointerEffects";
 import { RevealObserver } from "@/components/atoms/RevealObserver";
 import { KineticBand } from "@/components/molecules/KineticBand";
 import { About, type AboutProps } from "@/components/organisms/About";
@@ -30,7 +31,7 @@ export interface PortfolioTemplateProps {
 /** Single-page layout: every section in order, data in via props. */
 export function PortfolioTemplate(props: PortfolioTemplateProps) {
   return (
-    <MotionConfig reducedMotion="user">
+    <MotionConfig reducedMotion="never">
       <IntroCurtain monogram={props.navbar.monogram} wordmark={props.navbar.wordmark} />
       <a
         href="#main"
@@ -52,6 +53,7 @@ export function PortfolioTemplate(props: PortfolioTemplateProps) {
       </main>
       <Footer {...props.footer} />
       <RevealObserver />
+      <PointerEffects />
     </MotionConfig>
   );
 }

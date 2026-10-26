@@ -13,7 +13,6 @@ import { TextLink } from "@/components/atoms/TextLink";
 import { describedBy, FormField } from "@/components/molecules/FormField";
 import { SectionHeader } from "@/components/molecules/SectionHeader";
 import { cn } from "@/lib/cn";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 import {
   MESSAGE_MAX,
   MESSAGE_MIN,
@@ -71,7 +70,6 @@ const FIELDS: ContactField[] = ["name", "email", "message"];
 
 export function Contact(props: ContactProps) {
   const { form } = props;
-  const reducedMotion = useReducedMotion();
   const [values, setValues] = useState<ContactValues>(EMPTY);
   const [errors, setErrors] = useState<ContactErrors>({});
   const [status, setStatus] = useState<Status>("idle");
@@ -163,7 +161,7 @@ export function Contact(props: ContactProps) {
             <h3 className="text-h3 mb-6 text-ink">{props.directTitle}</h3>
             <ul className="divide-y divide-line border-y border-line">
               <li className="flex flex-wrap items-center gap-x-4 gap-y-2 py-5">
-                <span className="grid size-10 flex-none place-items-center rounded-sm bg-accent-50 text-accent-600">
+                <span className="icon-draw grid size-10 flex-none place-items-center rounded-sm bg-accent-50 text-accent-600">
                   <Icon name="mail" size={19} />
                 </span>
                 <span className="min-w-0 flex-1">
@@ -193,9 +191,9 @@ export function Contact(props: ContactProps) {
                       {toast && (
                         <motion.span
                           key={toast}
-                          initial={{ opacity: 0, y: reducedMotion ? 0 : 6 }}
+                          initial={{ opacity: 0, y: 10, scale: 0.9 }}
                           animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: reducedMotion ? 0 : 4 }}
+                          exit={{ opacity: 0, y: 6 }}
                           transition={{ duration: 0.2 }}
                           className="text-label inline-flex items-center gap-1.5 rounded-pill bg-ink px-3 py-1.5 whitespace-nowrap text-surface shadow-card"
                         >
@@ -209,7 +207,7 @@ export function Contact(props: ContactProps) {
               </li>
               {props.channels.map((channel) => (
                 <li key={channel.id} className="flex items-center gap-4 py-5">
-                  <span className="grid size-10 flex-none place-items-center rounded-sm bg-accent-50 text-accent-600">
+                  <span className="icon-draw grid size-10 flex-none place-items-center rounded-sm bg-accent-50 text-accent-600">
                     <Icon name={channel.icon} size={19} />
                   </span>
                   <span className="min-w-0 flex-1">

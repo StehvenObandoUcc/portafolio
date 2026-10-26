@@ -39,12 +39,15 @@ export interface NavbarProps {
 
 const MENU_ID = "mobile-menu";
 
+const pad = (n: number) => String(n).padStart(2, "0");
+
 export function Navbar(props: NavbarProps) {
   const { items, labels } = props;
   const scrolled = useScrolled(24);
   const direction = useScrollDirection();
   const [ids] = useState(() => items.map((item) => item.id));
   const active = useActiveSection(ids);
+  const activeIndex = Math.max(0, items.findIndex((item) => item.id === active));
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
@@ -63,7 +66,17 @@ export function Navbar(props: NavbarProps) {
       )}
     >
       <div className="container-page flex h-[var(--nav-h)] items-center justify-between gap-4">
-        <Logo monogram={props.monogram} wordmark={props.wordmark} label={props.homeLabel} href="#home" />
+        <div className="flex items-center gap-3">
+          <Logo monogram={props.monogram} wordmark={props.wordmark} label={props.homeLabel} href="#home" />
+          <span aria-hidden="true" className="nav-counter text-label hidden items-center gap-1 text-ink-mute tabular sm:inline-flex md:hidden lg:inline-flex">
+            <span className="nav-counter-window">
+              <span key={activeIndex} className="nav-counter-roll text-accent-600">
+                {pad(activeIndex + 1)}
+              </span>
+            </span>
+            <span>/ {pad(items.length)}</span>
+          </span>
+        </div>
 
         <nav aria-label={labels.mainNav} className="hidden md:block">
           <ul className="flex items-center gap-0.5 lg:gap-3">

@@ -113,6 +113,7 @@ export function Icon({ name, size = 18, title, ...props }: IconProps) {
       role={title ? "img" : undefined}
       aria-hidden={title ? undefined : true}
       aria-label={title}
+      data-icon={name}
       focusable="false"
       {...props}
     >

@@ -12,7 +12,7 @@ export function SkillGroup({ icon, title, items }: SkillGroupProps) {
   return (
     <div className="flex flex-col gap-4 border-t border-line pt-5">
       <h4 className="flex items-center gap-2.5 text-[16px] font-semibold text-ink">
-        <span className="grid size-8 place-items-center rounded-sm bg-accent-50 text-accent-600">
+        <span className="icon-draw grid size-8 place-items-center rounded-sm bg-accent-50 text-accent-600">
           <Icon name={icon} size={17} />
         </span>
         {title}
