@@ -182,7 +182,9 @@ export function Contact(props: ContactProps) {
                     aria-label={props.email.copyAria}
                     className="btn btn-secondary btn-sm"
                   >
-                    <Icon name={toast === props.email.copiedLabel ? "check" : "copy"} size={16} />
+                    <span key={toast === props.email.copiedLabel ? "copied" : "idle"} className={cn(toast === props.email.copiedLabel && "icon-swap")}>
+                      <Icon name={toast === props.email.copiedLabel ? "check" : "copy"} size={16} />
+                    </span>
                     <span>{props.email.copyLabel}</span>
                   </button>
                   <span role="status" aria-live="polite" className="pointer-events-none absolute right-0 bottom-[calc(100%+8px)]">
@@ -291,6 +293,7 @@ export function Contact(props: ContactProps) {
                   aria-live="polite"
                   className={cn(
                     "min-h-6 text-[14px]",
+                    statusText && "message-enter",
                     status === "failure" ? "text-danger" : status === "idle" || status === "sending" ? "text-ink-soft" : "text-success",
                   )}
                 >

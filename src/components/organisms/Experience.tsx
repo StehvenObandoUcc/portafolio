@@ -106,7 +106,7 @@ export function Experience(props: ExperienceProps) {
           aria-labelledby={`${baseId}-tab-work`}
           hidden={tab !== "work"}
           tabIndex={0}
-          className="focus-visible:rounded-md"
+          className="panel-enter focus-visible:rounded-md"
         >
           <div className="relative space-y-12">
             {props.timeline.map((item, i) => (
@@ -127,7 +127,7 @@ export function Experience(props: ExperienceProps) {
           aria-labelledby={`${baseId}-tab-academic`}
           hidden={tab !== "academic"}
           tabIndex={0}
-          className="focus-visible:rounded-md"
+          className="panel-enter focus-visible:rounded-md"
         >
           <div className="grid gap-5 md:grid-cols-12 md:gap-6">
             <article className="card flex flex-col gap-4 p-6 sm:p-8 md:col-span-8">

@@ -429,6 +429,21 @@
   from { clip-path: inset(100% 0 0 0); transform: scale(1.04); }
   to { clip-path: inset(0 0 0 0); transform: scale(1); }
 }
+@keyframes rule-draw {
+  from { background-size: 0% 0.07em; }
+  to { background-size: 100% 0.07em; }
+}
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(8px); }
+}
+@keyframes message-in {
+  from { opacity: 0; transform: translateY(-4px); }
+}
+@keyframes icon-pop {
+  0% { transform: scale(0.55) rotate(-12deg); opacity: 0; }
+  70% { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); }
+}
 @keyframes fade-in {
   from { opacity: 0; }
 }
@@ -440,6 +455,12 @@
 .enter-line-1 { animation-delay: 0.25s; }
 .enter-line-2 { animation-delay: 0.37s; }
 .enter-unblur { display: inline-block; animation: unblur 0.7s var(--ease-soft) 0.62s both; }
+/* The apricot underline is ruled left to right once the word settles. */
+.enter-unblur.serif-em-ruled {
+  animation:
+    unblur 0.7s var(--ease-soft) 0.62s both,
+    rule-draw 0.55s var(--ease-out) 0.95s both;
+}
 .enter-lede { animation: fade-up-14 0.55s var(--ease-out) 0.55s both; }
 .enter-cta-1 { animation: fade-up-16 0.65s var(--ease-out) 0.65s both; }
 .enter-cta-2 { animation: fade-up-16 0.65s var(--ease-out) 0.72s both; }
@@ -460,6 +481,43 @@
   opacity: 0;
   transform: translateY(20px);
   transition: none;
+}
+
+/* Controls pinned to the top edge open their tooltip downwards. */
+.has-tooltip.tooltip-below::before {
+  bottom: auto;
+  top: calc(100% + 8px);
+  transform: translate(-50%, -4px);
+}
+.has-tooltip.tooltip-below:hover::before,
+.has-tooltip.tooltip-below:focus-visible::before {
+  transform: translate(-50%, 0);
+}
+
+/* Section rules are drawn like a ruled notebook line when their header reveals. */
+.rule-line {
+  transform-origin: left center;
+  transition: transform 0.9s var(--ease-out) 0.12s;
+}
+[data-reveal="hidden"] .rule-line {
+  transform: scaleX(0);
+  transition: none;
+}
+
+/* Tab panels slide in when they replace each other. */
+.panel-enter:not([hidden]) {
+  animation: panel-in 0.35s var(--ease-out);
+}
+
+/* Inline form messages arrive without jumping. */
+.message-enter {
+  animation: message-in 0.2s var(--ease-out);
+}
+
+/* Icon that swaps to confirm an action. */
+.icon-swap {
+  display: inline-flex;
+  animation: icon-pop 0.32s var(--ease-out);
 }
 
 /* ------------------------------------------------------------------
@@ -494,6 +552,14 @@
   }
   [data-reveal="hidden"] {
     transform: none;
+  }
+  [data-reveal="hidden"] .rule-line {
+    transform: none;
+  }
+  .panel-enter:not([hidden]),
+  .message-enter,
+  .icon-swap {
+    animation-name: fade-in !important;
   }
   .card-interactive:hover,
   .card-interactive:focus-within,

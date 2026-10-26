@@ -22,7 +22,7 @@ interface SectionHeaderProps {
 export function SectionHeader({ index, title, subtitle, id, aside, className }: SectionHeaderProps) {
   return (
     <Reveal className={cn("mb-10 md:mb-14", className)}>
-      <div className="flex flex-col gap-6 border-b border-line pb-8 md:flex-row md:items-end md:justify-between md:gap-10">
+      <div className="relative flex flex-col gap-6 pb-8 md:flex-row md:items-end md:justify-between md:gap-10">
         <div className="max-w-3xl">
           <h2 id={id} className="text-h2 flex items-start gap-3 text-ink md:gap-4">
             <span aria-hidden="true" className="text-label-lg mt-[0.55em] flex-none text-accent-600 tabular">
@@ -39,6 +39,7 @@ export function SectionHeader({ index, title, subtitle, id, aside, className }: 
           )}
         </div>
         {aside && <div className="md:flex-none">{aside}</div>}
+        <span aria-hidden="true" className="rule-line absolute inset-x-0 bottom-0 h-px bg-line-strong" />
       </div>
     </Reveal>
   );

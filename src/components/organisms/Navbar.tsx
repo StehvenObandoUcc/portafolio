@@ -82,7 +82,7 @@ export function Navbar(props: NavbarProps) {
             iconPosition="start"
             comingSoonLabel={labels.comingSoon}
             newTabLabel={labels.opensInNewTab}
-            className="hidden md:inline-flex"
+            className="tooltip-below hidden md:inline-flex"
           >
             {props.cvLabel}
           </Button>

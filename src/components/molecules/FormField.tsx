@@ -34,7 +34,7 @@ export function FormField({ id, label, error, hint, children, className }: FormF
       <p
         id={`${id}-error`}
         role={error ? "alert" : undefined}
-        className={cn("min-h-5 text-[14px] leading-snug text-danger", !error && "sr-only")}
+        className={cn("min-h-5 text-[14px] leading-snug text-danger", error ? "message-enter" : "sr-only")}
       >
         {error}
       </p>
