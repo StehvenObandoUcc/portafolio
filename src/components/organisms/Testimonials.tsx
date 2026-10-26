@@ -25,7 +25,7 @@ export function Testimonials(props: TestimonialsProps) {
               key={testimonial.id}
               className="w-[min(84vw,360px)] flex-none snap-start scroll-ml-gutter md:w-auto"
             >
-              <Reveal index={i} className="h-full">
+              <Reveal index={i} motion="card" className="h-full">
                 <TestimonialCard
                   testimonial={testimonial}
                   linkedinLabel={props.linkedinLabel}

@@ -24,7 +24,7 @@ export function NowLearning(props: NowLearningProps) {
         <ul className="grid gap-4 sm:grid-cols-2 md:grid-cols-6 md:gap-5">
           {props.items.map((item, i) => (
             <li key={item.id} className={spans[i] ?? "md:col-span-2"}>
-              <Reveal index={i} className="h-full">
+              <Reveal index={i} motion="card" className="h-full">
                 <LearningCard
                   item={item}
                   goalLabel={props.goalLabel}

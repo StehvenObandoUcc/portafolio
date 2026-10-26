@@ -8,6 +8,7 @@ import { LanguageToggle, type LanguageOption } from "@/components/molecules/Lang
 import { NavLink } from "@/components/molecules/NavLink";
 import type { Locale } from "@/data/types";
 import { useActiveSection } from "@/hooks/useActiveSection";
+import { useScrollDirection } from "@/hooks/useScrollDirection";
 import { useScrolled } from "@/hooks/useScrolled";
 import { cn } from "@/lib/cn";
 import { MobileMenu } from "./MobileMenu";
@@ -41,6 +42,7 @@ const MENU_ID = "mobile-menu";
 export function Navbar(props: NavbarProps) {
   const { items, labels } = props;
   const scrolled = useScrolled(24);
+  const direction = useScrollDirection();
   const [ids] = useState(() => items.map((item) => item.id));
   const active = useActiveSection(ids);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -53,7 +55,8 @@ export function Navbar(props: NavbarProps) {
     <header
       id="top"
       className={cn(
-        "enter-nav fixed inset-x-0 top-0 z-40 border-b transition-[background-color,border-color,backdrop-filter] duration-300 ease-soft",
+        "enter-nav fixed inset-x-0 top-0 z-40 border-b transition-[background-color,border-color,backdrop-filter,translate] duration-500 ease-out",
+        direction === "down" && !menuOpen && "-translate-y-full",
         scrolled || menuOpen
           ? "border-line bg-[rgba(245,243,238,.78)] backdrop-blur-[14px]"
           : "border-transparent bg-transparent",
@@ -98,6 +101,7 @@ export function Navbar(props: NavbarProps) {
           />
         </div>
       </div>
+      <span aria-hidden="true" className="scroll-progress" />
     </header>
 
     {/* Sibling of <header>: its backdrop-filter would trap a fixed child. */}

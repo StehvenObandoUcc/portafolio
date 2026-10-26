@@ -79,7 +79,7 @@ export function Projects(props: ProjectsProps) {
                 transition={{ duration: reducedMotion ? 0.15 : 0.45, ease }}
                 className={cn(project.featured && "sm:col-span-2")}
               >
-                <Reveal index={i} className="h-full">
+                <Reveal index={i} motion="card" className="h-full">
                   <ProjectCard
                     project={project}
                     priority={false}

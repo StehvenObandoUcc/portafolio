@@ -61,11 +61,11 @@ export function MobileMenu(props: MobileMenuProps) {
         <motion.div
           id={props.id}
           key="sheet"
-          className="fixed inset-0 z-30 bg-[rgba(245,243,238,.92)] pt-[var(--nav-h)] backdrop-blur-[20px] md:hidden"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-30 overflow-y-auto bg-[rgba(245,243,238,.96)] pt-[var(--nav-h)] backdrop-blur-[20px] md:hidden"
+          initial={reducedMotion ? { opacity: 0 } : { clipPath: "circle(0px at calc(100% - 42px) 34px)" }}
+          animate={reducedMotion ? { opacity: 1 } : { clipPath: "circle(150% at calc(100% - 42px) 34px)" }}
+          exit={reducedMotion ? { opacity: 0 } : { clipPath: "circle(0px at calc(100% - 42px) 34px)" }}
+          transition={{ duration: reducedMotion ? 0.2 : 0.65, ease: [0.76, 0, 0.24, 1] }}
           onClick={(event) => {
             if (event.target === event.currentTarget) onClose();
           }}
@@ -77,15 +77,17 @@ export function MobileMenu(props: MobileMenuProps) {
               {props.items.map((item, index) => (
                 <motion.li
                   key={item.id}
-                  initial={{ opacity: 0, y: offset }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: reducedMotion ? 0.15 : 0.45, delay: reducedMotion ? 0 : 0.04 + index * 0.045, ease: [0.16, 1, 0.3, 1] }}
+                  className="overflow-hidden"
+                  initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: "70%", rotate: 3 }}
+                  animate={{ opacity: 1, y: 0, rotate: 0 }}
+                  transition={{ duration: reducedMotion ? 0.15 : 0.6, delay: reducedMotion ? 0 : 0.18 + index * 0.055, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <NavLink
                     variant="sheet"
                     href={`#${item.id}`}
                     label={item.label}
                     active={props.active === item.id}
+                    index={String(index + 1).padStart(2, "0")}
                     onClick={onClose}
                   />
                 </motion.li>
@@ -95,7 +97,7 @@ export function MobileMenu(props: MobileMenuProps) {
               className="mt-8"
               initial={{ opacity: 0, y: offset }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: reducedMotion ? 0 : 0.04 + props.items.length * 0.045 }}
+              transition={{ duration: 0.5, delay: reducedMotion ? 0 : 0.2 + props.items.length * 0.055 }}
             >
               <Button
                 href={props.cvUrl}

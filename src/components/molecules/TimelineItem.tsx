@@ -20,7 +20,7 @@ export function TimelineItem({ item, stackLabel }: TimelineItemProps) {
     <article className="relative grid gap-3 pl-8 md:grid-cols-[180px_1fr] md:gap-10 md:pl-0">
       <span
         aria-hidden="true"
-        className="absolute top-1.5 left-0 size-[11px] rounded-full border-2 border-accent-600 bg-paper-2 md:left-[199px]"
+        className="timeline-dot absolute top-1.5 left-0 size-[11px] rounded-full border-2 border-accent-600 bg-paper-2 md:left-[199px]"
       />
       <p className="text-label order-last pt-0.5 text-ink-mute tabular md:order-none md:text-right">{item.period}</p>
       <div>

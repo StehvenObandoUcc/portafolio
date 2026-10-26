@@ -20,7 +20,7 @@ export interface FooterProps {
 
 export function Footer(props: FooterProps) {
   return (
-    <footer className="border-t border-line-strong bg-paper-2">
+    <footer className="overflow-clip border-t border-line-strong bg-paper-2">
       <div className="container-page flex flex-col gap-10 py-12 md:py-14">
         <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col gap-3">
@@ -38,6 +38,9 @@ export function Footer(props: FooterProps) {
             </a>
           </div>
         </div>
+        <p aria-hidden="true" className="footer-wordmark">
+          {props.wordmark}
+        </p>
         <div className="flex flex-col gap-2 border-t border-line pt-6 sm:flex-row sm:justify-between">
           <p className="text-label text-ink-mute">
             © <CurrentYear fallback={props.buildYear} /> {props.fullName}

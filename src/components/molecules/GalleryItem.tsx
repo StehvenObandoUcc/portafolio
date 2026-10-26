@@ -20,7 +20,7 @@ const sizes = {
 /** A bento cell: photo that zooms gently on hover, caption in the corner. */
 export function GalleryItem({ src, alt, width, height, caption, shape, className }: GalleryItemProps) {
   return (
-    <figure className={cn("group relative size-full overflow-hidden rounded-lg border border-line bg-paper-2", className)}>
+    <figure className={cn("group relative size-full overflow-clip rounded-lg border border-line bg-paper-2", className)}>
       <Image
         src={src}
         alt={alt}

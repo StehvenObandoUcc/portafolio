@@ -23,6 +23,8 @@ function revealPassed() {
  */
 export function RevealObserver() {
   useEffect(() => {
+    // Scroll-driven CSS animations play (and reverse) the reveals natively.
+    if (CSS.supports("animation-timeline: view()")) return;
     if (!("IntersectionObserver" in window)) return;
     const seen = new WeakSet<Element>();
 

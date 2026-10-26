@@ -5,11 +5,13 @@ interface NavLinkProps {
   label: string;
   active?: boolean;
   variant?: "bar" | "sheet";
+  /** Notebook number shown beside sheet links, e.g. "03". */
+  index?: string;
   onClick?: () => void;
 }
 
 /** Section link: underline grows from the left, active gets the accent and a 4px dot. */
-export function NavLink({ href, label, active = false, variant = "bar", onClick }: NavLinkProps) {
+export function NavLink({ href, label, active = false, variant = "bar", index, onClick }: NavLinkProps) {
   if (variant === "sheet") {
     return (
       <a
@@ -17,11 +19,14 @@ export function NavLink({ href, label, active = false, variant = "bar", onClick 
         onClick={onClick}
         aria-current={active ? "true" : undefined}
         className={cn(
-          "flex h-14 items-center justify-between border-b border-line text-[20px] font-medium tracking-[-0.015em] transition-colors duration-200",
+          "group flex min-h-16 items-center justify-between gap-4 border-b border-line py-2 text-[clamp(28px,8vw,40px)] leading-none font-medium tracking-[-0.035em] transition-colors duration-200",
           active ? "text-accent-600" : "text-ink hover:text-accent-600",
         )}
       >
-        {label}
+        <span className="flex items-baseline gap-4">
+          {index && <span className="text-label text-accent-600 tabular">{index}</span>}
+          <span className="inline-block transition-transform duration-500 ease-out group-hover:translate-x-2">{label}</span>
+        </span>
         <span
           aria-hidden="true"
           className={cn("size-1.5 rounded-full bg-accent-600 transition-opacity duration-300", active ? "opacity-100" : "opacity-0")}

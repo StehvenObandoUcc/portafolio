@@ -38,6 +38,7 @@ export function About({ index, title, paragraph, gallery }: AboutProps) {
               <Reveal
                 key={item.id}
                 index={i}
+                motion="tile"
                 className={
                   item.shape === "tall" ? "row-span-2" : item.shape === "wide" ? "col-span-2" : undefined
                 }

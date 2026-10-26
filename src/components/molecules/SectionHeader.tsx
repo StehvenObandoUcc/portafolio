@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import { Emphasis, type HeadingParts } from "@/components/atoms/Heading";
+import type { HeadingParts } from "@/components/atoms/Heading";
+import { MaskWords } from "@/components/atoms/MaskWords";
 import { Reveal } from "@/components/atoms/Reveal";
 import { Text } from "@/components/atoms/Text";
 import { cn } from "@/lib/cn";
@@ -21,7 +22,10 @@ interface SectionHeaderProps {
  */
 export function SectionHeader({ index, title, subtitle, id, aside, className }: SectionHeaderProps) {
   return (
-    <Reveal className={cn("mb-10 md:mb-14", className)}>
+    <Reveal className={cn("relative isolate mb-10 md:mb-14", className)}>
+      <span aria-hidden="true" className="section-numeral">
+        {index}
+      </span>
       <div className="relative flex flex-col gap-6 pb-8 md:flex-row md:items-end md:justify-between md:gap-10">
         <div className="max-w-3xl">
           <h2 id={id} className="text-h2 flex items-start gap-3 text-ink md:gap-4">
@@ -29,7 +33,7 @@ export function SectionHeader({ index, title, subtitle, id, aside, className }: 
               {index} —
             </span>
             <span>
-              <Emphasis parts={title} />
+              <MaskWords parts={title} />
             </span>
           </h2>
           {subtitle && (

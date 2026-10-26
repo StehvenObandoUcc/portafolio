@@ -116,7 +116,7 @@ export function Experience(props: ExperienceProps) {
             ))}
             <span
               aria-hidden="true"
-              className="absolute top-2 bottom-2 left-[5px] w-px bg-line-strong md:left-[204px]"
+              className="timeline-rule absolute top-2 bottom-2 left-[5px] w-px bg-accent-600/60 md:left-[204px]"
             />
           </div>
         </div>
@@ -171,7 +171,7 @@ export function Experience(props: ExperienceProps) {
           <ul className="grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-5">
             {props.skills.map((group, i) => (
               <li key={group.id}>
-                <Reveal index={i}>
+                <Reveal index={i} motion="pop">
                   <SkillGroup icon={group.icon} title={group.title} items={group.items} />
                 </Reveal>
               </li>

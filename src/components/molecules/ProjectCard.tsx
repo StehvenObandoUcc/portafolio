@@ -41,16 +41,17 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel, priority = 
     <article
       aria-labelledby={titleId}
       className={cn(
-        "card card-interactive group flex h-full flex-col overflow-hidden",
+        "card card-interactive group flex h-full flex-col overflow-clip",
         featured && "md:grid md:grid-cols-[1.15fr_1fr] md:items-stretch",
       )}
     >
       <div
         className={cn(
-          "relative aspect-[16/10] overflow-hidden border-b border-line bg-paper-2",
+          "relative aspect-[16/10] overflow-clip border-b border-line bg-paper-2",
           featured && "md:aspect-auto md:min-h-full md:border-r md:border-b-0",
         )}
       >
+        <div className="parallax-frame absolute inset-x-0 -top-[8%] -bottom-[8%]">
         <Image
           src={project.cover.src}
           alt={project.cover.alt}
@@ -60,6 +61,7 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel, priority = 
           sizes={featured ? "(min-width: 1200px) 760px, (min-width: 640px) 90vw, 100vw" : "(min-width: 1200px) 380px, (min-width: 640px) 45vw, 100vw"}
           className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
         />
+        </div>
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
           <Tag tone="solid">{project.platformLabel}</Tag>
           {featured && <Tag tone="marker">{project.featuredLabel}</Tag>}

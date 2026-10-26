@@ -110,6 +110,7 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
 
   return {
     skipLabel: dict.a11y.skipToContent,
+    bandItems: skillGroups.flatMap((group) => group.items),
     navbar: {
       locale: lang,
       items: SECTION_IDS.map((id) => ({ id, label: dict.nav[id] })),

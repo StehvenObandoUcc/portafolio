@@ -3,7 +3,8 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState, type FormEvent } from "react";
 import { Button } from "@/components/atoms/Button";
-import { Emphasis, type HeadingParts } from "@/components/atoms/Heading";
+import type { HeadingParts } from "@/components/atoms/Heading";
+import { MaskWords } from "@/components/atoms/MaskWords";
 import { Icon, type IconName } from "@/components/atoms/Icon";
 import { Input } from "@/components/atoms/Input";
 import { Reveal } from "@/components/atoms/Reveal";
@@ -151,9 +152,9 @@ export function Contact(props: ContactProps) {
       <div className="container-page">
         <SectionHeader id="contact-title" index={props.index} title={props.title} />
 
-        <Reveal>
+        <Reveal motion="pop">
           <p className="text-display mb-12 max-w-[16ch] text-ink md:mb-16">
-            <Emphasis parts={props.heading} />
+            <MaskWords parts={props.heading} />
           </p>
         </Reveal>
 

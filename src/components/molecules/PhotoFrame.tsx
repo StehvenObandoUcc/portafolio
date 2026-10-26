@@ -20,7 +20,7 @@ export function PhotoFrame({ src, alt, width, height, tag, priority = false, siz
     <figure className={cn("relative isolate", className)}>
       <span
         aria-hidden="true"
-        className="absolute inset-0 -z-10 translate-x-[14px] translate-y-[14px] rounded-lg bg-accent-100"
+        className="enter-offset absolute inset-0 -z-10 translate-x-[14px] translate-y-[14px] rounded-lg bg-accent-100"
       />
       <div className="enter-photo relative aspect-[4/5] overflow-hidden rounded-lg border border-line-strong bg-paper-2">
         <Image
