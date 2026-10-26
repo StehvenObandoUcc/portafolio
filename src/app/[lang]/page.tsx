@@ -23,7 +23,13 @@ async function getBuildYear() {
   return new Date().getFullYear();
 }
 
-const SECTION_IDS = ["home", "about", "projects", "testimonials", "experience", "learning", "contact"] as const;
+/**
+ * Both locales are prerendered (generateStaticParams in the layout). The only
+ * navigation into this route is the ES/EN switch, which may block on `params`.
+ */
+export const instant = false;
+
+const SECTION_IDS =["home", "about", "projects", "testimonials", "experience", "learning", "contact"] as const;
 const FILTERS: ProjectFilter[] = ["all", "desktop", "mobile", "wearable", "web", "backend", "cloud"];
 
 const demoIcon: Record<DemoKind, IconName> = { demo: "play", exe: "download", apk: "download" };
