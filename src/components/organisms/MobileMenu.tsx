@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { useEffect, useRef, type RefObject } from "react";
 import { Button } from "@/components/atoms/Button";
 import { NavLink } from "@/components/molecules/NavLink";
@@ -33,8 +33,34 @@ export function MobileMenu(props: MobileMenuProps) {
     document.body.dataset.scrollLocked = "";
     listRef.current?.querySelector<HTMLElement>("a")?.focus({ preventScroll: true });
 
+    // The page behind the sheet is out of reach while it is open.
+    const background = [...document.querySelectorAll<HTMLElement>("main, footer, a[href='#main']")];
+    background.forEach((el) => (el.inert = true));
+
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      // Keep Tab cycling between the close button and the sheet's links.
+      const sheet = document.getElementById(props.id);
+      const focusables = [
+        toggle,
+        ...(sheet ? sheet.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") : []),
+      ].filter((el): el is HTMLElement => Boolean(el));
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const current = document.activeElement as HTMLElement | null;
+      const inCycle = current ? focusables.includes(current) : false;
+      if (event.shiftKey && (current === first || !inCycle)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (current === last || !inCycle)) {
+        event.preventDefault();
+        first.focus();
+      }
     };
     const media = window.matchMedia(DESKTOP_QUERY);
     const onResize = () => {
@@ -45,21 +71,25 @@ export function MobileMenu(props: MobileMenuProps) {
     media.addEventListener("change", onResize);
     return () => {
       delete document.body.dataset.scrollLocked;
+      background.forEach((el) => (el.inert = false));
       window.removeEventListener("keydown", onKey);
       media.removeEventListener("change", onResize);
       toggle?.focus({ preventScroll: true });
     };
-  }, [open, onClose, toggleRef]);
+  }, [open, onClose, toggleRef, props.id]);
 
   const offset = 24;
 
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
+        <m.div
           id={props.id}
           key="sheet"
-          className="fixed inset-0 z-30 overflow-y-auto bg-[rgba(245,243,238,.96)] pt-[var(--nav-h)] backdrop-blur-[20px] md:hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-label={props.label}
+          className="fixed inset-0 z-30 overflow-y-auto bg-[var(--paper-sheet)] pt-[var(--nav-h)] backdrop-blur-[20px] md:hidden"
           initial={{ clipPath: "circle(0px at calc(100% - 42px) 34px)" }}
           animate={{ clipPath: "circle(150% at calc(100% - 42px) 34px)" }}
           exit={{ clipPath: "circle(0px at calc(100% - 42px) 34px)" }}
@@ -73,7 +103,7 @@ export function MobileMenu(props: MobileMenuProps) {
           }}>
             <ul ref={listRef} className="border-t border-line">
               {props.items.map((item, index) => (
-                <motion.li
+                <m.li
                   key={item.id}
                   className="overflow-hidden"
                   initial={{ opacity: 0, y: "70%", rotate: 3 }}
@@ -88,10 +118,10 @@ export function MobileMenu(props: MobileMenuProps) {
                     index={String(index + 1).padStart(2, "0")}
                     onClick={onClose}
                   />
-                </motion.li>
+                </m.li>
               ))}
             </ul>
-            <motion.div
+            <m.div
               className="mt-8"
               initial={{ opacity: 0, y: offset }}
               animate={{ opacity: 1, y: 0 }}
@@ -108,9 +138,9 @@ export function MobileMenu(props: MobileMenuProps) {
               >
                 {props.cvLabel}
               </Button>
-            </motion.div>
+            </m.div>
           </nav>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

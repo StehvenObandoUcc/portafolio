@@ -49,7 +49,7 @@ export function TestimonialCard({ testimonial, linkedinLabel, comingSoonLabel, c
         {quoteMark}
         <blockquote className="flex-1">
           <p className="text-h3 text-ink-soft">{testimonial.title}</p>
-          <p className="mt-3 text-[15px] leading-relaxed text-ink-mute">{testimonial.body}</p>
+          <p className="mt-3 text-[15px] leading-relaxed text-pretty text-ink-mute">{testimonial.body}</p>
         </blockquote>
         <figcaption className="flex items-center gap-3 border-t border-line pt-5">
           <span aria-hidden="true" className="size-11 flex-none rounded-full border border-dashed border-accent-300" />

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { notFound } from "next/navigation";
 import { site } from "@/data/site";
 import { getDictionary, hasLocale, locales } from "@/lib/i18n";
+import { motionBootScript } from "@/lib/motionPreference";
 
 const geist = Geist({
   variable: "--font-geist",
@@ -72,7 +73,14 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   if (!hasLocale(lang)) notFound();
 
   return (
-    <html lang={lang} className={`${geist.variable} ${geistMono.variable} ${instrumentSerif.variable}`}>
+    <html
+      lang={lang}
+      className={`${geist.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: motionBootScript }} />
+      </head>
       <body>{children}</body>
     </html>
   );

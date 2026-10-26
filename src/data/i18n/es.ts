@@ -27,7 +27,9 @@ export const es = {
     socialLinks: "Redes y contacto",
     projectFilters: "Filtrar proyectos por plataforma",
     experienceTabs: "Tipo de experiencia",
-    homeLink: "Stehven Obando, ir al inicio",
+    homeLink: "ir al inicio",
+    motionPause: "Pausar animaciones",
+    motionPlay: "Activar animaciones",
   },
   nav: {
     home: "Inicio",

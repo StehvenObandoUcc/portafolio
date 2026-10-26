@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { isMotionOff } from "@/lib/motionPreference";
 
 const MAGNETIC = ".btn, [data-magnetic]";
 const TILT = "[data-tilt]";
@@ -70,7 +71,7 @@ export function PointerEffects() {
     };
 
     const onMove = (e: PointerEvent) => {
-      if (e.pointerType !== "mouse") return;
+      if (e.pointerType !== "mouse" || isMotionOff()) return;
       event = e;
       if (!frame) frame = requestAnimationFrame(update);
     };

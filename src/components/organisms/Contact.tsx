@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { useEffect, useState, type FormEvent } from "react";
 import { Button } from "@/components/atoms/Button";
 import type { HeadingParts } from "@/components/atoms/Heading";
@@ -168,7 +168,7 @@ export function Contact(props: ContactProps) {
                   <span className="text-label block text-ink-mute">{props.email.label}</span>
                   <a
                     href={`mailto:${props.email.address}`}
-                    className="text-[16px] font-medium break-words text-ink underline decoration-transparent underline-offset-4 transition-colors hover:text-accent-600 hover:decoration-accent-300"
+                    className="inline-block py-2.5 text-[16px] font-medium break-words text-ink underline decoration-transparent underline-offset-4 transition-colors hover:text-accent-600 hover:decoration-accent-300"
                   >
                     {props.email.address.split("@")[0]}
                     <wbr />@{props.email.address.split("@")[1]}
@@ -189,7 +189,7 @@ export function Contact(props: ContactProps) {
                   <span role="status" aria-live="polite" className="pointer-events-none absolute right-0 bottom-[calc(100%+8px)]">
                     <AnimatePresence>
                       {toast && (
-                        <motion.span
+                        <m.span
                           key={toast}
                           initial={{ opacity: 0, y: 10, scale: 0.9 }}
                           animate={{ opacity: 1, y: 0 }}
@@ -199,7 +199,7 @@ export function Contact(props: ContactProps) {
                         >
                           <span className="size-1.5 rounded-full bg-accent-300" aria-hidden="true" />
                           {toast}
-                        </motion.span>
+                        </m.span>
                       )}
                     </AnimatePresence>
                   </span>
@@ -217,7 +217,7 @@ export function Contact(props: ContactProps) {
                       external={channel.external}
                       comingSoonLabel={props.comingSoonLabel}
                       newTabLabel={props.newTabLabel}
-                      className="text-[16px] font-medium"
+                      className="min-h-11 text-[16px] font-medium"
                     >
                       {channel.value}
                     </TextLink>

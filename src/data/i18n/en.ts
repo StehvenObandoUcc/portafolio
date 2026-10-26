@@ -22,7 +22,9 @@ export const en: Dictionary = {
     socialLinks: "Social and contact links",
     projectFilters: "Filter projects by platform",
     experienceTabs: "Experience type",
-    homeLink: "Stehven Obando, go to top",
+    homeLink: "go to top",
+    motionPause: "Pause animations",
+    motionPlay: "Turn animations on",
   },
   nav: {
     home: "Home",

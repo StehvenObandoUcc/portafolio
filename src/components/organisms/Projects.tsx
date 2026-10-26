@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { useState } from "react";
 import type { HeadingParts } from "@/components/atoms/Heading";
 import { Reveal } from "@/components/atoms/Reveal";
@@ -49,7 +49,7 @@ export function Projects(props: ProjectsProps) {
                   aria-pressed={selected}
                   onClick={() => setFilter(chip.id)}
                   className={cn(
-                    "chip inline-flex h-10 flex-none items-center gap-2 rounded-pill border px-4 text-[14px] font-medium transition-[background-color,color,border-color] duration-200 ease-soft",
+                    "chip inline-flex h-10 pointer-coarse:h-11 flex-none items-center gap-2 rounded-pill border px-4 text-[14px] font-medium transition-[background-color,color,border-color] duration-200 ease-soft",
                     selected
                       ? "border-accent-600 bg-accent-600 text-surface"
                       : "border-line-strong bg-surface/60 text-ink-soft hover:border-accent-500 hover:bg-accent-50 hover:text-accent-600",
@@ -65,10 +65,10 @@ export function Projects(props: ProjectsProps) {
           </div>
         </Reveal>
 
-        <motion.ul layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+        <m.ul layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           <AnimatePresence mode="popLayout" initial={false}>
             {visible.map((project, i) => (
-              <motion.li
+              <m.li
                 key={project.id}
                 layout
                 initial={{ opacity: 0, scale: 0.9, y: 30 }}
@@ -85,10 +85,10 @@ export function Projects(props: ProjectsProps) {
                     newTabLabel={props.newTabLabel}
                   />
                 </Reveal>
-              </motion.li>
+              </m.li>
             ))}
           </AnimatePresence>
-        </motion.ul>
+        </m.ul>
 
         {visible.length === 0 && (
           <p role="status" className="rounded-lg border border-dashed border-line-strong px-6 py-12 text-center text-ink-soft">

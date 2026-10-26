@@ -36,10 +36,10 @@ export function LanguageToggle({ current, options, label }: LanguageToggleProps)
 
   return (
     <nav aria-label={label}>
-      <ul className="relative grid h-9 grid-cols-2 rounded-pill border border-line-strong bg-surface/70 p-0.5">
+      <ul className="relative grid h-9 grid-cols-2 pointer-coarse:h-[50px] rounded-pill border border-line-strong bg-surface/70 p-0.5">
         <span
           aria-hidden="true"
-          className="absolute inset-y-0.5 left-0.5 w-[calc(50%-2px)] rounded-pill bg-accent-600 shadow-[0_6px_14px_-8px_rgba(36,72,216,.6)] transition-transform duration-300 ease-out"
+          className="absolute inset-y-0.5 left-0.5 w-[calc(50%-2px)] rounded-pill bg-accent-600 shadow-[0_6px_14px_-8px_var(--accent-shadow)] transition-transform duration-300 ease-out"
           style={{ transform: `translateX(${activeIndex * 100}%)` }}
         />
         {options.map((option) => {

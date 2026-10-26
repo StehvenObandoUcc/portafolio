@@ -128,6 +128,8 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
         languageSwitch: dict.a11y.languageSwitch,
         openMenu: dict.a11y.openMenu,
         closeMenu: dict.a11y.closeMenu,
+        motionPause: dict.a11y.motionPause,
+        motionPlay: dict.a11y.motionPlay,
         comingSoon,
         opensInNewTab: newTab,
       },

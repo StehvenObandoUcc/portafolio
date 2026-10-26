@@ -5,6 +5,7 @@ import { Button } from "@/components/atoms/Button";
 import { IconButton } from "@/components/atoms/IconButton";
 import { Logo } from "@/components/atoms/Logo";
 import { LanguageToggle, type LanguageOption } from "@/components/molecules/LanguageToggle";
+import { MotionToggle } from "@/components/molecules/MotionToggle";
 import { NavLink } from "@/components/molecules/NavLink";
 import type { Locale } from "@/data/types";
 import { useActiveSection } from "@/hooks/useActiveSection";
@@ -32,6 +33,8 @@ export interface NavbarProps {
     languageSwitch: string;
     openMenu: string;
     closeMenu: string;
+    motionPause: string;
+    motionPlay: string;
     comingSoon: string;
     opensInNewTab: string;
   };
@@ -61,7 +64,7 @@ export function Navbar(props: NavbarProps) {
         "enter-nav fixed inset-x-0 top-0 z-40 border-b transition-[background-color,border-color,backdrop-filter,translate] duration-500 ease-out",
         direction === "down" && !menuOpen && "-translate-y-full",
         scrolled || menuOpen
-          ? "border-line bg-[rgba(245,243,238,.78)] backdrop-blur-[14px]"
+          ? "border-line bg-[var(--paper-glass)] backdrop-blur-[14px]"
           : "border-transparent bg-transparent",
       )}
     >
@@ -89,6 +92,7 @@ export function Navbar(props: NavbarProps) {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
+          <MotionToggle pauseLabel={labels.motionPause} playLabel={labels.motionPlay} />
           <LanguageToggle current={props.locale} options={props.languages} label={labels.languageSwitch} />
           <Button
             href={props.cvUrl}

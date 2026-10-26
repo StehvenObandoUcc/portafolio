@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import type { HeadingParts } from "@/components/atoms/Heading";
 import { MaskWords } from "@/components/atoms/MaskWords";
 import { Reveal } from "@/components/atoms/Reveal";
-import { Text } from "@/components/atoms/Text";
 import { cn } from "@/lib/cn";
 
 interface SectionHeaderProps {
@@ -37,9 +36,9 @@ export function SectionHeader({ index, title, subtitle, id, aside, className }: 
             </span>
           </h2>
           {subtitle && (
-            <Text size="lead" className="mt-4 max-w-[52ch] md:ml-[4.25rem]">
+            <p className="mt-4 max-w-[52ch] text-[clamp(17px,0.45vw+15.5px,20px)] leading-[1.55] text-balance text-ink-soft md:ml-[4.25rem]">
               {subtitle}
-            </Text>
+            </p>
           )}
         </div>
         {aside && <div className="md:flex-none">{aside}</div>}

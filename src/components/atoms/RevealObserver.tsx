@@ -4,19 +4,25 @@ import { useEffect } from "react";
 
 const VISIBLE_SHARE = 0.15;
 
-type RevealState = "shown" | "below" | "above";
+function show(el: HTMLElement) {
+  if (el.dataset.reveal !== "shown") el.dataset.reveal = "shown";
+}
 
-function setState(el: HTMLElement, state: RevealState) {
-  if (el.dataset.reveal !== state) el.dataset.reveal = state;
+/** Blocks a fast scroll, anchor jump or find-in-page skipped over never intersect: release them. */
+function releasePassed() {
+  document.querySelectorAll<HTMLElement>('[data-reveal="below"]').forEach((el) => {
+    if (el.getBoundingClientRect().top < window.innerHeight) show(el);
+  });
 }
 
 /**
  * Drives every [data-reveal] block with one IntersectionObserver.
- * Blocks off screen wait as "below" or "above" (the side they will enter
- * from) and glide in on a timed, eased transition once 15% of them shows,
- * so the motion stays smooth whatever the scroll wheel does. They reset
- * when they leave, so the page replays scrolling down and back up.
- * Blocks on screen at load are never hidden.
+ * Blocks below the viewport wait as "below" and glide in on a timed, eased
+ * transition once 15% of them shows, so the motion stays smooth whatever
+ * the scroll wheel does. When the visitor scrolls back up past a block it
+ * re-arms below, so it replays on the way down. A block that was seen is
+ * never hidden above the viewport: printing, find-in-page and full-page
+ * captures always get the content. Blocks on screen at load stay as rendered.
  */
 export function RevealObserver() {
   useEffect(() => {
@@ -34,14 +40,13 @@ export function RevealObserver() {
 
           if (!seen.has(el)) {
             seen.add(el);
-            // Already on screen at load: keep it as rendered.
-            if (entry.isIntersecting) continue;
+            if (entry.isIntersecting || entry.boundingClientRect.top < 0) continue;
           }
 
           if (enough) {
-            setState(el, "shown");
-          } else if (!entry.isIntersecting) {
-            setState(el, entry.boundingClientRect.top >= viewport ? "below" : "above");
+            show(el);
+          } else if (!entry.isIntersecting && entry.boundingClientRect.top >= viewport) {
+            el.dataset.reveal = "below";
           }
         }
       },
@@ -62,7 +67,7 @@ export function RevealObserver() {
           const blocks = node.matches("[data-reveal]") ? [node] : [...node.querySelectorAll<HTMLElement>("[data-reveal]")];
           blocks.forEach((el) => {
             seen.add(el);
-            setState(el, "shown");
+            show(el);
             io.observe(el);
           });
         });
@@ -70,9 +75,23 @@ export function RevealObserver() {
     });
     mo.observe(document.body, { childList: true, subtree: true });
 
+    let frame = 0;
+    const onSettle = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(releasePassed);
+    };
+    const onPrint = () => document.querySelectorAll<HTMLElement>("[data-reveal]").forEach(show);
+    window.addEventListener("scrollend", onSettle);
+    window.addEventListener("hashchange", onSettle);
+    window.addEventListener("beforeprint", onPrint);
+
     return () => {
       io.disconnect();
       mo.disconnect();
+      window.removeEventListener("scrollend", onSettle);
+      window.removeEventListener("hashchange", onSettle);
+      window.removeEventListener("beforeprint", onPrint);
+      cancelAnimationFrame(frame);
     };
   }, []);
 

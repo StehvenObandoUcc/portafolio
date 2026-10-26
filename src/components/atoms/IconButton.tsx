@@ -16,6 +16,7 @@ interface IconButtonProps extends IconButtonBase {
   ref?: Ref<HTMLButtonElement>;
   "aria-expanded"?: boolean;
   "aria-controls"?: string;
+  "aria-pressed"?: boolean;
 }
 
 interface IconLinkProps extends IconButtonBase {
@@ -29,7 +30,7 @@ const base =
   "inline-flex flex-none items-center justify-center rounded-pill text-ink-soft transition-[background-color,color] duration-300 ease-soft hover:bg-accent-50 hover:text-accent-600";
 
 function sizing(size: IconButtonBase["size"]) {
-  return size === "lg" ? { box: "size-11", glyph: 22 } : { box: "size-10", glyph: 19 };
+  return size === "lg" ? { box: "size-11", glyph: 22 } : { box: "size-10 pointer-coarse:size-11", glyph: 19 };
 }
 
 /** Square-ish icon-only action button (44px at "lg"). */
@@ -42,6 +43,7 @@ export function IconButton({
   ref,
   "aria-expanded": expanded,
   "aria-controls": controls,
+  "aria-pressed": pressed,
 }: IconButtonProps) {
   const s = sizing(size);
   return (
@@ -53,6 +55,7 @@ export function IconButton({
       onClick={onClick}
       aria-expanded={expanded}
       aria-controls={controls}
+      aria-pressed={pressed}
     >
       <Icon name={icon} size={s.glyph} />
     </button>

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { useId, useRef, useState, type KeyboardEvent } from "react";
 import type { HeadingParts } from "@/components/atoms/Heading";
 import { Icon, type IconName } from "@/components/atoms/Icon";
@@ -85,7 +85,7 @@ export function Experience(props: ExperienceProps) {
                   >
                     {props.tabs[id]}
                     {selected && (
-                      <motion.span
+                      <m.span
                         layoutId={`${baseId}-underline`}
                         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                         className="absolute inset-x-0 -bottom-px h-0.5 rounded-pill bg-accent-600"

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { isMotionOff } from "@/lib/motionPreference";
 
 interface CountUpProps {
   /** Final value as written in the data, e.g. "6+" or "5.º". */
@@ -21,7 +22,7 @@ export function CountUp({ value, delay = 0, duration = 1100 }: CountUpProps) {
   useEffect(() => {
     const el = ref.current;
     const match = value.match(/^(\d+)(.*)$/);
-    if (!el || !match) return;
+    if (!el || !match || isMotionOff()) return;
 
     const target = Number(match[1]);
     const suffix = match[2];
