@@ -2,18 +2,19 @@
 @config "../../tailwind.config.ts";
 
 /* ------------------------------------------------------------------
-   Design tokens — "a clean engineering notebook in daylight".
+   Design tokens — "a clean engineering notebook". Light is soft kraft
+   paper by day; dark (below) is the same notebook at night.
    Every color, radius, shadow and easing used in the UI lives here.
    ------------------------------------------------------------------ */
 :root {
-  --paper: #f5f3ee;
-  --paper-2: #ece9e1;
-  --surface: #fbfaf7;
+  --paper: #e9e4d8;
+  --paper-2: #ded8c9;
+  --surface: #f2eee4;
   --ink: #14213d;
-  --ink-soft: #4a5578;
-  /* Darkened from the brief's #7D869F, which only reaches 3.3:1 on paper.
-     #5C6580 passes AA (5.2:1 on paper, 4.7:1 on paper-2). */
-  --ink-mute: #5c6580;
+  --ink-soft: #444e70;
+  /* Darkened from the brief's #7D869F so captions pass AA
+     (5.3:1 on paper, 4.7:1 on paper-2). */
+  --ink-mute: #525b76;
   --line: rgba(20, 33, 61, 0.1);
   --line-strong: rgba(20, 33, 61, 0.18);
 
@@ -24,20 +25,23 @@
   --accent-600: #2448d8;
   --accent-700: #1b36a6;
   --warm-400: #ff9a57;
+  /* Text and icons placed on a solid accent fill. */
+  --on-accent: #f2eee4;
 
   /* Translucent and glow variants of the palette */
-  --paper-glass: rgba(245, 243, 238, 0.78);
-  --paper-sheet: rgba(245, 243, 238, 0.96);
+  --paper-glass: rgba(233, 228, 216, 0.8);
+  --paper-sheet: rgba(233, 228, 216, 0.96);
   --accent-shadow: rgba(36, 72, 216, 0.6);
   --accent-ring: rgba(52, 96, 255, 0.45);
   --accent-ring-0: rgba(52, 96, 255, 0);
   --accent-grid: rgba(36, 72, 216, 0.5);
   --danger-ring: rgba(180, 35, 44, 0.1);
   --glare: rgba(255, 255, 255, 0.5);
-  --shine: rgba(251, 250, 247, 0.28);
+  --shine: rgba(242, 238, 228, 0.28);
+  --grain-opacity: 0.045;
 
   --danger: #b4232c;
-  --success: #1f7a4d;
+  --success: #17633c;
 
   --radius-sm: 8px;
   --radius-md: 14px;
@@ -59,6 +63,51 @@
   --intro: 0.55s;
 
   color-scheme: light;
+}
+
+/* ------------------------------------------------------------------
+   Dark theme — the notebook at night: deep ink-blue paper, text in the
+   colour of the page, a lifted cobalt, and apricot (cobalt's complement)
+   carrying the live marks. Set on <html data-theme="dark"> before paint.
+   ------------------------------------------------------------------ */
+:root[data-theme="dark"] {
+  --paper: #0f1626;
+  --paper-2: #141d31;
+  --surface: #1a2540;
+  --ink: #ece6d8;
+  --ink-soft: #b6bccd;
+  --ink-mute: #8c94ac;
+  --line: rgba(236, 230, 216, 0.1);
+  --line-strong: rgba(236, 230, 216, 0.18);
+
+  --accent-50: #16223f;
+  --accent-100: #1e2d57;
+  --accent-300: #4a63c9;
+  --accent-500: #5b7cff;
+  --accent-600: #7d9bff;
+  --accent-700: #a9bcff;
+  --warm-400: #ffa86e;
+  --on-accent: #0f1626;
+
+  --paper-glass: rgba(15, 22, 38, 0.78);
+  --paper-sheet: rgba(15, 22, 38, 0.96);
+  --accent-shadow: rgba(125, 155, 255, 0.45);
+  --accent-ring: rgba(125, 155, 255, 0.5);
+  --accent-ring-0: rgba(125, 155, 255, 0);
+  --accent-grid: rgba(125, 155, 255, 0.55);
+  --danger-ring: rgba(255, 122, 130, 0.18);
+  --glare: rgba(169, 188, 255, 0.22);
+  --shine: rgba(15, 22, 38, 0.3);
+  --grain-opacity: 0.07;
+
+  --danger: #ff7a82;
+  --success: #5fd39a;
+
+  --shadow-card: 0 1px 0 rgba(236, 230, 216, 0.06) inset,
+    0 14px 34px -18px rgba(0, 0, 0, 0.6);
+  --shadow-lift: 0 18px 44px -18px rgba(91, 124, 255, 0.45);
+
+  color-scheme: dark;
 }
 
 /* ------------------------------------------------------------------
@@ -94,7 +143,7 @@
     inset: 0;
     z-index: 60;
     pointer-events: none;
-    opacity: 0.04;
+    opacity: var(--grain-opacity);
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.13 0 0 0 0 0.24 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
@@ -232,7 +281,7 @@
   }
   .btn-primary {
     background: var(--accent-600);
-    color: var(--surface);
+    color: var(--on-accent);
   }
   .btn-primary::after {
     content: "";
@@ -569,8 +618,25 @@
 .kinetic-track-right {
   animation-direction: reverse;
 }
-.kinetic-band:hover .kinetic-track {
+/* Press and hold to stop the band; it runs on as soon as it is released.
+   Vertical page scroll still works under a finger. */
+.kinetic-band {
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.kinetic-band:active {
+  cursor: grabbing;
+}
+.kinetic-band:active .kinetic-track {
   animation-play-state: paused;
+}
+.kinetic-item {
+  transition: scale 0.35s var(--ease-out);
+}
+.kinetic-band:active .kinetic-item {
+  scale: 0.97;
 }
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -1067,6 +1133,19 @@ svg[data-icon] {
    Print: every block on paper, nothing mid-animation or floating.
    ------------------------------------------------------------------ */
 @media print {
+  :root[data-theme="dark"] {
+    --paper: #e9e4d8;
+    --paper-2: #ded8c9;
+    --surface: #f2eee4;
+    --ink: #14213d;
+    --ink-soft: #444e70;
+    --ink-mute: #525b76;
+    --accent-600: #2448d8;
+    --accent-700: #1b36a6;
+    --line: rgba(20, 33, 61, 0.1);
+    --line-strong: rgba(20, 33, 61, 0.18);
+    color-scheme: light;
+  }
   *,
   *::before,
   *::after {
@@ -1136,4 +1215,68 @@ svg[data-icon] {
   .btn-sm {
     min-height: 44px;
   }
+}
+
+:root[data-theme="dark"] body::before {
+  filter: invert(1);
+}
+
+/* Navbar: one dot slides to the active section (apricot at night). */
+.nav-slider {
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--accent-600);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.55s var(--ease-out),
+    opacity 0.3s var(--ease-soft),
+    background-color 0.3s var(--ease-soft);
+}
+:root[data-theme="dark"] .nav-slider,
+:root[data-theme="dark"] nav [aria-current="true"] > span[aria-hidden="true"] {
+  background: var(--warm-400);
+}
+
+/* ------------------------------------------------------------------
+   Theme switch: sun and moon trade places, the new theme opens in a
+   circle from the button (View Transitions), never mid-print.
+   ------------------------------------------------------------------ */
+.theme-icon {
+  position: absolute;
+  transition:
+    rotate 0.45s var(--ease-out),
+    scale 0.45s var(--ease-out),
+    opacity 0.3s var(--ease-soft);
+}
+.theme-icon-moon {
+  opacity: 0;
+  rotate: -70deg;
+  scale: 0.4;
+}
+:root[data-theme="dark"] .theme-icon-sun {
+  opacity: 0;
+  rotate: 90deg;
+  scale: 0.4;
+}
+:root[data-theme="dark"] .theme-icon-moon {
+  opacity: 1;
+  rotate: 0deg;
+  scale: 1;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  animation: theme-reveal 0.75s cubic-bezier(0.76, 0, 0.24, 1);
+}
+@keyframes theme-reveal {
+  from { clip-path: circle(0 at var(--vt-x, 100%) var(--vt-y, 0)); }
+  to { clip-path: circle(var(--vt-r, 150%) at var(--vt-x, 100%) var(--vt-y, 0)); }
 }

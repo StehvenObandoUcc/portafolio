@@ -1,11 +1,12 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/atoms/Button";
 import { IconButton } from "@/components/atoms/IconButton";
 import { Logo } from "@/components/atoms/Logo";
 import { LanguageToggle, type LanguageOption } from "@/components/molecules/LanguageToggle";
 import { MotionToggle } from "@/components/molecules/MotionToggle";
+import { ThemeToggle } from "@/components/molecules/ThemeToggle";
 import { NavLink } from "@/components/molecules/NavLink";
 import type { Locale } from "@/data/types";
 import { useActiveSection } from "@/hooks/useActiveSection";
@@ -35,6 +36,8 @@ export interface NavbarProps {
     closeMenu: string;
     motionPause: string;
     motionPlay: string;
+    themeDark: string;
+    themeLight: string;
     comingSoon: string;
     opensInNewTab: string;
   };
@@ -53,6 +56,27 @@ export function Navbar(props: NavbarProps) {
   const activeIndex = Math.max(0, items.findIndex((item) => item.id === active));
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+  const dotRef = useRef<HTMLSpanElement>(null);
+
+  // One dot slides under the active section link.
+  useEffect(() => {
+    const list = listRef.current;
+    const dot = dotRef.current;
+    if (!list || !dot) return;
+    const place = () => {
+      const link = list.querySelector<HTMLElement>('a[aria-current="true"]');
+      if (!link) {
+        dot.style.opacity = "0";
+        return;
+      }
+      dot.style.opacity = "1";
+      dot.style.transform = `translateX(${link.offsetLeft + link.offsetWidth / 2 - 2}px)`;
+    };
+    place();
+    window.addEventListener("resize", place);
+    return () => window.removeEventListener("resize", place);
+  }, [active]);
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
@@ -82,16 +106,18 @@ export function Navbar(props: NavbarProps) {
         </div>
 
         <nav aria-label={labels.mainNav} className="hidden md:block">
-          <ul className="flex items-center gap-0.5 lg:gap-3">
+          <ul ref={listRef} className="relative flex items-center gap-0.5 lg:gap-3">
+            <span ref={dotRef} aria-hidden="true" className="nav-slider" />
             {items.map((item) => (
               <li key={item.id}>
-                <NavLink href={`#${item.id}`} label={item.label} active={active === item.id} />
+                <NavLink href={`#${item.id}`} label={item.label} active={active === item.id} showDot={false} />
               </li>
             ))}
           </ul>
         </nav>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-1 xs:gap-2 sm:gap-3">
+          <ThemeToggle toDarkLabel={labels.themeDark} toLightLabel={labels.themeLight} />
           <MotionToggle pauseLabel={labels.motionPause} playLabel={labels.motionPlay} />
           <LanguageToggle current={props.locale} options={props.languages} label={labels.languageSwitch} />
           <Button

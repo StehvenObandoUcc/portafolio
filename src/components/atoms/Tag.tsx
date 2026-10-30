@@ -15,7 +15,7 @@ const tones: Record<TagTone, string> = {
   /** Apricot dot: reserved for "live" states (availability, in progress). */
   warm: "border border-line-strong bg-surface text-ink",
   marker: "border border-line-strong bg-surface text-ink",
-  solid: "bg-accent-600 text-surface",
+  solid: "bg-accent-600 text-on-accent",
 };
 
 /** Small mono pill for stacks, platforms and statuses. */

@@ -18,6 +18,7 @@ const config: Config = {
       colors: {
         paper: { DEFAULT: "var(--paper)", 2: "var(--paper-2)" },
         surface: "var(--surface)",
+        "on-accent": "var(--on-accent)",
         ink: {
           DEFAULT: "var(--ink)",
           soft: "var(--ink-soft)",

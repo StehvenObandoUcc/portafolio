@@ -4,7 +4,7 @@ import type { IconName } from "@/components/atoms/Icon";
 import type { ProjectCardData } from "@/components/molecules/ProjectCard";
 import type { TestimonialCardData } from "@/components/molecules/TestimonialCard";
 import { PortfolioTemplate, type PortfolioTemplateProps } from "@/components/templates/PortfolioTemplate";
-import { courses, degree, technicalExperience } from "@/data/experience";
+import { courses, degree, showCourses, technicalExperience } from "@/data/experience";
 import { gallery } from "@/data/gallery";
 import type { Dictionary } from "@/data/i18n/es";
 import { learningLog } from "@/data/learning";
@@ -130,6 +130,8 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
         closeMenu: dict.a11y.closeMenu,
         motionPause: dict.a11y.motionPause,
         motionPlay: dict.a11y.motionPlay,
+        themeDark: dict.a11y.themeDark,
+        themeLight: dict.a11y.themeLight,
         comingSoon,
         opensInNewTab: newTab,
       },
@@ -204,7 +206,7 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
         }),
       },
       coursesTitle: dict.experience.coursesTitle,
-      courses: courses.map((course) => ({
+      courses: (showCourses ? courses : []).map((course) => ({
         id: course.id,
         title: course.title[lang],
         issuer: course.issuer,

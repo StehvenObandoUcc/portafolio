@@ -14,7 +14,7 @@ export function Logo({ monogram, wordmark, href = "#top", label, className }: Lo
   return (
     <a href={href} className={cn("group inline-flex min-h-11 min-w-11 items-center gap-2.5 rounded-sm", className)}>
       <span
-        className="grid size-8 place-items-center rounded-[9px] bg-accent-600 font-mono text-[13px] font-semibold tracking-[0.02em] text-surface transition-transform duration-500 ease-out group-hover:-rotate-6"
+        className="grid size-8 place-items-center rounded-[9px] bg-accent-600 font-mono text-[13px] font-semibold tracking-[0.02em] text-on-accent transition-transform duration-500 ease-out group-hover:-rotate-6"
       >
         {monogram}
       </span>{" "}

@@ -51,7 +51,7 @@ export function Projects(props: ProjectsProps) {
                   className={cn(
                     "chip inline-flex h-10 pointer-coarse:h-11 flex-none items-center gap-2 rounded-pill border px-4 text-[14px] font-medium transition-[background-color,color,border-color] duration-200 ease-soft",
                     selected
-                      ? "border-accent-600 bg-accent-600 text-surface"
+                      ? "border-accent-600 bg-accent-600 text-on-accent"
                       : "border-line-strong bg-surface/60 text-ink-soft hover:border-accent-500 hover:bg-accent-50 hover:text-accent-600",
                   )}
                 >

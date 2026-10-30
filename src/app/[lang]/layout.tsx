@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { site } from "@/data/site";
 import { getDictionary, hasLocale, locales } from "@/lib/i18n";
 import { motionBootScript } from "@/lib/motionPreference";
+import { themeBootScript } from "@/lib/themePreference";
 
 const geist = Geist({
   variable: "--font-geist",
@@ -32,8 +33,11 @@ export function generateStaticParams() {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#f5f3ee",
-  colorScheme: "light",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#e9e4d8" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f1626" },
+  ],
+  colorScheme: "light dark",
 };
 
 export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Promise<Metadata> {
@@ -79,7 +83,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
       suppressHydrationWarning
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: motionBootScript }} />
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript + motionBootScript }} />
       </head>
       <body>{children}</body>
     </html>

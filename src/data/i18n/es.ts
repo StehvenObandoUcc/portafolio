@@ -30,6 +30,8 @@ export const es = {
     homeLink: "ir al inicio",
     motionPause: "Pausar animaciones",
     motionPlay: "Activar animaciones",
+    themeDark: "Activar modo oscuro",
+    themeLight: "Activar modo claro",
   },
   nav: {
     home: "Inicio",

@@ -129,7 +129,7 @@ export function Experience(props: ExperienceProps) {
         >
           <div className="grid gap-5 md:grid-cols-12 md:gap-6">
             <article className="card flex flex-col gap-4 p-6 sm:p-8 md:col-span-8">
-              <span className="icon-draw grid size-10 place-items-center rounded-sm bg-accent-600 text-surface">
+              <span className="icon-draw grid size-10 place-items-center rounded-sm bg-accent-600 text-on-accent">
                 <Icon name="graduation" size={20} />
               </span>
               <h3 className="text-h3 text-ink">{props.degree.title}</h3>
@@ -147,19 +147,23 @@ export function Experience(props: ExperienceProps) {
             </article>
           </div>
 
-          <h3 className="text-h3 mt-14 mb-6 text-ink">{props.coursesTitle}</h3>
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {props.courses.map((course) => (
-              <li key={course.id}>
-                <CourseCard
-                  course={course}
-                  certificateLabel={props.certificateLabel}
-                  comingSoonLabel={props.comingSoonLabel}
-                  newTabLabel={props.newTabLabel}
-                />
-              </li>
-            ))}
-          </ul>
+          {props.courses.length > 0 && (
+            <>
+            <h3 className="text-h3 mt-14 mb-6 text-ink">{props.coursesTitle}</h3>
+            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {props.courses.map((course) => (
+                <li key={course.id}>
+                  <CourseCard
+                    course={course}
+                    certificateLabel={props.certificateLabel}
+                    comingSoonLabel={props.comingSoonLabel}
+                    newTabLabel={props.newTabLabel}
+                  />
+                </li>
+              ))}
+            </ul>
+            </>
+          )}
         </div>
 
         <div className="mt-section-y">

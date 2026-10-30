@@ -54,7 +54,7 @@ export function LanguageToggle({ current, options, label }: LanguageToggleProps)
                 onClick={(event) => handleClick(event, option.locale)}
                 className={cn(
                   "grid h-full min-w-11 place-items-center rounded-pill px-2.5 font-mono text-[12px] font-medium tracking-[0.06em] transition-colors duration-300",
-                  isActive ? "text-surface" : "text-ink-soft hover:text-ink",
+                  isActive ? "text-on-accent" : "text-ink-soft hover:text-ink",
                 )}
               >
                 {option.label}

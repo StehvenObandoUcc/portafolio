@@ -35,7 +35,7 @@ export function PortfolioTemplate(props: PortfolioTemplateProps) {
       <IntroCurtain monogram={props.navbar.monogram} wordmark={props.navbar.wordmark} />
       <a
         href="#main"
-        className="fixed top-3 left-3 z-50 -translate-y-24 rounded-pill bg-accent-600 px-4 py-3 text-[14px] font-medium text-surface transition-transform duration-200 focus-visible:translate-y-0"
+        className="fixed top-3 left-3 z-50 -translate-y-24 rounded-pill bg-accent-600 px-4 py-3 text-[14px] font-medium text-on-accent transition-transform duration-200 focus-visible:translate-y-0"
       >
         {props.skipLabel}
       </a>

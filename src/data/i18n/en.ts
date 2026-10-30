@@ -25,6 +25,8 @@ export const en: Dictionary = {
     homeLink: "go to top",
     motionPause: "Pause animations",
     motionPlay: "Turn animations on",
+    themeDark: "Switch to dark mode",
+    themeLight: "Switch to light mode",
   },
   nav: {
     home: "Home",

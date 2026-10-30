@@ -81,8 +81,13 @@ Everything a visitor reads lives in `src/data`:
 | Video game: name, platform, description, stack, role, team, GitHub, download, screenshot | `src/data/projects.ts` · `video-game` |
 | Roles and periods for the technical timeline | `src/data/experience.ts` · `technicalExperience[*].role`, `period` |
 | Certificate links (Commit Academy, BIG school) | `src/data/experience.ts` · `courses[*].certificateUrl` |
+| Publish the courses grid once certificates are ready | `src/data/experience.ts` · `showCourses` → `true` |
 | Learning log: one-line goals, JavaScript progress | `src/data/learning.ts` · `goal`, `progress` |
 | Email provider for the contact form | `src/app/api/contact/route.ts` (returns 503 → mailto fallback until then) |
+
+## Themes
+
+Light ("soft kraft paper") and dark ("the notebook at night") are two sets of CSS variables in `src/app/globals.css`: `:root` and `:root[data-theme="dark"]`. The first visit follows the OS setting; the sun/moon button in the navbar switches and remembers the choice (`localStorage.theme`). A tiny script in `src/app/[lang]/layout.tsx` applies it before first paint, so there is no flash. Printing always uses the light paper.
 
 ## Quality notes
 

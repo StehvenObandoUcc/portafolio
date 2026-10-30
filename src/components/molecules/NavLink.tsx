@@ -7,11 +7,13 @@ interface NavLinkProps {
   variant?: "bar" | "sheet";
   /** Notebook number shown beside sheet links, e.g. "03". */
   index?: string;
+  /** Bar links can leave the active dot to a shared sliding indicator. */
+  showDot?: boolean;
   onClick?: () => void;
 }
 
 /** Section link: underline grows from the left, active gets the accent and a 4px dot. */
-export function NavLink({ href, label, active = false, variant = "bar", index, onClick }: NavLinkProps) {
+export function NavLink({ href, label, active = false, variant = "bar", index, showDot = true, onClick }: NavLinkProps) {
   if (variant === "sheet") {
     return (
       <a
@@ -46,13 +48,15 @@ export function NavLink({ href, label, active = false, variant = "bar", index, o
       )}
     >
       <span className="link-underline">{label}</span>
-      <span
-        aria-hidden="true"
-        className={cn(
-          "absolute -bottom-0.5 left-1/2 size-1 -translate-x-1/2 rounded-full bg-accent-600 transition-[opacity,transform] duration-300 ease-out",
-          active ? "scale-100 opacity-100" : "scale-0 opacity-0",
-        )}
-      />
+      {showDot && (
+        <span
+          aria-hidden="true"
+          className={cn(
+            "absolute -bottom-0.5 left-1/2 size-1 -translate-x-1/2 rounded-full bg-accent-600 transition-[opacity,transform] duration-300 ease-out",
+            active ? "scale-100 opacity-100" : "scale-0 opacity-0",
+          )}
+        />
+      )}
     </a>
   );
 }

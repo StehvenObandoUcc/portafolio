@@ -96,6 +96,12 @@ export const degree: Degree = {
   totalSemesters: 8,
 };
 
+/**
+ * Show the "Courses & certificates" grid in the Academic tab.
+ * Hidden until the certificates are ready: set to true to publish it.
+ */
+export const showCourses = false;
+
 /** Courses and certificates. TODO: add certificate links when available. */
 export const courses: Course[] = [
   {
