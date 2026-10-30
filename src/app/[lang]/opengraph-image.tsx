@@ -15,7 +15,7 @@ export default async function OpenGraphImage({ params }: { params: Promise<{ lan
   const dict = await getDictionary(hasLocale(lang) ? lang : "es");
 
   const grid =
-    "linear-gradient(to right, rgba(20,33,61,.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,33,61,.08) 1px, transparent 1px)";
+    "linear-gradient(to right, rgba(20,33,61,.09) 1px, transparent 1px), linear-gradient(to bottom, rgba(20,33,61,.09) 1px, transparent 1px)";
 
   return new ImageResponse(
     (
@@ -27,7 +27,7 @@ export default async function OpenGraphImage({ params }: { params: Promise<{ lan
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px 80px",
-          background: "#F5F3EE",
+          background: "#E9E4D8",
           backgroundImage: grid,
           backgroundSize: "48px 48px",
           color: "#14213D",
@@ -40,7 +40,7 @@ export default async function OpenGraphImage({ params }: { params: Promise<{ lan
               height: 72,
               borderRadius: 18,
               background: "#2448D8",
-              color: "#FBFAF7",
+              color: "#F2EEE4",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -50,7 +50,7 @@ export default async function OpenGraphImage({ params }: { params: Promise<{ lan
           >
             {site.monogram}
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 22, color: "#4A5578" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 22, color: "#444E70" }}>
             <div style={{ width: 12, height: 12, borderRadius: 999, background: "#FF9A57" }} />
             {dict.hero.badge}
           </div>
@@ -59,7 +59,7 @@ export default async function OpenGraphImage({ params }: { params: Promise<{ lan
           <div style={{ fontSize: 96, fontWeight: 600, letterSpacing: "-0.04em", lineHeight: 1 }}>{site.fullName}</div>
           <div style={{ fontSize: 40, color: "#2448D8", letterSpacing: "-0.02em" }}>{dict.meta.ogSubtitle}</div>
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, color: "#5C6580" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, color: "#525B76" }}>
           <span>{site.location}</span>
           <span>{site.githubHandle}</span>
         </div>

@@ -561,7 +561,7 @@
   display: grid;
   place-items: center;
   background: var(--accent-600);
-  color: var(--surface);
+  color: var(--on-accent);
   visibility: hidden;
   pointer-events: none;
   animation: curtain-lift 0.95s cubic-bezier(0.76, 0, 0.24, 1) both;
@@ -1102,7 +1102,7 @@ svg[data-icon] {
   bottom: 0;
   height: 3px;
   width: 35%;
-  background: var(--surface);
+  background: var(--on-accent);
   opacity: 0.85;
   animation: loading-bar 1s var(--ease-soft) infinite;
 }
@@ -1138,8 +1138,14 @@ svg[data-icon] {
     --ink: #14213d;
     --ink-soft: #444e70;
     --ink-mute: #525b76;
+    --accent-50: #eef2ff;
+    --accent-100: #dce4ff;
+    --accent-300: #8ea6ff;
+    --accent-500: #3460ff;
     --accent-600: #2448d8;
     --accent-700: #1b36a6;
+    --warm-400: #ff9a57;
+    --on-accent: #f2eee4;
     --line: rgba(20, 33, 61, 0.1);
     --line-strong: rgba(20, 33, 61, 0.18);
     color-scheme: light;
