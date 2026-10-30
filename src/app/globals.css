@@ -133,13 +133,11 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Paper grain: an SVG noise tile at 4% over the whole page. */
-  body {
-    position: relative;
-  }
+  /* Paper grain: an SVG noise tile over the viewport. A fixed layer is
+     one screen-sized texture; a document-tall one costs far more to raster. */
   body::before {
     content: "";
-    position: absolute;
+    position: fixed;
     inset: 0;
     z-index: 60;
     pointer-events: none;
@@ -1279,4 +1277,16 @@ svg[data-icon] {
 @keyframes theme-reveal {
   from { clip-path: circle(0 at var(--vt-x, 100%) var(--vt-y, 0)); }
   to { clip-path: circle(var(--vt-r, 150%) at var(--vt-x, 100%) var(--vt-y, 0)); }
+}
+
+/* Sections below the first screen skip layout and paint until they are
+   close to the viewport; their last measured height is remembered. */
+main > section:not(#home) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+@media print {
+  main > section:not(#home) {
+    content-visibility: visible;
+  }
 }
