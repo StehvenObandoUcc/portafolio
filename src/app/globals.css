@@ -539,13 +539,9 @@
   background: var(--paper-2);
   animation: cover-lift 1s cubic-bezier(0.76, 0, 0.24, 1) calc(var(--intro) + 0.15s) both;
 }
-.enter-offset { animation: offset-in 0.8s var(--ease-out) calc(var(--intro) + 0.95s) both; }
 .enter-stat { animation: fade-up-14 0.55s var(--ease-out) both; animation-delay: calc(var(--intro) + 0.85s + var(--i, 0) * 0.08s); }
 .hero-grid { animation: grid-draw 1.6s var(--ease-out) calc(var(--intro) - 0.25s) both; }
 
-@keyframes offset-in {
-  from { translate: 0 0; opacity: 0; }
-}
 @keyframes grid-draw {
   from { opacity: 0; }
 }
