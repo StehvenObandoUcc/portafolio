@@ -13,7 +13,10 @@ import { useActiveSection } from "@/hooks/useActiveSection";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
 import { useScrolled } from "@/hooks/useScrolled";
 import { cn } from "@/lib/cn";
-import { MobileMenu } from "./MobileMenu";
+import dynamic from "next/dynamic";
+
+// The full-screen sheet only exists below 900px: its code loads on first open.
+const MobileMenu = dynamic(() => import("./MobileMenu").then((mod) => mod.MobileMenu), { ssr: false });
 
 export interface NavItem {
   id: string;
@@ -55,6 +58,7 @@ export function Navbar(props: NavbarProps) {
   const active = useActiveSection(ids);
   const activeIndex = Math.max(0, items.findIndex((item) => item.id === active));
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuLoaded, setMenuLoaded] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const dotRef = useRef<HTMLSpanElement>(null);
@@ -139,7 +143,10 @@ export function Navbar(props: NavbarProps) {
             label={menuOpen ? labels.closeMenu : labels.openMenu}
             aria-expanded={menuOpen}
             aria-controls={MENU_ID}
-            onClick={() => setMenuOpen((open) => !open)}
+            onClick={() => {
+              setMenuLoaded(true);
+              setMenuOpen((open) => !open);
+            }}
             className="text-ink md:hidden"
           />
         </div>
@@ -148,6 +155,7 @@ export function Navbar(props: NavbarProps) {
     </header>
 
     {/* Sibling of <header>: its backdrop-filter would trap a fixed child. */}
+    {menuLoaded && (
     <MobileMenu
         id={MENU_ID}
         open={menuOpen}
@@ -161,6 +169,7 @@ export function Navbar(props: NavbarProps) {
         comingSoonLabel={labels.comingSoon}
         newTabLabel={labels.opensInNewTab}
       />
+    )}
     </>
   );
 }

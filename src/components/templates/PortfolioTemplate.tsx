@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { IntroCurtain } from "@/components/atoms/IntroCurtain";
 import { MotionRoot } from "@/components/atoms/MotionRoot";
 import { PointerEffects } from "@/components/atoms/PointerEffects";
@@ -40,18 +41,39 @@ export function PortfolioTemplate(props: PortfolioTemplateProps) {
         {props.skipLabel}
       </a>
       <Navbar {...props.navbar} />
+      {/* Each section is its own Suspense boundary so React hydrates the page
+          in small pieces (selective hydration) instead of one long task.
+          Nothing suspends: the HTML renders exactly the same. */}
       <main id="main" tabIndex={-1} className="focus:outline-none">
         <Hero {...props.hero} />
-        <KineticBand items={props.bandItems} />
-        <About {...props.about} />
-        <Projects {...props.projects} />
-        <Testimonials {...props.testimonials} />
-        <Experience {...props.experience} />
-        <NowLearning {...props.learning} />
-        <KineticBand items={props.bandItems} direction="right" />
-        <Contact {...props.contact} />
+        <Suspense>
+          <KineticBand items={props.bandItems} />
+        </Suspense>
+        <Suspense>
+          <About {...props.about} />
+        </Suspense>
+        <Suspense>
+          <Projects {...props.projects} />
+        </Suspense>
+        <Suspense>
+          <Testimonials {...props.testimonials} />
+        </Suspense>
+        <Suspense>
+          <Experience {...props.experience} />
+        </Suspense>
+        <Suspense>
+          <NowLearning {...props.learning} />
+        </Suspense>
+        <Suspense>
+          <KineticBand items={props.bandItems} direction="right" />
+        </Suspense>
+        <Suspense>
+          <Contact {...props.contact} />
+        </Suspense>
       </main>
-      <Footer {...props.footer} />
+      <Suspense>
+        <Footer {...props.footer} />
+      </Suspense>
       <RevealObserver />
       <PointerEffects />
     </MotionRoot>
