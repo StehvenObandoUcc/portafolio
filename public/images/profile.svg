@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="profile 4:5 placeholder">
-<defs><pattern id="g" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#14213D" stroke-opacity=".07" stroke-width="1"/></pattern></defs>
-<rect width="800" height="1000" fill="#ECE9E1"/>
+<!-- Transparent on purpose: the frame behind it (paper-2) follows the light/dark theme. -->
+<defs><pattern id="g" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#7D869F" stroke-opacity=".22" stroke-width="1"/></pattern></defs>
 <rect width="800" height="1000" fill="url(#g)"/>
-<rect x="48" y="48" width="704" height="904" rx="29" fill="none" stroke="#8EA6FF" stroke-width="2" stroke-dasharray="10 10"/>
-<path d="M48 88V48H88" fill="none" stroke="#2448D8" stroke-width="3" stroke-linecap="round"/><path d="M752 88V48H712" fill="none" stroke="#2448D8" stroke-width="3" stroke-linecap="round"/><path d="M48 912V952H88" fill="none" stroke="#2448D8" stroke-width="3" stroke-linecap="round"/><path d="M752 912V952H712" fill="none" stroke="#2448D8" stroke-width="3" stroke-linecap="round"/>
-<path d="M48 48L752 952M752 48L48 952" stroke="#8EA6FF" stroke-opacity=".35" stroke-width="1.5"/>
-<rect x="127.19999999999999" y="445.0" width="545.6" height="148.4" rx="22.0" fill="#FBFAF7" stroke="#14213D" stroke-opacity=".12"/>
-<text x="400.0" y="513.2" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="44" font-weight="600" letter-spacing="2" fill="#2448D8">PROFILE 4:5</text>
-<text x="400.0" y="563.6" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="24" letter-spacing="1.5" fill="#4A5578">TODO · profile.webp</text>
+<rect x="48" y="48" width="704" height="904" rx="29" fill="none" stroke="#5B7CFF" stroke-opacity=".55" stroke-width="2" stroke-dasharray="10 10"/>
+<path d="M48 88V48H88" fill="none" stroke="#5B7CFF" stroke-width="3" stroke-linecap="round"/><path d="M752 88V48H712" fill="none" stroke="#5B7CFF" stroke-width="3" stroke-linecap="round"/><path d="M48 912V952H88" fill="none" stroke="#5B7CFF" stroke-width="3" stroke-linecap="round"/><path d="M752 912V952H712" fill="none" stroke="#5B7CFF" stroke-width="3" stroke-linecap="round"/>
+<path d="M48 48L752 952M752 48L48 952" stroke="#7D869F" stroke-opacity=".3" stroke-width="1.5"/>
+<rect x="127.19999999999999" y="445.0" width="545.6" height="148.4" rx="22.0" fill="#5B7CFF" fill-opacity=".12" stroke="#5B7CFF" stroke-opacity=".35"/>
+<text x="400.0" y="513.2" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="44" font-weight="600" letter-spacing="2" fill="#5B7CFF">PROFILE 4:5</text>
+<text x="400.0" y="563.6" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="24" letter-spacing="1.5" fill="#7D869F">TODO · profile.webp</text>
 </svg>
