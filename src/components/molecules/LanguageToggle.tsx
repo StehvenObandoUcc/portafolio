@@ -36,10 +36,10 @@ export function LanguageToggle({ current, options, label }: LanguageToggleProps)
 
   return (
     <nav aria-label={label}>
-      <ul className="relative grid h-9 grid-cols-2 pointer-coarse:h-[50px] rounded-pill border border-line-strong bg-surface/70 p-0.5">
+      <ul className="relative grid h-[50px] grid-cols-[repeat(2,minmax(2.75rem,1fr))] md:h-9 pointer-coarse:h-[50px] rounded-pill border border-line-strong bg-surface/70 p-0.5">
         <span
           aria-hidden="true"
-          className="absolute inset-y-0.5 left-0.5 w-[calc(50%-2px)] rounded-pill bg-accent-600 shadow-[0_6px_14px_-8px_var(--accent-shadow)] transition-transform duration-300 ease-out"
+          className="pointer-events-none absolute inset-y-0.5 left-0.5 w-[calc(50%-2px)] rounded-pill bg-accent-600 shadow-[0_6px_14px_-8px_var(--accent-shadow)] transition-transform duration-300 ease-out"
           style={{ transform: `translateX(${activeIndex * 100}%)` }}
         />
         {options.map((option) => {
@@ -51,6 +51,7 @@ export function LanguageToggle({ current, options, label }: LanguageToggleProps)
                 hrefLang={option.locale}
                 lang={option.locale}
                 aria-current={option.locale === current ? "page" : undefined}
+                aria-label={`${option.label} ${option.name}`}
                 onClick={(event) => handleClick(event, option.locale)}
                 className={cn(
                   "grid h-full min-w-11 place-items-center rounded-pill px-2.5 font-mono text-[12px] font-medium tracking-[0.06em] transition-colors duration-300",
@@ -58,7 +59,6 @@ export function LanguageToggle({ current, options, label }: LanguageToggleProps)
                 )}
               >
                 {option.label}
-                <span className="sr-only"> ({option.name})</span>
               </Link>
             </li>
           );

@@ -1208,8 +1208,8 @@ svg[data-icon] {
   translate: none !important;
 }
 
-/* Touch screens: every control is at least 44px to the thumb. */
-@media (pointer: coarse) {
+/* Phones, tablets and any touch screen: every control is at least 44px. */
+@media (pointer: coarse), (max-width: 899px) {
   .btn-sm {
     min-height: 44px;
   }

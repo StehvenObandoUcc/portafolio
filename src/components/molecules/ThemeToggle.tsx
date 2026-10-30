@@ -51,7 +51,7 @@ export function ThemeToggle({ toDarkLabel, toLightLabel, className }: ThemeToggl
       onClick={toggle}
       aria-label={dark ? toLightLabel : toDarkLabel}
       className={cn(
-        "theme-toggle relative inline-flex size-10 flex-none items-center justify-center rounded-pill text-ink-soft transition-[background-color,color] duration-300 ease-soft hover:bg-accent-50 hover:text-accent-600 pointer-coarse:size-11",
+        "theme-toggle relative inline-flex size-11 md:size-10 flex-none items-center justify-center rounded-pill text-ink-soft transition-[background-color,color] duration-300 ease-soft hover:bg-accent-50 hover:text-accent-600 pointer-coarse:size-11",
         className,
       )}
     >
