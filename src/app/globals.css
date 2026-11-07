@@ -689,6 +689,11 @@
   pointer-events: none;
   user-select: none;
 }
+/* The numeral drifts below its header: section content always paints above it. */
+.section-head ~ * {
+  position: relative;
+  z-index: 1;
+}
 .footer-wordmark {
   font-size: clamp(40px, 12.2vw, 150px);
   font-weight: 600;

@@ -3,8 +3,32 @@ import type { GalleryImage } from "./types";
 /** About-me gallery (3–5 images): hobbies outside tech. */
 export const gallery: GalleryImage[] = [
   {
-    id: "reading",
+    id: "games",
     shape: "tall",
+    image: {
+      src: "/images/gallery-stardew.webp",
+      width: 860,
+      height: 1290,
+      alt: { es: "Portada de Stardew Valley", en: "Stardew Valley cover art" },
+    },
+    caption: { es: "Videojuegos · Stardew Valley", en: "Games · Stardew Valley" },
+  },
+  {
+    id: "blender-1",
+    shape: "square",
+    image: {
+      src: "/images/gallery-blender-1.jpg",
+      width: 1200,
+      height: 900,
+      alt: {
+        es: "Render en Blender de una mesa de sushi en estilo low poly",
+        en: "Blender render of a low-poly sushi table",
+      },
+    },
+    caption: { es: "Blender", en: "Blender" },
+  },  {
+    id: "reading",
+    shape: "square",
     image: {
       src: "/images/gallery-frankenstein.jpg",
       width: 800,
@@ -15,36 +39,7 @@ export const gallery: GalleryImage[] = [
       },
     },
     caption: { es: "Libro · Frankenstein", en: "Book · Frankenstein" },
-  },
-  {
-    id: "blender-1",
-    shape: "square",
-    image: {
-      src: "/images/gallery-blender-1.jpg",
-      width: 1200,
-      height: 900,
-      alt: {
-        es: "Mi primer render en Blender: una mesa de sushi en estilo low poly",
-        en: "My first Blender render: a low-poly sushi table",
-      },
-    },
-    caption: { es: "Blender · primer render", en: "Blender · first render" },
-  },
-  {
-    id: "games",
-    shape: "square",
-    image: {
-      src: "/images/gallery-voxel.svg",
-      width: 1000,
-      height: 1000,
-      alt: {
-        es: "Ilustración de una isla de bloques con un árbol",
-        en: "Illustration of a block island with a tree",
-      },
-    },
-    caption: { es: "Videojuegos · Stardew Valley", en: "Games · Stardew Valley" },
-  },
-  {
+  },  {
     id: "blender-2",
     shape: "wide",
     image: {
@@ -56,6 +51,5 @@ export const gallery: GalleryImage[] = [
         en: "Blender render of a small isometric ramen shop",
       },
     },
-    caption: { es: "Blender · local de ramen", en: "Blender · ramen shop" },
-  },
-];
+    caption: { es: "Blender", en: "Blender" },
+  },];

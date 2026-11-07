@@ -1,9 +1,8 @@
 import type { HeadingParts } from "@/components/atoms/Heading";
-import { Icon, type IconName } from "@/components/atoms/Icon";
+import { Icon } from "@/components/atoms/Icon";
 import { Reveal } from "@/components/atoms/Reveal";
 import { CourseCard, type CourseCardData } from "@/components/molecules/CourseCard";
 import { ExperienceTabs, type ExperienceTabId } from "@/components/molecules/ExperienceTabs";
-import { SkillGroup } from "@/components/molecules/SkillGroup";
 import { TimelineItem, type TimelineItemData } from "@/components/molecules/TimelineItem";
 
 export interface ExperienceProps {
@@ -18,8 +17,6 @@ export interface ExperienceProps {
   courses: CourseCardData[];
   certificateLabel: string;
   english: { title: string; level: string };
-  skillsTitle: string;
-  skills: { id: string; icon: IconName; title: string; items: string[] }[];
   comingSoonLabel: string;
   newTabLabel: string;
 }
@@ -93,20 +90,6 @@ export function Experience(props: ExperienceProps) {
           panels={{ work, academic }}
         />
 
-        <div className="mt-section-y">
-          <Reveal>
-            <h3 className="text-h3 mb-6 text-ink">{props.skillsTitle}</h3>
-          </Reveal>
-          <ul className="grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-5">
-            {props.skills.map((group, i) => (
-              <li key={group.id}>
-                <Reveal index={i} motion="pop">
-                  <SkillGroup icon={group.icon} title={group.title} items={group.items} />
-                </Reveal>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </section>
   );

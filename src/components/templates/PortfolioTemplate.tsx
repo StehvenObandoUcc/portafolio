@@ -13,6 +13,7 @@ import { Navbar, type NavbarProps } from "@/components/organisms/Navbar";
 import { NowLearning, type NowLearningProps } from "@/components/organisms/NowLearning";
 import { Projects, type ProjectsProps } from "@/components/organisms/Projects";
 import { Testimonials, type TestimonialsProps } from "@/components/organisms/Testimonials";
+import { Toolbox, type ToolboxProps } from "@/components/organisms/Toolbox";
 
 export interface PortfolioTemplateProps {
   skipLabel: string;
@@ -20,6 +21,7 @@ export interface PortfolioTemplateProps {
   bandItems: string[];
   navbar: NavbarProps;
   hero: HeroProps;
+  toolbox: ToolboxProps;
   about: AboutProps;
   projects: ProjectsProps;
   testimonials: TestimonialsProps;
@@ -46,6 +48,9 @@ export function PortfolioTemplate(props: PortfolioTemplateProps) {
           Nothing suspends: the HTML renders exactly the same. */}
       <main id="main" tabIndex={-1} className="focus:outline-none">
         <Hero {...props.hero} />
+        <Suspense>
+          <Toolbox {...props.toolbox} />
+        </Suspense>
         <Suspense>
           <KineticBand items={props.bandItems} />
         </Suspense>

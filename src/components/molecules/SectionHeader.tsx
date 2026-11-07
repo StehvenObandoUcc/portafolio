@@ -21,7 +21,7 @@ interface SectionHeaderProps {
  */
 export function SectionHeader({ index, title, subtitle, id, aside, className }: SectionHeaderProps) {
   return (
-    <Reveal className={cn("relative isolate mb-10 md:mb-14", className)}>
+    <Reveal className={cn("section-head relative isolate mb-10 md:mb-14", className)}>
       <span aria-hidden="true" className="section-numeral">
         {index}
       </span>

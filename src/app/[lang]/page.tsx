@@ -153,6 +153,15 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
         opensInNewTab: newTab,
       },
     },
+    toolbox: {
+      title: dict.experience.skillsTitle,
+      groups: skillGroups.map((group) => ({
+        id: group.id,
+        icon: group.icon,
+        title: group.title[lang],
+        items: group.items,
+      })),
+    },
     hero: {
       badge: dict.hero.badge,
       titleLine1: dict.hero.titleLine1,
@@ -234,13 +243,6 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
       })),
       certificateLabel: dict.experience.certificate,
       english: { title: dict.experience.englishTitle, level: dict.experience.englishLevel },
-      skillsTitle: dict.experience.skillsTitle,
-      skills: skillGroups.map((group) => ({
-        id: group.id,
-        icon: group.icon,
-        title: group.title[lang],
-        items: group.items,
-      })),
       comingSoonLabel: comingSoon,
       newTabLabel: newTab,
     },
