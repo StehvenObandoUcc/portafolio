@@ -10,7 +10,7 @@ interface MobileMenuProps {
   open: boolean;
   onClose: () => void;
   toggleRef: RefObject<HTMLButtonElement | null>;
-  items: { id: string; label: string }[];
+  items: { id: string; label: string; index: string }[];
   active: string;
   label: string;
   cvLabel: string;
@@ -115,7 +115,7 @@ export function MobileMenu(props: MobileMenuProps) {
                     href={`#${item.id}`}
                     label={item.label}
                     active={props.active === item.id}
-                    index={String(index + 1).padStart(2, "0")}
+                    index={item.index}
                     onClick={onClose}
                   />
                 </m.li>

@@ -3,7 +3,8 @@ import { Tag } from "@/components/atoms/Tag";
 export interface TimelineItemData {
   id: string;
   period: string;
-  role: string;
+  /** Left out while it is still "TODO": the organisation then heads the entry. */
+  role?: string;
   organization: string;
   outcomes: string[];
   stack: string[];
@@ -24,8 +25,8 @@ export function TimelineItem({ item, stackLabel }: TimelineItemProps) {
       />
       <p className="text-label order-last pt-0.5 text-ink-mute tabular md:order-none md:text-right">{item.period}</p>
       <div>
-        <h3 className="text-h3 text-ink">{item.role}</h3>
-        <p className="mt-1 text-[15px] font-medium text-accent-700">{item.organization}</p>
+        <h3 className="text-h3 text-ink">{item.role ?? item.organization}</h3>
+        {item.role && <p className="mt-1 text-[15px] font-medium text-accent-700">{item.organization}</p>}
         <ul className="mt-4 space-y-2">
           {item.outcomes.map((outcome) => (
             <li key={outcome} className="relative pl-5 text-[15px] leading-relaxed text-ink-soft">

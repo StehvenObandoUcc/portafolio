@@ -44,6 +44,8 @@ export const es = {
     cv: "CV",
   },
   hero: {
+    // The cover page: the navbar counter and the mobile menu number it 00.
+    index: "00",
     badge: "Disponible para prácticas y roles junior",
     titleLine1: "Ingeniero de Software",
     titleLine2: { before: "en formación, ", emphasis: "Full Stack", after: "" },
@@ -53,7 +55,7 @@ export const es = {
     stats: [
       { value: "5.º", label: "semestre" },
       { value: "6+", label: "proyectos" },
-      { value: "4", label: "plataformas: desktop · mobile · watch · web" },
+      { value: "4", label: "plataformas: desktop · mobile · watch · web" },
     ],
   },
   about: {

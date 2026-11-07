@@ -7,7 +7,8 @@ import { cn } from "@/lib/cn";
 export interface AboutProps {
   index: string;
   title: HeadingParts;
-  paragraph: string;
+  /** Left out while it is still "TODO" in the data. */
+  paragraph?: string;
   gallery: {
     id: string;
     src: string;
@@ -37,11 +38,13 @@ export function About({ index, title, paragraph, gallery }: AboutProps) {
       <div className="container-page">
         <SectionHeader id="about-title" index={index} title={title} />
 
-        <Reveal className="mb-10 md:mb-14 md:ml-[4.25rem]">
-          <p className="max-w-[40ch] text-[clamp(20px,1.1vw+15px,30px)] leading-[1.4] font-medium tracking-[-0.015em] text-pretty text-ink">
-            {paragraph}
-          </p>
-        </Reveal>
+        {paragraph && (
+          <Reveal className="mb-10 md:mb-14 md:ml-[4.25rem]">
+            <p className="max-w-[40ch] text-[clamp(20px,1.1vw+15px,30px)] leading-[1.4] font-medium tracking-[-0.015em] text-pretty text-ink">
+              {paragraph}
+            </p>
+          </Reveal>
+        )}
 
         <div className="grid auto-rows-[150px] grid-cols-2 gap-3 xs:auto-rows-[170px] sm:auto-rows-[200px] sm:grid-cols-3 sm:gap-4 md:grid-flow-dense md:grid-cols-4 md:auto-rows-[clamp(200px,17vw,260px)]">
           {gallery.map((item, i) => (

@@ -83,7 +83,7 @@ export function Experience(props: ExperienceProps) {
   );
 
   return (
-    <section id="experience" aria-labelledby="experience-title" className="bg-paper-2 py-section-y">
+    <section id="experience" aria-labelledby="experience-title" className="bg-paper-2 py-section-y [--ground:var(--paper-2)]">
       <div className="container-page">
         <ExperienceTabs
           index={props.index}

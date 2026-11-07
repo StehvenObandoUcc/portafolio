@@ -10,7 +10,6 @@ import { ThemeToggle } from "@/components/molecules/ThemeToggle";
 import { NavLink } from "@/components/molecules/NavLink";
 import type { Locale } from "@/data/types";
 import { useActiveSection } from "@/hooks/useActiveSection";
-import { useScrollDirection } from "@/hooks/useScrollDirection";
 import { useScrolled } from "@/hooks/useScrolled";
 import { cn } from "@/lib/cn";
 import dynamic from "next/dynamic";
@@ -21,6 +20,8 @@ const MobileMenu = dynamic(() => import("./MobileMenu").then((mod) => mod.Mobile
 export interface NavItem {
   id: string;
   label: string;
+  /** The section's page number ("00" for the hero), shared with its header. */
+  index: string;
 }
 
 export interface NavbarProps {
@@ -48,15 +49,13 @@ export interface NavbarProps {
 
 const MENU_ID = "mobile-menu";
 
-const pad = (n: number) => String(n).padStart(2, "0");
-
 export function Navbar(props: NavbarProps) {
   const { items, labels } = props;
   const scrolled = useScrolled(24);
-  const direction = useScrollDirection();
   const [ids] = useState(() => items.map((item) => item.id));
   const active = useActiveSection(ids);
-  const activeIndex = Math.max(0, items.findIndex((item) => item.id === active));
+  const activeItem = items.find((item) => item.id === active) ?? items[0];
+  const lastIndex = items[items.length - 1]?.index;
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuLoaded, setMenuLoaded] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -89,8 +88,7 @@ export function Navbar(props: NavbarProps) {
     <header
       id="top"
       className={cn(
-        "enter-nav fixed inset-x-0 top-0 z-40 border-b transition-[background-color,border-color,backdrop-filter,translate] duration-500 ease-out",
-        direction === "down" && !menuOpen && "-translate-y-full",
+        "enter-nav fixed inset-x-0 top-0 z-40 border-b transition-[background-color,border-color,backdrop-filter] duration-500 ease-out",
         scrolled || menuOpen
           ? "border-line bg-[var(--paper-glass)] backdrop-blur-[14px]"
           : "border-transparent bg-transparent",
@@ -101,11 +99,11 @@ export function Navbar(props: NavbarProps) {
           <Logo monogram={props.monogram} wordmark={props.wordmark} label={props.homeLabel} href="#home" />
           <span aria-hidden="true" className="nav-counter text-label hidden items-center gap-1 text-ink-mute tabular sm:inline-flex md:hidden lg:inline-flex">
             <span className="nav-counter-window">
-              <span key={activeIndex} className="nav-counter-roll text-accent-600">
-                {pad(activeIndex + 1)}
+              <span key={activeItem?.id} className="nav-counter-roll text-accent-600">
+                {activeItem?.index}
               </span>
             </span>
-            <span>/ {pad(items.length)}</span>
+            <span>/ {lastIndex}</span>
           </span>
         </div>
 

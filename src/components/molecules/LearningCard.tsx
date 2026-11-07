@@ -7,7 +7,8 @@ export interface LearningCardData {
   source?: string;
   statusLabel: string;
   inProgress: boolean;
-  goal: string;
+  /** Goal and progress are left out while they are still "TODO". */
+  goal?: string;
   progress?: string;
 }
 
@@ -41,18 +42,22 @@ export function LearningCard({ item, goalLabel, progressLabel, large = false }: 
       <h3 className={cn("text-h3 text-ink", large && "sm:text-[clamp(24px,2.2vw,32px)] sm:tracking-[-0.025em]")}>
         {item.title}
       </h3>
-      <dl className="mt-auto grid gap-3 border-t border-dashed border-line-strong pt-4 text-[15px]">
-        <div className="grid grid-cols-[80px_1fr] gap-3">
-          <dt className="text-label pt-0.5 text-ink-mute">{goalLabel}</dt>
-          <dd className="text-ink-soft">{item.goal}</dd>
-        </div>
-        {item.progress && (
-          <div className="grid grid-cols-[80px_1fr] gap-3">
-            <dt className="text-label pt-0.5 text-ink-mute">{progressLabel}</dt>
-            <dd className="text-ink-soft">{item.progress}</dd>
-          </div>
-        )}
-      </dl>
+      {(item.goal || item.progress) && (
+        <dl className="mt-auto grid gap-3 border-t border-dashed border-line-strong pt-4 text-[15px]">
+          {item.goal && (
+            <div className="grid grid-cols-[80px_1fr] gap-3">
+              <dt className="text-label pt-0.5 text-ink-mute">{goalLabel}</dt>
+              <dd className="text-ink-soft">{item.goal}</dd>
+            </div>
+          )}
+          {item.progress && (
+            <div className="grid grid-cols-[80px_1fr] gap-3">
+              <dt className="text-label pt-0.5 text-ink-mute">{progressLabel}</dt>
+              <dd className="text-ink-soft">{item.progress}</dd>
+            </div>
+          )}
+        </dl>
+      )}
     </article>
   );
 }

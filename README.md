@@ -56,7 +56,7 @@ Everything a visitor reads lives in `src/data`:
 
 - **UI strings and section copy:** `src/data/i18n/es.ts` defines the shape. `en.ts` is typed against it, so a missing key fails the build. Headings use `{ before, emphasis, after }`, and `emphasis` is set in the italic serif. Keep it to one or two words.
 - **Per-item text:** projects, experience, courses, skills, the learning log and the gallery use `{ es, en }` fields.
-- **Unknown values:** use the literal `"TODO"`. A TODO link renders as a disabled "Próximamente / Coming soon" control, never `href="#"`.
+- **Unknown values:** use the literal `"TODO"`. A TODO link renders as a disabled "Próximamente / Coming soon" control, never `href="#"`. A TODO text (a project description or role, an experience role, a learning goal or progress line, the About paragraph) is left off the page until you fill it, so the word "TODO" never reaches a visitor; the CONTENT_TODO list below is the reminder.
 - **Images:** drop a compressed `.webp` into `public/images/` (≤ 250 KB, hero photo ≤ 180 KB) and point the matching `src` in `/data` at it.
 - **Testimonials:** only teachers, team leads or industry contacts. Never family or classmates, and never invented. Entries that are still TODO render as "pending" cards and log a warning during `npm run build`.
 

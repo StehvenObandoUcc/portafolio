@@ -19,7 +19,7 @@ export interface ProjectsProps {
 /** Server-rendered section; only the filter chips and grid motion run on the client. */
 export function Projects(props: ProjectsProps) {
   return (
-    <section id="projects" aria-labelledby="projects-title" className="bg-paper-2 py-section-y">
+    <section id="projects" aria-labelledby="projects-title" className="bg-paper-2 py-section-y [--ground:var(--paper-2)]">
       <div className="container-page">
         <SectionHeader id="projects-title" index={props.index} title={props.title} subtitle={props.subtitle} />
         <ProjectGrid
@@ -33,7 +33,6 @@ export function Projects(props: ProjectsProps) {
             card: (
               <ProjectCard
                 project={project}
-                priority={false}
                 comingSoonLabel={props.comingSoonLabel}
                 newTabLabel={props.newTabLabel}
               />

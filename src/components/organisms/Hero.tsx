@@ -45,12 +45,12 @@ export function Hero(props: HeroProps) {
           />
         </div>
 
-        <div className="hero-copy-drift md:order-1 md:col-span-7">
+        <div className="hero-copy hero-copy-drift md:order-1 md:col-span-7">
           <Badge live className="enter-badge">
             {props.badge}
           </Badge>
 
-          <h1 id="home-title" className="text-display mt-7 text-ink">
+          <h1 id="home-title" className="text-display hero-title mt-7 text-ink">
             <span className="enter-mask">
               <span className="enter-line enter-line-1">{props.titleLine1}</span>
             </span>

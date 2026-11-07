@@ -39,6 +39,7 @@ export const en: Dictionary = {
     cv: "CV",
   },
   hero: {
+    index: "00",
     badge: "Open to internships & junior roles",
     titleLine1: "Software Engineer",
     titleLine2: { before: "in training, ", emphasis: "Full Stack", after: "" },
@@ -48,7 +49,7 @@ export const en: Dictionary = {
     stats: [
       { value: "5th", label: "semester" },
       { value: "6+", label: "projects" },
-      { value: "4", label: "platforms: desktop · mobile · watch · web" },
+      { value: "4", label: "platforms: desktop · mobile · watch · web" },
     ],
   },
   about: {

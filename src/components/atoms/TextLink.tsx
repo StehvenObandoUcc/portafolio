@@ -15,16 +15,22 @@ interface TextLinkProps {
 
 export function TextLink({ href, children, external, comingSoonLabel, newTabLabel, className }: TextLinkProps) {
   if (isTodo(href)) {
+    // When the text already reads "coming soon", the tooltip would only repeat it.
+    const saysComingSoon = children === comingSoonLabel;
     return (
       <span
         role="link"
         aria-disabled="true"
         tabIndex={0}
-        data-tooltip={comingSoonLabel}
-        className={cn("has-tooltip inline-flex cursor-not-allowed items-center gap-1 text-ink-mute", className)}
+        data-tooltip={saysComingSoon ? undefined : comingSoonLabel}
+        className={cn(
+          "inline-flex cursor-not-allowed items-center gap-1 text-ink-mute",
+          !saysComingSoon && "has-tooltip",
+          className,
+        )}
       >
         {children}
-        <span className="sr-only">({comingSoonLabel})</span>
+        {!saysComingSoon && <span className="sr-only">({comingSoonLabel})</span>}
       </span>
     );
   }

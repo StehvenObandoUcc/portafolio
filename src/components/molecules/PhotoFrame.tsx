@@ -9,6 +9,7 @@ interface PhotoFrameProps {
   height: number;
   /** Small floating tag, e.g. "Pasto, Nariño · CO". */
   tag: string;
+  /** Above-the-fold photo: fetched first instead of lazily. */
   priority?: boolean;
   sizes: string;
   className?: string;
@@ -24,7 +25,7 @@ export function PhotoFrame({ src, alt, width, height, tag, priority = false, siz
           alt={alt}
           width={width}
           height={height}
-          priority={priority}
+          {...(priority ? { loading: "eager" as const, fetchPriority: "high" as const } : {})}
           sizes={sizes}
           className="size-full object-cover"
         />

@@ -8,10 +8,12 @@ export interface ProjectCardData {
   id: string;
   title: string;
   platformLabel: string;
-  description: string;
+  /** Left out while it is still "TODO" in the data. */
+  description?: string;
   stack: string[];
   roleLabel: string;
-  role: string;
+  /** Left out while it is still "TODO" in the data. */
+  role?: string;
   /** "Equipo" / "En pareja", or undefined for solo or unconfirmed. */
   collaborationLabel?: string;
   context?: string;
@@ -29,11 +31,9 @@ interface ProjectCardProps {
   project: ProjectCardData;
   comingSoonLabel: string;
   newTabLabel: string;
-  /** Load the cover eagerly (first card). */
-  priority?: boolean;
 }
 
-export function ProjectCard({ project, comingSoonLabel, newTabLabel, priority = false }: ProjectCardProps) {
+export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCardProps) {
   const { featured } = project;
   const titleId = `project-${project.id}-title`;
 
@@ -58,7 +58,6 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel, priority = 
           alt={project.cover.alt}
           width={project.cover.width}
           height={project.cover.height}
-          priority={priority}
           sizes={featured ? "(min-width: 1200px) 760px, (min-width: 640px) 90vw, 100vw" : "(min-width: 1200px) 380px, (min-width: 640px) 45vw, 100vw"}
           className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
         />
@@ -80,9 +79,11 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel, priority = 
           {project.title}
         </h3>
 
-        <p className={cn("text-[15px] leading-relaxed text-pretty text-ink-soft", featured ? "md:text-[16px]" : "line-clamp-2")}>
-          {project.description}
-        </p>
+        {project.description && (
+          <p className={cn("text-[15px] leading-relaxed text-pretty text-ink-soft", featured ? "md:text-[16px]" : "line-clamp-2")}>
+            {project.description}
+          </p>
+        )}
 
         {project.stack.length > 0 && (
           <ul className="flex flex-wrap gap-1.5">
@@ -94,11 +95,15 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel, priority = 
           </ul>
         )}
 
-        <p className="text-[14px] leading-snug text-ink-soft">
-          <span className="text-label mr-2 text-ink-mute">{project.roleLabel}</span>
-          {project.role}
-          {project.context && <span className="text-ink-mute"> · {project.context}</span>}
-        </p>
+        {project.role ? (
+          <p className="text-[14px] leading-snug text-ink-soft">
+            <span className="text-label mr-2 text-ink-mute">{project.roleLabel}</span>
+            {project.role}
+            {project.context && <span className="text-ink-mute"> · {project.context}</span>}
+          </p>
+        ) : (
+          project.context && <p className="text-[14px] leading-snug text-ink-mute">{project.context}</p>
+        )}
 
         <div className={cn("flex flex-wrap gap-2 pt-2", featured ? "md:mt-2" : "mt-auto")}>
           <Button

@@ -44,22 +44,28 @@ export function ProjectGrid({ filters, filtersLabel, emptyLabel, items }: Projec
         >
           {filters.map((chip) => {
             const selected = chip.id === filter;
+            const count = countFor(chip.id);
+            // A platform with nothing published yet stays listed but cannot lead to an empty grid.
+            const empty = count === 0;
             return (
               <button
                 key={chip.id}
                 type="button"
                 aria-pressed={selected}
+                disabled={empty}
                 onClick={() => setFilter(chip.id)}
                 className={cn(
                   "chip inline-flex h-11 md:h-10 pointer-coarse:h-11 flex-none items-center gap-2 rounded-pill border px-4 text-[14px] font-medium transition-[background-color,color,border-color] duration-200 ease-soft",
-                  selected
-                    ? "border-accent-600 bg-accent-600 text-on-accent"
-                    : "border-line-strong bg-surface/60 text-ink-soft hover:border-accent-500 hover:bg-accent-50 hover:text-accent-600",
+                  empty
+                    ? "cursor-not-allowed border-dashed border-line-strong bg-transparent text-ink-mute"
+                    : selected
+                      ? "border-accent-600 bg-accent-600 text-on-accent"
+                      : "border-line-strong bg-surface/60 text-ink-soft hover:border-accent-500 hover:bg-accent-50 hover:text-accent-600",
                 )}
               >
                 {chip.label}
                 <span className={cn("font-mono text-[11px] tabular", selected ? "text-accent-100" : "text-ink-mute")}>
-                  {countFor(chip.id)}
+                  {count}
                 </span>
               </button>
             );

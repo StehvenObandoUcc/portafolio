@@ -2,6 +2,7 @@ import type { HeadingParts } from "@/components/atoms/Heading";
 import { Reveal } from "@/components/atoms/Reveal";
 import { SectionHeader } from "@/components/molecules/SectionHeader";
 import { TestimonialCard, type TestimonialCardData } from "@/components/molecules/TestimonialCard";
+import { TestimonialRail } from "@/components/molecules/TestimonialRail";
 
 export interface TestimonialsProps {
   index: string;
@@ -12,14 +13,17 @@ export interface TestimonialsProps {
   comingSoonLabel: string;
 }
 
-/** Scroll-snap rail on mobile, three columns from 900px. */
+/** Self-advancing scroll-snap rail on mobile, three columns from 900px. */
 export function Testimonials(props: TestimonialsProps) {
   return (
     <section id="testimonials" aria-labelledby="testimonials-title" className="py-section-y">
       <div className="container-page">
         <SectionHeader id="testimonials-title" index={props.index} title={props.title} subtitle={props.subtitle} />
 
-        <ul className="snap-rail -mx-gutter flex snap-x snap-mandatory gap-4 overflow-x-auto px-gutter pb-2 md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0 md:pb-0">
+        <TestimonialRail
+          labelledBy="testimonials-title"
+          className="snap-rail -mx-gutter flex snap-x snap-mandatory gap-4 overflow-x-auto px-gutter pb-2 md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0 md:pb-0"
+        >
           {props.testimonials.map((testimonial, i) => (
             <li
               key={testimonial.id}
@@ -34,7 +38,7 @@ export function Testimonials(props: TestimonialsProps) {
               </Reveal>
             </li>
           ))}
-        </ul>
+        </TestimonialRail>
       </div>
     </section>
   );

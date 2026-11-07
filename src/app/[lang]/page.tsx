@@ -34,6 +34,11 @@ const FILTERS: ProjectFilter[] = ["all", "desktop", "mobile", "wearable", "web",
 
 const demoIcon: Record<DemoKind, IconName> = { demo: "play", exe: "download", apk: "download" };
 
+/** A copy field that is still "TODO" is left out of the page, never printed. */
+function known(value: string | undefined): string | undefined {
+  return isTodo(value) ? undefined : value;
+}
+
 function isPendingTestimonial(t: Testimonial, lang: Locale) {
   return isTodo(t.quote[lang]) || isTodo(t.name);
 }
@@ -59,10 +64,10 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
     title: project.title[lang],
     platforms: project.platforms,
     platformLabel: platformLabel(project.platforms[0]),
-    description: project.description[lang],
+    description: known(project.description[lang]),
     stack: project.stack,
     roleLabel: dict.projects.roleLabel,
-    role: project.role[lang],
+    role: known(project.role[lang]),
     collaborationLabel:
       project.collaboration === "team"
         ? dict.projects.team
@@ -108,12 +113,24 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
 
   const errors = dict.contact.form.errors;
 
+  // One page number per section, shared by its header, the navbar counter
+  // and the mobile menu; the hero is the cover, page 00.
+  const sectionIndex: Record<(typeof SECTION_IDS)[number], string> = {
+    home: dict.hero.index,
+    about: dict.about.index,
+    projects: dict.projects.index,
+    testimonials: dict.testimonials.index,
+    experience: dict.experience.index,
+    learning: dict.learning.index,
+    contact: dict.contact.index,
+  };
+
   return {
     skipLabel: dict.a11y.skipToContent,
     bandItems: skillGroups.flatMap((group) => group.items),
     navbar: {
       locale: lang,
-      items: SECTION_IDS.map((id) => ({ id, label: dict.nav[id] })),
+      items: SECTION_IDS.map((id) => ({ id, label: dict.nav[id], index: sectionIndex[id] })),
       monogram: site.monogram,
       wordmark: site.shortName,
       homeLabel: dict.a11y.homeLink,
@@ -152,7 +169,7 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
     about: {
       index: dict.about.index,
       title: dict.about.title,
-      paragraph: dict.about.paragraph,
+      paragraph: known(dict.about.paragraph),
       gallery: gallery.map((item) => ({
         id: item.id,
         src: item.image.src,
@@ -191,7 +208,7 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
       timeline: technicalExperience.map((item) => ({
         id: item.id,
         period: isTodo(item.period[lang]) ? dict.experience.periodPending : item.period[lang],
-        role: item.role[lang],
+        role: known(item.role[lang]),
         organization: item.organization[lang],
         outcomes: item.outcomes[lang],
         stack: item.stack,
@@ -239,8 +256,8 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
         source: item.source,
         inProgress: item.status === "inProgress",
         statusLabel: item.status === "inProgress" ? dict.learning.statusInProgress : dict.learning.statusNext,
-        goal: item.goal[lang],
-        progress: item.progress?.[lang],
+        goal: known(item.goal[lang]),
+        progress: known(item.progress?.[lang]),
       })),
     },
     contact: {
@@ -261,7 +278,12 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
           id: "linkedin",
           icon: "linkedin",
           label: dict.contact.linkedinLabel,
-          value: isTodo(site.linkedinHandle) ? dict.contact.linkedinLabel : site.linkedinHandle,
+          // Without a profile yet, say so instead of repeating the label as dead text.
+          value: !isTodo(site.linkedinHandle)
+            ? site.linkedinHandle
+            : isTodo(site.linkedin)
+              ? comingSoon
+              : dict.contact.linkedinLabel,
           href: site.linkedin,
           external: true,
         },
