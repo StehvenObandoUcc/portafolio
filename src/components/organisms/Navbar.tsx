@@ -84,9 +84,7 @@ export function Navbar(props: NavbarProps) {
     return () => window.removeEventListener("resize", place);
   }, [active]);
 
-  // The sheet's code stays out of the first load, but on a phone it is
-  // fetched and mounted (closed) once the page is idle, so the first tap
-  // opens it at once instead of half a second later.
+  // On phones, load and mount the closed sheet when idle so the first tap opens it at once.
   useEffect(() => {
     if (!window.matchMedia(MOBILE_QUERY).matches) return;
     const warm = () => setMenuLoaded(true);

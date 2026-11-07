@@ -16,13 +16,8 @@ function releasePassed() {
 }
 
 /**
- * Drives every [data-reveal] block with one IntersectionObserver.
- * Blocks below the viewport wait as "below" and glide in on a timed, eased
- * transition once 15% of them shows, so the motion stays smooth whatever
- * the scroll wheel does. When the visitor scrolls back up past a block it
- * re-arms below, so it replays on the way down. A block that was seen is
- * never hidden above the viewport: printing, find-in-page and full-page
- * captures always get the content. Blocks on screen at load stay as rendered.
+ * One IntersectionObserver for every [data-reveal] block: blocks below the viewport play once 15% shows.
+ * A block is never hidden above the viewport, so print and find-in-page always get the content.
  */
 export function RevealObserver() {
   useEffect(() => {

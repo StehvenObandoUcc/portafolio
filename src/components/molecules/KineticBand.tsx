@@ -7,11 +7,7 @@ interface KineticBandProps {
   className?: string;
 }
 
-/**
- * Oversized running type that slides with the scroll, alternating outlined
- * and inked words like a ruled header strip. Decorative: the same items are
- * listed accessibly in the Experience section.
- */
+/** Decorative marquee; the same items are listed accessibly in the Experience section. */
 export function KineticBand({ items, direction = "left", className }: KineticBandProps) {
   const run = [...items, ...items];
   return (

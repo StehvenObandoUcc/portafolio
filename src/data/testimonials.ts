@@ -1,13 +1,8 @@
 import { TODO, type Testimonial } from "./types";
 
 /**
- * SOURCE RULE: only teachers, team leads or industry contacts.
- * Never family, never classmates. A quote is either the person's own
- * words or a text they explicitly approved; never published without that.
- *
- * TODO: replace the three entries below with real testimonials,
- * quoted with the person's permission. Each entry that still holds
- * "TODO" renders as a "pending" card and logs a build warning.
+ * Only teachers, team leads or industry contacts, never family or classmates.
+ * Each quote is the person's own words or a text they explicitly approved.
  */
 export const testimonials: Testimonial[] = [
   {

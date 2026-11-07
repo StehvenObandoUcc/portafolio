@@ -5,11 +5,7 @@ interface MaskWordsProps {
   parts: HeadingParts;
 }
 
-/**
- * Heading copy split into words, each rising out of its own mask as the
- * heading scrolls in. The emphasis words keep the serif accent. Reads as
- * plain text to assistive tech; resting state is fully visible.
- */
+/** Words rise out of their own masks; reads as plain text to assistive tech. */
 export function MaskWords({ parts }: MaskWordsProps) {
   const runs = [
     { text: parts.before, emphasis: false },

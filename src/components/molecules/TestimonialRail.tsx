@@ -26,11 +26,8 @@ interface TestimonialRailProps {
 }
 
 /**
- * The testimonial list. On phones it is a snap rail that moves on by
- * itself: one card every five seconds while it is on screen, back to the
- * first after the last. Hovering, focusing or touching it gives the
- * visitor control, and the navbar motion switch stops it. It is also a
- * keyboard stop there, so the arrow keys can scroll it.
+ * On phones, a snap rail that advances one card every 5s while on screen.
+ * Hover, focus or touch pauses it; the navbar motion switch stops it.
  */
 export function TestimonialRail({ labelledBy, className, children }: TestimonialRailProps) {
   const ref = useRef<HTMLUListElement>(null);

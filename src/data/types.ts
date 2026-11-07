@@ -105,10 +105,7 @@ export interface LearningItem {
   progress?: Localized;
 }
 
-/**
- * Testimonials: ONLY teachers, team leads or industry contacts.
- * Never family or classmates. Never invented.
- */
+/** A quote in the person's own words or one they explicitly approved. */
 export interface Testimonial {
   id: string;
   quote: Localized;

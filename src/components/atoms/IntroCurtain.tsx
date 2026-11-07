@@ -3,11 +3,7 @@ interface IntroCurtainProps {
   wordmark: string;
 }
 
-/**
- * Cobalt cover sheet that lifts off the page on load (CSS only).
- * Hidden by default: it only shows while its animation runs, so with
- * animations off or unsupported it never covers anything.
- */
+/** Hidden by default and shown only while its animation runs, so it never covers the page without animations. */
 export function IntroCurtain({ monogram, wordmark }: IntroCurtainProps) {
   return (
     <div aria-hidden="true" className="intro-curtain">

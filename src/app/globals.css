@@ -1,11 +1,7 @@
 @import "tailwindcss";
 @config "../../tailwind.config.ts";
 
-/* ------------------------------------------------------------------
-   Design tokens — "a clean engineering notebook". Light is soft kraft
-   paper by day; dark (below) is the same notebook at night.
-   Every color, radius, shadow and easing used in the UI lives here.
-   ------------------------------------------------------------------ */
+/* Design tokens: light theme (kraft paper). Every UI color, radius, shadow and easing lives here. */
 :root {
   --paper: #e9e4d8;
   --paper-2: #ded8c9;
@@ -65,11 +61,7 @@
   color-scheme: light;
 }
 
-/* ------------------------------------------------------------------
-   Dark theme — the notebook at night: deep ink-blue paper, text in the
-   colour of the page, a lifted cobalt, and apricot (cobalt's complement)
-   carrying the live marks. Set on <html data-theme="dark"> before paint.
-   ------------------------------------------------------------------ */
+/* Dark theme, set on <html data-theme="dark"> before first paint. */
 :root[data-theme="dark"] {
   --paper: #0f1626;
   --paper-2: #141d31;
@@ -110,9 +102,7 @@
   color-scheme: dark;
 }
 
-/* ------------------------------------------------------------------
-   Base
-   ------------------------------------------------------------------ */
+/* Base */
 @layer base {
   html {
     overflow-x: clip;
@@ -133,8 +123,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Paper grain: an SVG noise tile over the viewport. A fixed layer is
-     one screen-sized texture; a document-tall one costs far more to raster. */
+  /* Paper grain. Kept fixed: a document-tall layer costs far more to raster. */
   body::before {
     content: "";
     position: fixed;
@@ -180,9 +169,7 @@
   }
 }
 
-/* ------------------------------------------------------------------
-   Type scale
-   ------------------------------------------------------------------ */
+/* Type scale */
 @layer components {
   .text-display {
     font-size: clamp(40px, 6vw, 84px);
@@ -239,7 +226,6 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* Page container */
   .container-page {
     width: 100%;
     max-width: calc(var(--container) + var(--gutter) * 2);
@@ -247,9 +233,7 @@
     padding-inline: var(--gutter);
   }
 
-  /* ----------------------------------------------------------------
-     Buttons
-     ---------------------------------------------------------------- */
+  /* Buttons */
   .btn {
     position: relative;
     isolation: isolate;
@@ -381,7 +365,6 @@
     transform: translate(-50%, 0);
   }
 
-  /* Card surface */
   .card {
     background: var(--surface);
     border: 1px solid var(--line);
@@ -460,14 +443,8 @@
   }
 }
 
-/* ------------------------------------------------------------------
-   Hero headline fit: the h1 is two lines in every language. When the
-   copy column is too narrow for a line at the display size, the size
-   follows the column instead (cqi), so the line never breaks in two.
-   The Spanish lines are about a sixth longer than the English ones.
-   The fit only applies while two lines stay at 32px or more; on a
-   narrower column the headline keeps its display size and wraps.
-   ------------------------------------------------------------------ */
+/* Hero h1 stays two lines: its size follows the column (cqi) while that keeps it at 32px or more.
+   Spanish lines run longer, hence the smaller fit. */
 @supports (width: 1cqi) {
   .hero-copy {
     container-type: inline-size;
@@ -484,9 +461,7 @@
   }
 }
 
-/* ------------------------------------------------------------------
-   Hero entrance (CSS only, runs once on load, resting state visible)
-   ------------------------------------------------------------------ */
+/* Hero entrance: CSS only, runs once on load. */
 @keyframes pulse-ring {
   0% { transform: scale(1); opacity: 0.55; }
   70%, 100% { transform: scale(2.6); opacity: 0; }
@@ -574,10 +549,7 @@
   from { opacity: 0; }
 }
 
-/* ------------------------------------------------------------------
-   Intro curtain: a cobalt cover sheet lifts off the page. Hidden by
-   default, visible only while its animation runs.
-   ------------------------------------------------------------------ */
+/* Intro curtain: hidden by default, visible only while its animation runs. */
 .intro-curtain {
   position: fixed;
   inset: 0;
@@ -619,9 +591,7 @@
   from { opacity: 0; transform: translateY(24px) scale(0.92); }
 }
 
-/* ------------------------------------------------------------------
-   Kinetic band, section numerals, footer wordmark (resting styles)
-   ------------------------------------------------------------------ */
+/* Kinetic band, section numerals, footer wordmark */
 .kinetic-band {
   overflow: clip;
   content-visibility: auto;
@@ -630,11 +600,8 @@
   padding-block: clamp(18px, 3vw, 34px);
   background: var(--ground, var(--paper));
 }
-/* Endless marquee: the item list is rendered twice, so sliding by half
-   the track lands exactly where it started. Spacing lives on each item
-   (not as a flex gap) to keep that seam invisible. The track grows with
-   the type size, so the loop time grows with it: the words travel at
-   roughly 60px a second on a phone and on a wide screen alike. */
+/* The list renders twice, so sliding half the track loops seamlessly (spacing stays on items, not gap).
+   Loop time grows with the type size to keep about 60px/s at every width. */
 .kinetic-track {
   --marquee-time: 70s;
   display: flex;
@@ -694,11 +661,8 @@
 .kinetic-word {
   color: var(--ink);
 }
-/* Outlined type (band words, section numerals). Geist is a variable font
-   whose letters are built from overlapping strokes; outlining them as is
-   draws every join (the arm of K, the bar of t) as a cut through the
-   letter. A doubled stroke painted under a fill in the paper it sits on
-   hides those joins and leaves one clean 1.5px outline. */
+/* Outlined type: Geist overlaps its strokes, so a plain outline draws the joins (K, t) as cuts.
+   A 3px stroke painted under a ground-colored fill hides them. */
 .kinetic-word-outline {
   color: var(--ground, var(--paper));
   -webkit-text-stroke: 3px var(--accent-600);
@@ -750,10 +714,7 @@
   display: none;
 }
 
-/* ------------------------------------------------------------------
-   Continuous scroll-linked effects: parallax, drift and progress. They
-   follow the scroll position directly, so their travel is kept short.
-   ------------------------------------------------------------------ */
+/* Scroll-linked parallax, drift and progress: travel kept short. */
 @supports (animation-timeline: view()) {
   .section-numeral {
     animation: sd-drift linear both;
@@ -826,12 +787,8 @@
   to { transform: scaleX(1); }
 }
 
-/* ------------------------------------------------------------------
-   Timed reveals. <RevealObserver /> parks off-screen blocks as "below" or
-   "above" (the side they will enter from) and flips them to "shown"; the
-   eased transitions below do the rest, smooth at any scroll speed. Without
-   JS nothing is ever parked, so everything stays visible.
-   ------------------------------------------------------------------ */
+/* Timed reveals: <RevealObserver /> parks off-screen blocks as "below"/"above" and flips them to "shown".
+   Without JS nothing is parked. */
 [data-reveal] {
   --dir: 1;
   transition:
@@ -976,9 +933,7 @@
 }
 
 
-/* ------------------------------------------------------------------
-   Interaction layer (driven by <PointerEffects /> and pure CSS)
-   ------------------------------------------------------------------ */
+/* Interaction layer (<PointerEffects /> and CSS) */
 
 /* Sections never widen the page on phones: decorative motion is clipped. */
 main > section {
@@ -1169,9 +1124,7 @@ svg[data-icon] {
 
 
 
-/* ------------------------------------------------------------------
-   Print: every block on paper, nothing mid-animation or floating.
-   ------------------------------------------------------------------ */
+/* Print: everything visible and static. */
 @media print {
   :root[data-theme="dark"] {
     --paper: #e9e4d8;
@@ -1227,10 +1180,7 @@ svg[data-icon] {
   }
 }
 
-/* ------------------------------------------------------------------
-   Motion switched off by the visitor (navbar pause button): everything
-   rests in its final state, the running bands stop.
-   ------------------------------------------------------------------ */
+/* Motion switched off from the navbar: every effect rests in its final state. */
 :root[data-motion-pref="off"] {
   scroll-behavior: auto;
 }
@@ -1290,10 +1240,7 @@ svg[data-icon] {
   background: var(--warm-400);
 }
 
-/* ------------------------------------------------------------------
-   Theme switch: sun and moon trade places, the new theme opens in a
-   circle from the button (View Transitions), never mid-print.
-   ------------------------------------------------------------------ */
+/* Theme switch: the new theme opens in a circle from the button (View Transitions). */
 .theme-icon {
   position: absolute;
   transition:
