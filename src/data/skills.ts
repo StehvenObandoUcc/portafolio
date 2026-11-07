@@ -15,19 +15,19 @@ export const skillGroups: SkillGroup[] = [
     id: "backend",
     icon: "server",
     title: { es: "Backend", en: "Backend" },
-    items: ["NestJS", "Node.js", "Flask", "Java"],
+    items: ["NestJS", "Node.js", "FastAPI", "Flask", "Java"],
   },
   {
     id: "desktop-mobile",
     icon: "devices",
     title: { es: "Escritorio y móvil", en: "Desktop & mobile" },
-    items: ["Tauri", "Rust", "Kotlin", "Jetpack Compose (Wear OS)"],
+    items: ["Tauri", "Rust", "Kotlin", "Jetpack Compose (Wear OS)", "React Native", "Expo"],
   },
   {
     id: "data",
     icon: "database",
     title: { es: "Datos", en: "Data" },
-    items: ["SQLite", "SQL"],
+    items: ["PostgreSQL", "Supabase", "SQLite", "SQL"],
   },
   {
     id: "cloud",

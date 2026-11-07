@@ -1,4 +1,4 @@
-import { TODO, type Testimonial } from "./types";
+import type { Testimonial } from "./types";
 
 /**
  * Only teachers, team leads or industry contacts, never family or classmates.
@@ -13,9 +13,8 @@ export const testimonials: Testimonial[] = [
       en: "La rapidéz con la que llegó a poner en producción el código y su portafolio es grandioso, sigue ese camino !!!",
     },
     name: "Juan Alvarez",
-    // TODO: his role and organisation (hidden until filled).
-    role: { es: TODO, en: TODO },
-    organization: TODO,
+    role: { es: "Líder técnico de software", en: "Software Technical Leader" },
+    organization: "Mercado Libre",
     linkedinUrl: "https://www.linkedin.com/in/juanalvarez123/",
     photo: {
       src: "/images/testimonial-juan.jpg",

@@ -59,7 +59,11 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCa
           width={project.cover.width}
           height={project.cover.height}
           sizes={featured ? "(min-width: 1200px) 760px, (min-width: 640px) 90vw, 100vw" : "(min-width: 1200px) 380px, (min-width: 640px) 45vw, 100vw"}
-          className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          className={cn(
+            "size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]",
+            // Screenshots keep their header in view; placeholder art stays centred.
+            !project.cover.src.endsWith(".svg") && "object-left-top",
+          )}
         />
         </div>
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">

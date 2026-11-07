@@ -2,24 +2,24 @@ import { TODO, type Course, type Degree, type ExperienceItem } from "./types";
 
 /**
  * Technical work: the apps in projects.ts count as technical experience.
- * TODO: confirm each role and period.
+ * Periods follow each repository's activity on GitHub. TODO: role and period for GeoFen, serverless and load sizing.
  */
 export const technicalExperience: ExperienceItem[] = [
   {
     id: "pulso",
     projectId: "pulso",
-    role: { es: TODO, en: TODO },
+    role: { es: "Diseño y desarrollo completo", en: "Design and full development" },
     organization: { es: "Pulso · app de escritorio", en: "Pulso · desktop app" },
-    period: { es: TODO, en: TODO },
-    stack: ["Tauri", "React", "TypeScript", "Rust", "SQLite"],
+    period: { es: "oct 2026 — hoy", en: "Oct 2026 — now" },
+    stack: ["Tauri", "Rust", "React", "TypeScript", "Supabase"],
     outcomes: {
       es: [
-        "Registro de tiempo, tareas y uso de IA con reportes generados por IA.",
-        "Interfaz bilingüe ES/EN con API key propia y plan gratuito.",
+        "Publiqué instaladores para Windows, macOS y Linux (versión 0.1.3).",
+        "Los reportes con IA solo citan cifras calculadas en SQL, y los permisos por rol viven en políticas RLS de Postgres.",
       ],
       en: [
-        "Time, task and AI-usage tracking with AI-generated reports.",
-        "Bilingual ES/EN interface with bring-your-own API key and a free tier.",
+        "Shipped installers for Windows, macOS and Linux (version 0.1.3).",
+        "AI reports only quote figures computed in SQL, and role permissions live in Postgres RLS policies.",
       ],
     },
   },
@@ -30,18 +30,54 @@ export const technicalExperience: ExperienceItem[] = [
       es: "Backend e interfaz del reloj (equipo)",
       en: "Backend and watch UI (team)",
     },
-    organization: { es: "App para Wear OS", en: "Wear OS app" },
-    period: { es: TODO, en: TODO },
-    stack: ["Kotlin", "Jetpack Compose (Wear OS)", "Heroku"],
+    organization: { es: "Recuerda · Wear OS y panel web", en: "Recuerda · Wear OS and web dashboard" },
+    period: { es: "sep 2026 — nov 2026", en: "Sep 2026 — Nov 2026" },
+    stack: ["Kotlin", "Jetpack Compose (Wear OS)", "FastAPI", "PostgreSQL", "Heroku"],
     outcomes: {
       es: [
         "Configuré el entorno de backend y construí la API y el worker desplegados en Heroku.",
-        "Construí la interfaz del reloj, probada en un Galaxy Watch.",
+        "Construí la interfaz del reloj, probada en un Galaxy Watch4.",
       ],
       en: [
         "Set up the backend environment and built the API and worker deployed on Heroku.",
-        "Built the watch UI, tested on a Galaxy Watch.",
+        "Built the watch UI, tested on a Galaxy Watch4.",
       ],
+    },
+  },
+  {
+    id: "food-ai",
+    projectId: "mobile-app",
+    role: { es: TODO, en: TODO },
+    organization: { es: "Food AI · app móvil", en: "Food AI · mobile app" },
+    period: { es: "sep 2026 — oct 2026", en: "Sep 2026 — Oct 2026" },
+    stack: ["React Native", "Expo", "FastAPI", "Supabase"],
+    outcomes: {
+      es: ["App que reconoce alimentos desde una foto con un modelo de visión y sugiere recetas, con su API desplegada en Heroku."],
+      en: ["App that recognises food from a photo with a vision model and suggests recipes, with its API deployed on Heroku."],
+    },
+  },
+  {
+    id: "veltro",
+    projectId: "veltro",
+    role: { es: "Frontend (equipo de tres)", en: "Frontend (team of three)" },
+    organization: { es: "Veltro ERP & POS", en: "Veltro ERP & POS" },
+    period: { es: "mar 2026 — may 2026", en: "Mar 2026 — May 2026" },
+    stack: ["React", "TypeScript", "React Query", "Zustand"],
+    outcomes: {
+      es: ["Interfaz de ERP y punto de venta con módulos y permisos por rol (administrador, bodega y caja)."],
+      en: ["ERP and point-of-sale interface with modules and role-based access (admin, warehouse and cashier)."],
+    },
+  },
+  {
+    id: "huellas",
+    projectId: "huellas",
+    role: { es: TODO, en: TODO },
+    organization: { es: "Huellas de la guerra · documental web", en: "Huellas de la guerra · web documentary" },
+    period: { es: "oct 2026", en: "Oct 2026" },
+    stack: ["GSAP", "Vercel"],
+    outcomes: {
+      es: ["Sitio de narrativa por scroll en español e inglés, publicado en Vercel."],
+      en: ["Scroll-driven storytelling site in Spanish and English, published on Vercel."],
     },
   },
   {

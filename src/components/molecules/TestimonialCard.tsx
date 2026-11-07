@@ -61,12 +61,12 @@ export function TestimonialCard({ testimonial, linkedinLabel, comingSoonLabel, c
   }
 
   return (
-    <figure data-tilt className={cn("card card-interactive flex h-full flex-col gap-4 p-6 sm:p-7", className)}>
+    <figure data-tilt className={cn("card card-interactive flex h-full flex-col gap-4 p-6 sm:p-7 md:row-span-3 md:grid md:grid-rows-subgrid md:gap-y-4", className)}>
       {quoteMark}
       <blockquote className="flex-1">
         <p className="text-[17px] leading-relaxed text-pretty text-ink">{testimonial.quote}</p>
       </blockquote>
-      <figcaption className="flex items-center gap-3 border-t border-line pt-5">
+      <figcaption className="flex items-start gap-3 border-t border-line pt-5">
         {testimonial.photo ? (
           <Image
             src={testimonial.photo.src}
