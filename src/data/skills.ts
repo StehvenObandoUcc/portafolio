@@ -21,7 +21,7 @@ export const skillGroups: SkillGroup[] = [
     id: "desktop-mobile",
     icon: "devices",
     title: { es: "Escritorio y móvil", en: "Desktop & mobile" },
-    items: ["Tauri", "Rust", "Kotlin", "Jetpack Compose (Wear OS)", "React Native", "Expo"],
+    items: ["Tauri", "Rust", "Kotlin", "Jetpack Compose (Wear OS)", "React Native", "Expo", "Godot"],
   },
   {
     id: "data",

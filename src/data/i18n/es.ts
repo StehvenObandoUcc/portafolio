@@ -61,8 +61,7 @@ export const es = {
   about: {
     index: "01",
     title: { before: "Sobre ", emphasis: "mí", after: "" },
-    // TODO: 2–3 sentences about life outside tech (hobbies, sports, art, interests).
-    paragraph: "TODO",
+    paragraph: "Fuera del código modelo y renderizo escenas en Blender, leo clásicos como Frankenstein y juego videojuegos de construcción como Minecraft.",
   },
   projects: {
     index: "02",

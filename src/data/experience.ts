@@ -2,7 +2,7 @@ import { TODO, type Course, type Degree, type ExperienceItem } from "./types";
 
 /**
  * Technical work: the apps in projects.ts count as technical experience.
- * Periods follow each repository's activity on GitHub. TODO: role and period for GeoFen, serverless and load sizing.
+ * Periods follow each repository's activity on GitHub. TODO: role and period for GeoFen and load sizing.
  */
 export const technicalExperience: ExperienceItem[] = [
   {
@@ -69,6 +69,21 @@ export const technicalExperience: ExperienceItem[] = [
     },
   },
   {
+    id: "video-game",
+    projectId: "video-game",
+    role: { es: TODO, en: TODO },
+    organization: {
+      es: "Descending to my Heaven · videojuego en equipo",
+      en: "Descending to my Heaven · team video game",
+    },
+    period: { es: "oct 2026", en: "Oct 2026" },
+    stack: ["Godot", "GDScript"],
+    outcomes: {
+      es: ["Boss rush 3D con tres jefes de IA táctica, publicado como ejecutable para Windows (v1.0.0-rc1)."],
+      en: ["3D boss rush with three tactical-AI bosses, released as a Windows executable (v1.0.0-rc1)."],
+    },
+  },
+  {
     id: "huellas",
     projectId: "huellas",
     role: { es: TODO, en: TODO },
@@ -90,18 +105,6 @@ export const technicalExperience: ExperienceItem[] = [
     outcomes: {
       es: ["API REST que encuentra tiendas cercanas con tus productos y compara precios."],
       en: ["REST API that finds nearby stores carrying your products and compares prices."],
-    },
-  },
-  {
-    id: "serverless-images",
-    projectId: "serverless-images",
-    role: { es: TODO, en: TODO },
-    organization: { es: "Procesamiento de imágenes serverless", en: "Serverless image processing" },
-    period: { es: TODO, en: TODO },
-    stack: ["AWS S3", "AWS Lambda", "IAM", "Node.js"],
-    outcomes: {
-      es: ["Pipeline de imágenes entre buckets de S3 con roles IAM de mínimo privilegio."],
-      en: ["Image pipeline between S3 buckets with least-privilege IAM roles."],
     },
   },
   {
