@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { notFound } from "next/navigation";
+import { PreferenceSync } from "@/components/atoms/PreferenceSync";
 import { site } from "@/data/site";
 import { getDictionary, hasLocale, locales } from "@/lib/i18n";
 import { motionBootScript } from "@/lib/motionPreference";
@@ -85,7 +86,10 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootScript + motionBootScript }} />
       </head>
-      <body>{children}</body>
+      <body>
+        <PreferenceSync />
+        {children}
+      </body>
     </html>
   );
 }
