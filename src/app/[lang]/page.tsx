@@ -98,9 +98,9 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
           id: t.id,
           quote: t.quote[lang],
           name: t.name,
-          role: t.role[lang],
-          organization: t.organization,
-          linkedinUrl: t.linkedinUrl,
+          role: known(t.role[lang]),
+          organization: known(t.organization),
+          linkedinUrl: known(t.linkedinUrl),
           photo: t.photo ? { src: t.photo.src, alt: t.photo.alt[lang] } : undefined,
         },
   );

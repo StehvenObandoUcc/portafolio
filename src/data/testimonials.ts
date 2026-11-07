@@ -11,11 +11,16 @@ import { TODO, type Testimonial } from "./types";
 export const testimonials: Testimonial[] = [
   {
     id: "testimonial-1",
-    quote: { es: TODO, en: TODO },
-    name: TODO,
+    // Quoted verbatim, as he wrote it; shown in its original Spanish on /en too.
+    quote: {
+      es: "La rapidéz con la que llegó a poner en producción el código y su portafolio es grandioso, sigue ese camino !!!",
+      en: "La rapidéz con la que llegó a poner en producción el código y su portafolio es grandioso, sigue ese camino !!!",
+    },
+    name: "Juan Alvarez",
+    // TODO: his role and organisation (hidden until filled).
     role: { es: TODO, en: TODO },
     organization: TODO,
-    linkedinUrl: TODO,
+    linkedinUrl: "https://www.linkedin.com/in/juanalvarez123/",
   },
   {
     id: "testimonial-2",

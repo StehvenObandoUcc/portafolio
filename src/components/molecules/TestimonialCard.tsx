@@ -8,8 +8,9 @@ export type TestimonialCardData =
       id: string;
       quote: string;
       name: string;
-      role: string;
-      organization: string;
+      /** Left out while still "TODO". */
+      role?: string;
+      organization?: string;
       linkedinUrl?: string;
       photo?: { src: string; alt: string };
     }
@@ -84,9 +85,11 @@ export function TestimonialCard({ testimonial, linkedinLabel, comingSoonLabel, c
         )}
         <span className="min-w-0 flex-1">
           <span className="block font-semibold text-ink">{testimonial.name}</span>
-          <span className="block text-[14px] text-ink-soft">
-            {testimonial.role} · {testimonial.organization}
-          </span>
+          {(testimonial.role || testimonial.organization) && (
+            <span className="block text-[14px] text-ink-soft">
+              {[testimonial.role, testimonial.organization].filter(Boolean).join(" · ")}
+            </span>
+          )}
         </span>
         {testimonial.linkedinUrl && (
           <IconLink
