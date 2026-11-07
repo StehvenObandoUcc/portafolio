@@ -37,12 +37,12 @@ export const testimonials: Testimonial[] = [
   },
   {
     id: "testimonial-3",
-    // Drafted for and approved by him. TODO: his full name (the card stays pending until it is set).
+    // Drafted for and approved by him.
     quote: {
       es: "Stehven entiende el porqué de la arquitectura, no solo el cómo: en el dimensionamiento de carga de la API midió y justificó cada decisión con datos.",
       en: "Stehven understands the why of architecture, not just the how: when sizing the API's workload he measured and backed every decision with data.",
     },
-    name: TODO,
+    name: "Javier Alexander Mendieta Ortega",
     role: { es: "Docente de Arquitectura de Software y Computacional", en: "Lecturer, Software and Computer Architecture" },
     organization: "Universidad Cooperativa de Colombia",
     linkedinUrl: "https://www.linkedin.com/in/jamodev/",
