@@ -19,9 +19,8 @@ export const site = {
   email: "stehven.obando@campusucc.edu.co",
   github: "https://github.com/StehvenObandoUcc",
   githubHandle: "@StehvenObandoUcc",
-  /** TODO: LinkedIn profile URL. */
-  linkedin: TODO as string,
-  linkedinHandle: TODO as string,
+  linkedin: "https://www.linkedin.com/in/stehven-obando-399760407/" as string,
+  linkedinHandle: "Stehven Obando" as string,
   /** TODO: public Google Drive link to the CV (PDF). */
   cvUrl: TODO as string,
   location: "Pasto, Nariño, Colombia",
