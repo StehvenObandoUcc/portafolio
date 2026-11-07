@@ -14,7 +14,8 @@ import { useScrolled } from "@/hooks/useScrolled";
 import { cn } from "@/lib/cn";
 import dynamic from "next/dynamic";
 
-// The full-screen sheet only exists below 900px: its code loads on first open.
+// The full-screen sheet only exists below 900px: its code loads once the
+// page is idle on a phone (or on the first open, whichever comes first).
 const MobileMenu = dynamic(() => import("./MobileMenu").then((mod) => mod.MobileMenu), { ssr: false });
 
 export interface NavItem {
@@ -48,6 +49,8 @@ export interface NavbarProps {
 }
 
 const MENU_ID = "mobile-menu";
+/** Widths where the links live in the full-screen sheet instead of the bar. */
+const MOBILE_QUERY = "(max-width: 899px)";
 
 export function Navbar(props: NavbarProps) {
   const { items, labels } = props;
@@ -80,6 +83,18 @@ export function Navbar(props: NavbarProps) {
     window.addEventListener("resize", place);
     return () => window.removeEventListener("resize", place);
   }, [active]);
+
+  // The sheet's code stays out of the first load, but on a phone it is
+  // fetched and mounted (closed) once the page is idle, so the first tap
+  // opens it at once instead of half a second later.
+  useEffect(() => {
+    if (!window.matchMedia(MOBILE_QUERY).matches) return;
+    const warm = () => setMenuLoaded(true);
+    // Safari has no requestIdleCallback: a short timeout stands in for it.
+    const idle = typeof window.requestIdleCallback === "function";
+    const id = idle ? window.requestIdleCallback(warm, { timeout: 4000 }) : window.setTimeout(warm, 2500);
+    return () => (idle ? window.cancelIdleCallback(id) : window.clearTimeout(id));
+  }, []);
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
