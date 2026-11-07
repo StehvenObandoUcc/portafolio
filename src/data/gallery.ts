@@ -14,7 +14,7 @@ export const gallery: GalleryImage[] = [
         en: "Engraving from the 1831 edition of Mary Shelley's Frankenstein",
       },
     },
-    caption: { es: "Lectura · Frankenstein", en: "Reading · Frankenstein" },
+    caption: { es: "Libro · Frankenstein", en: "Book · Frankenstein" },
   },
   {
     id: "blender-1",
@@ -42,7 +42,7 @@ export const gallery: GalleryImage[] = [
         en: "Illustration of a block island with a tree",
       },
     },
-    caption: { es: "Videojuegos de construcción", en: "Building games" },
+    caption: { es: "Videojuegos · Stardew Valley", en: "Games · Stardew Valley" },
   },
   {
     id: "blender-2",

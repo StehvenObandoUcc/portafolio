@@ -36,6 +36,8 @@ interface ProjectCardProps {
 export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCardProps) {
   const { featured } = project;
   const titleId = `project-${project.id}-title`;
+  // Real screenshots are shown whole; placeholder art fills the frame with parallax.
+  const screenshot = !project.cover.src.endsWith(".svg");
 
   return (
     <article
@@ -52,7 +54,7 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCa
           featured && "md:aspect-auto md:min-h-full md:border-r md:border-b-0",
         )}
       >
-        <div className="parallax-frame absolute inset-x-0 -top-[8%] -bottom-[8%]">
+        <div className={screenshot ? "absolute inset-0" : "parallax-frame absolute inset-x-0 -top-[8%] -bottom-[8%]"}>
         <Image
           src={project.cover.src}
           alt={project.cover.alt}
@@ -60,9 +62,9 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCa
           height={project.cover.height}
           sizes={featured ? "(min-width: 1200px) 760px, (min-width: 640px) 90vw, 100vw" : "(min-width: 1200px) 380px, (min-width: 640px) 45vw, 100vw"}
           className={cn(
-            "size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]",
-            // Screenshots keep their header in view; placeholder art stays centred.
-            !project.cover.src.endsWith(".svg") && "object-left-top",
+            "size-full transition-transform duration-700 ease-out group-hover:scale-[1.03]",
+            screenshot ? "object-contain" : "object-cover",
+            screenshot && featured && "md:p-6",
           )}
         />
         </div>

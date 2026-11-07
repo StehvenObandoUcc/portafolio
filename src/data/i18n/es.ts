@@ -61,7 +61,7 @@ export const es = {
   about: {
     index: "01",
     title: { before: "Sobre ", emphasis: "mí", after: "" },
-    paragraph: "Fuera del código modelo y renderizo escenas en Blender, leo clásicos como Frankenstein y juego videojuegos de construcción como Minecraft.",
+    paragraph: "Fuera del código modelo y renderizo escenas en Blender, leo clásicos como Frankenstein y juego videojuegos como Stardew Valley y Minecraft.",
   },
   projects: {
     index: "02",

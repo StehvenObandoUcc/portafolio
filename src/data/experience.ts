@@ -2,7 +2,7 @@ import { TODO, type Course, type Degree, type ExperienceItem } from "./types";
 
 /**
  * Technical work: the apps in projects.ts count as technical experience.
- * Periods follow each repository's activity on GitHub. TODO: role and period for GeoFen and load sizing.
+ * Periods follow each repository's activity on GitHub.
  */
 export const technicalExperience: ExperienceItem[] = [
   {
@@ -93,33 +93,6 @@ export const technicalExperience: ExperienceItem[] = [
     outcomes: {
       es: ["Sitio de narrativa por scroll en español e inglés, publicado en Vercel."],
       en: ["Scroll-driven storytelling site in Spanish and English, published on Vercel."],
-    },
-  },
-  {
-    id: "geofen",
-    projectId: "geofen",
-    role: { es: TODO, en: TODO },
-    organization: { es: "GeoFen API", en: "GeoFen API" },
-    period: { es: TODO, en: TODO },
-    stack: ["NestJS", "TypeScript"],
-    outcomes: {
-      es: ["API REST que encuentra tiendas cercanas con tus productos y compara precios."],
-      en: ["REST API that finds nearby stores carrying your products and compares prices."],
-    },
-  },
-  {
-    id: "load-sizing",
-    projectId: "load-sizing",
-    role: { es: TODO, en: TODO },
-    organization: {
-      es: "Arquitectura de Computadores · en pareja",
-      en: "Computer Architecture · pair work",
-    },
-    period: { es: TODO, en: TODO },
-    stack: ["Flask", "SQLite", "Docker"],
-    outcomes: {
-      es: ["Dimensionamos una carga de trabajo real para una API REST en Flask + SQLite sobre Docker."],
-      en: ["Sized a real workload for a Flask + SQLite REST API running in Docker."],
     },
   },
 ];

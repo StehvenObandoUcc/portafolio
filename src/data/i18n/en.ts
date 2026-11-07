@@ -55,7 +55,7 @@ export const en: Dictionary = {
   about: {
     index: "01",
     title: { before: "About ", emphasis: "me", after: "" },
-    paragraph: "Away from code I model and render scenes in Blender, read classics like Frankenstein and play building games like Minecraft.",
+    paragraph: "Away from code I model and render scenes in Blender, read classics like Frankenstein and play games like Stardew Valley and Minecraft.",
   },
   projects: {
     index: "02",
