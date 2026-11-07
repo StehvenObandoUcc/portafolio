@@ -27,6 +27,12 @@ export const en: Dictionary = {
     motionPlay: "Turn animations on",
     themeDark: "Switch to dark mode",
     themeLight: "Switch to light mode",
+    galleryOpen: "See screenshots of {title}",
+    galleryCount: "{n} screenshots",
+    galleryClose: "Close gallery",
+    galleryPrev: "Previous screenshot",
+    galleryNext: "Next screenshot",
+    galleryPosition: "{n} of {total}",
   },
   nav: {
     home: "Home",

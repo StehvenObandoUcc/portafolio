@@ -59,7 +59,7 @@ export const technicalExperience: ExperienceItem[] = [
   {
     id: "veltro",
     projectId: "veltro",
-    role: { es: "Frontend (equipo de tres)", en: "Frontend (team of three)" },
+    role: { es: "Frontend, con David Alejandro Aza Jojoa y Paula Sofía Gonzales Zambrano", en: "Frontend, with David Alejandro Aza Jojoa and Paula Sofía Gonzales Zambrano" },
     organization: { es: "Veltro ERP & POS", en: "Veltro ERP & POS" },
     period: { es: "mar 2026 — may 2026", en: "Mar 2026 — May 2026" },
     stack: ["React", "TypeScript", "React Query", "Zustand"],
@@ -73,8 +73,8 @@ export const technicalExperience: ExperienceItem[] = [
     projectId: "video-game",
     role: { es: TODO, en: TODO },
     organization: {
-      es: "Descending to my Heaven · videojuego en equipo",
-      en: "Descending to my Heaven · team video game",
+      es: "Descending to my Heaven · videojuego en equipo (en desarrollo)",
+      en: "Descending to my Heaven · team video game (in progress)",
     },
     period: { es: "oct 2026", en: "Oct 2026" },
     stack: ["Godot", "GDScript"],

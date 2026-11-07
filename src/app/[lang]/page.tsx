@@ -78,6 +78,15 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
     featured: Boolean(project.featured),
     featuredLabel: dict.projects.featured,
     cover: { ...project.cover, alt: project.cover.alt[lang] },
+    shots: [project.cover, ...(project.gallery ?? [])].map((shot) => ({ ...shot, alt: shot.alt[lang] })),
+    galleryLabels: {
+      open: format(dict.a11y.galleryOpen, { title: project.title[lang] }),
+      count: format(dict.a11y.galleryCount, { n: 1 + (project.gallery?.length ?? 0) }),
+      close: dict.a11y.galleryClose,
+      prev: dict.a11y.galleryPrev,
+      next: dict.a11y.galleryNext,
+      position: dict.a11y.galleryPosition,
+    },
     codeLabel: dict.projects.code,
     githubUrl: project.githubUrl,
     demoLabel:

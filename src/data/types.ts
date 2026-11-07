@@ -44,6 +44,8 @@ export interface Project {
   context?: Localized;
   featured?: boolean;
   cover: ImageAsset;
+  /** Extra screenshots shown in the project gallery, after the cover. */
+  gallery?: ImageAsset[];
   /** GitHub URL or "TODO". */
   githubUrl: string;
   demo: { kind: DemoKind; url: string };

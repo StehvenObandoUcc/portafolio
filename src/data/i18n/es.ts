@@ -32,6 +32,12 @@ export const es = {
     motionPlay: "Activar animaciones",
     themeDark: "Activar modo oscuro",
     themeLight: "Activar modo claro",
+    galleryOpen: "Ver capturas de {title}",
+    galleryCount: "{n} capturas",
+    galleryClose: "Cerrar galería",
+    galleryPrev: "Captura anterior",
+    galleryNext: "Captura siguiente",
+    galleryPosition: "{n} de {total}",
   },
   nav: {
     home: "Inicio",
