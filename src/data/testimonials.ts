@@ -22,6 +22,12 @@ export const testimonials: Testimonial[] = [
     role: { es: TODO, en: TODO },
     organization: TODO,
     linkedinUrl: "https://www.linkedin.com/in/juanalvarez123/",
+    photo: {
+      src: "/images/testimonial-juan.jpg",
+      width: 400,
+      height: 400,
+      alt: { es: "Foto de Juan Alvarez", en: "Photo of Juan Alvarez" },
+    },
   },
   {
     id: "testimonial-2",
@@ -34,6 +40,12 @@ export const testimonials: Testimonial[] = [
     role: { es: "Docente, electiva de NestJS", en: "Lecturer, NestJS elective" },
     organization: "Universidad Cooperativa de Colombia",
     linkedinUrl: "https://www.linkedin.com/in/ivonnebarco/",
+    photo: {
+      src: "/images/testimonial-ivonne.jpg",
+      width: 400,
+      height: 400,
+      alt: { es: "Foto de Ivonne Barco", en: "Photo of Ivonne Barco" },
+    },
   },
   {
     id: "testimonial-3",
@@ -46,5 +58,11 @@ export const testimonials: Testimonial[] = [
     role: { es: "Docente de Arquitectura de Software y Computacional", en: "Lecturer, Software and Computer Architecture" },
     organization: "Universidad Cooperativa de Colombia",
     linkedinUrl: "https://www.linkedin.com/in/jamodev/",
+    photo: {
+      src: "/images/testimonial-javier.jpg",
+      width: 400,
+      height: 400,
+      alt: { es: "Foto de Javier Alexander Mendieta Ortega", en: "Photo of Javier Alexander Mendieta Ortega" },
+    },
   },
 ];

@@ -31,14 +31,11 @@ export const site = {
     /** International format without "+", e.g. "57300...". */
     number: TODO as string,
   },
-  /**
-   * Hero photo. TODO: add /public/images/profile.webp (4:5, ≤ 180 KB)
-   * and change src to "/images/profile.webp".
-   */
+  /** Hero photo, shown in a 4:5 frame (cropped to fit). A larger original (800×1000) would look sharper. */
   profilePhoto: {
-    src: "/images/profile.svg",
-    width: 800,
-    height: 1000,
+    src: "/images/profile.jpg",
+    width: 400,
+    height: 400,
     alt: {
       es: "Retrato de Stehven Obando Córdoba",
       en: "Portrait of Stehven Obando Córdoba",
