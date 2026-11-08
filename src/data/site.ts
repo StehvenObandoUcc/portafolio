@@ -21,8 +21,8 @@ export const site = {
   githubHandle: "@StehvenObandoUcc",
   linkedin: "https://www.linkedin.com/in/stehven-obando-399760407/" as string,
   linkedinHandle: "Stehven Obando" as string,
-  /** TODO: public Google Drive link to the CV (PDF). */
-  cvUrl: TODO as string,
+  /** CV PDFs, built from the same data as the site. */
+  cvUrl: { es: "/cv/stehven-obando-cv-es.pdf", en: "/cv/stehven-obando-cv-en.pdf" },
   location: "Pasto, Nariño, Colombia",
   locationShort: "Pasto, Nariño · CO",
   whatsapp: {

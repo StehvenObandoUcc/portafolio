@@ -1,13 +1,12 @@
 import { TODO, type ImageAsset, type Project } from "./types";
 
-/** Covers: real screenshots where the repo has them; the rest are 16:10 placeholders (TODO: real screenshots). */
+/** Covers and gallery shots are real screenshots from each repository. */
 const cover = (file: string, width: number, height: number, es: string, en: string): ImageAsset => ({
   src: `/images/${file}`,
   width,
   height,
   alt: { es, en },
 });
-const placeholder = (id: string, es: string, en: string) => cover(`project-${id}.svg`, 1600, 1000, es, en);
 
 export const projects: Project[] = [
   {
@@ -120,7 +119,8 @@ export const projects: Project[] = [
     role: { es: TODO, en: TODO },
     collaboration: TODO,
     cover: cover("project-huellas.jpg", 1440, 900, "Portada de Huellas de la guerra", "Huellas de la guerra cover page"),
-    githubUrl: "https://github.com/StehvenObandoUcc/huellas-de-la-guerra",
+    // Private repository: shows "coming soon" until it is public.
+    githubUrl: TODO,
     demo: { kind: "demo", url: "https://huellas-de-la-guerra.vercel.app" },
   },
   {
@@ -144,7 +144,8 @@ export const projects: Project[] = [
       cover("projects/game/juego3.jpg", 875, 495, "Captura del juego", "Gameplay screenshot"),
       cover("projects/game/juego4.jpg", 879, 446, "Captura del juego", "Gameplay screenshot"),
     ],
-    githubUrl: "https://github.com/SoFzzz/Descending-to-my-Heaven",
-    demo: { kind: "exe", url: "https://github.com/SoFzzz/Descending-to-my-Heaven/releases/tag/v1.0.0-rc1" },
+    // Private repository (SoFzzz/Descending-to-my-Heaven): links stay off until it is public.
+    githubUrl: TODO,
+    demo: { kind: "exe", url: TODO },
   },
 ];

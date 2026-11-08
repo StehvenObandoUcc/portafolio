@@ -144,7 +144,7 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
       wordmark: site.shortName,
       homeLabel: dict.a11y.homeLink,
       cvLabel: dict.nav.cv,
-      cvUrl: site.cvUrl,
+      cvUrl: site.cvUrl[lang],
       languages: [
         { locale: "es", label: "ES", name: "Español" },
         { locale: "en", label: "EN", name: "English" },
@@ -177,7 +177,7 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
       titleLine2: dict.hero.titleLine2,
       lede: dict.hero.lede,
       primaryCta: { label: dict.hero.primaryCta, href: "#projects" },
-      secondaryCta: { label: dict.hero.secondaryCta, href: site.cvUrl },
+      secondaryCta: { label: dict.hero.secondaryCta, href: site.cvUrl[lang] },
       photo: { ...site.profilePhoto, alt: site.profilePhoto.alt[lang] },
       photoTag: site.locationShort,
       stats: dict.hero.stats,
