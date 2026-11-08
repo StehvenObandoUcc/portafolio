@@ -26,6 +26,8 @@ export interface ProjectCardData {
   galleryLabels: ProjectGalleryLabels;
   codeLabel: string;
   githubUrl: string;
+  /** Set when the repository is private; replaces "coming soon" on its links. */
+  privateLabel?: string;
   demoLabel: string;
   demoIcon: IconName;
   demoUrl: string;
@@ -152,7 +154,7 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCa
             size="sm"
             icon="github"
             iconPosition="start"
-            comingSoonLabel={comingSoonLabel}
+            comingSoonLabel={project.privateLabel ?? comingSoonLabel}
             newTabLabel={newTabLabel}
           >
             {project.codeLabel}
@@ -164,7 +166,7 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCa
             size="sm"
             icon={project.demoIcon}
             iconPosition="start"
-            comingSoonLabel={comingSoonLabel}
+            comingSoonLabel={project.privateLabel ?? comingSoonLabel}
             newTabLabel={newTabLabel}
           >
             {project.demoLabel}

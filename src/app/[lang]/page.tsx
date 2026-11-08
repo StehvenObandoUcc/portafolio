@@ -87,7 +87,8 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
       next: dict.a11y.galleryNext,
       position: dict.a11y.galleryPosition,
     },
-    codeLabel: dict.projects.code,
+    codeLabel: project.privateRepo ? dict.a11y.privateRepo : dict.projects.code,
+    privateLabel: project.privateRepo ? dict.a11y.privateRepo : undefined,
     githubUrl: project.githubUrl,
     demoLabel:
       project.demo.kind === "exe"

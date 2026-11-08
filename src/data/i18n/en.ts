@@ -16,6 +16,7 @@ export const en: Dictionary = {
     closeMenu: "Close menu",
     languageSwitch: "Change language",
     comingSoon: "Coming soon",
+    privateRepo: "Private repository",
     opensInNewTab: "(opens in a new tab)",
     backToTop: "Back to top",
     copyEmail: "Copy email",

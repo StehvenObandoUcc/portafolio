@@ -68,7 +68,7 @@ export function Button(props: ButtonProps) {
         data-tooltip={comingSoonLabel}
       >
         <Content {...props} />
-        <span className="sr-only">({comingSoonLabel})</span>
+        {props.children !== comingSoonLabel && <span className="sr-only">({comingSoonLabel})</span>}
       </button>
     );
   }

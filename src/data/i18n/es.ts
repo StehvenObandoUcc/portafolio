@@ -21,6 +21,7 @@ export const es = {
     closeMenu: "Cerrar menú",
     languageSwitch: "Cambiar idioma",
     comingSoon: "Próximamente",
+    privateRepo: "Repositorio privado",
     opensInNewTab: "(se abre en una pestaña nueva)",
     backToTop: "Volver arriba",
     copyEmail: "Copiar correo",

@@ -48,6 +48,8 @@ export interface Project {
   gallery?: ImageAsset[];
   /** GitHub URL or "TODO". */
   githubUrl: string;
+  /** The repository is private: its links say so instead of "coming soon". */
+  privateRepo?: boolean;
   demo: { kind: DemoKind; url: string };
 }
 

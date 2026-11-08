@@ -119,8 +119,8 @@ export const projects: Project[] = [
     role: { es: TODO, en: TODO },
     collaboration: TODO,
     cover: cover("project-huellas.jpg", 1440, 900, "Portada de Huellas de la guerra", "Huellas de la guerra cover page"),
-    // Private repository: shows "coming soon" until it is public.
     githubUrl: TODO,
+    privateRepo: true,
     demo: { kind: "demo", url: "https://huellas-de-la-guerra.vercel.app" },
   },
   {
@@ -144,8 +144,9 @@ export const projects: Project[] = [
       cover("projects/game/juego3.jpg", 875, 495, "Captura del juego", "Gameplay screenshot"),
       cover("projects/game/juego4.jpg", 879, 446, "Captura del juego", "Gameplay screenshot"),
     ],
-    // Private repository (SoFzzz/Descending-to-my-Heaven): links stay off until it is public.
+    // SoFzzz/Descending-to-my-Heaven; the download lives in the same repository.
     githubUrl: TODO,
+    privateRepo: true,
     demo: { kind: "exe", url: TODO },
   },
 ];
