@@ -14,7 +14,8 @@ export interface GalleryShot {
 
 export interface ProjectGalleryLabels {
   open: string;
-  count: string;
+  /** Badge on the cover; left out when the cover needs none. */
+  count?: string;
   close: string;
   prev: string;
   next: string;
@@ -28,10 +29,12 @@ interface ProjectGalleryProps {
   labels: ProjectGalleryLabels;
   /** The cover, rendered on the server; it becomes the button that opens the gallery. */
   children: ReactNode;
+  /** Shot shown first when the gallery opens. */
+  startIndex?: number;
 }
 
 /** The project cover opens a modal gallery of full, uncropped screenshots. */
-export function ProjectGallery({ title, shots, labels, children }: ProjectGalleryProps) {
+export function ProjectGallery({ title, shots, labels, children, startIndex = 0 }: ProjectGalleryProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [index, setIndex] = useState(0);
   const total = shots.length;
@@ -40,7 +43,7 @@ export function ProjectGallery({ title, shots, labels, children }: ProjectGaller
   const go = useCallback((step: number) => setIndex((i) => (i + step + total) % total), [total]);
 
   const open = () => {
-    setIndex(0);
+    setIndex(startIndex);
     dialogRef.current?.showModal();
     document.body.dataset.scrollLocked = "";
   };
@@ -72,10 +75,12 @@ export function ProjectGallery({ title, shots, labels, children }: ProjectGaller
         className="group/cover absolute inset-0 block size-full cursor-zoom-in text-left"
       >
         {children}
-        <span className="text-label absolute right-3 bottom-3 inline-flex items-center gap-1.5 rounded-pill border border-line bg-surface px-2.5 py-1 text-ink shadow-card transition-transform duration-300 ease-out group-hover/cover:-translate-y-0.5">
-          <Icon name="layout" size={14} className="text-accent-600" />
-          {labels.count}
-        </span>
+        {labels.count && (
+          <span className="text-label absolute right-3 bottom-3 inline-flex items-center gap-1.5 rounded-pill border border-line bg-surface px-2.5 py-1 text-ink shadow-card transition-transform duration-300 ease-out group-hover/cover:-translate-y-0.5">
+            <Icon name="layout" size={14} className="text-accent-600" />
+            {labels.count}
+          </span>
+        )}
       </button>
 
       <dialog

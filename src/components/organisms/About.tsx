@@ -17,7 +17,10 @@ export interface AboutProps {
     height: number;
     caption: string;
     shape: "tall" | "wide" | "square";
+    openLabel: string;
   }[];
+  /** The photo viewer: its title and controls. */
+  viewer: { title: string; close: string; prev: string; next: string; position: string };
 }
 
 /**
@@ -32,7 +35,8 @@ const cell = {
 };
 
 /** The personal side: an opening statement, then a full-width bento of photos. */
-export function About({ index, title, paragraph, gallery }: AboutProps) {
+export function About({ index, title, paragraph, gallery, viewer }: AboutProps) {
+  const shots = gallery.map(({ src, width, height, alt }) => ({ src, width, height, alt }));
   return (
     <section id="about" aria-labelledby="about-title" className="py-section-y">
       <div className="container-page">
@@ -56,6 +60,10 @@ export function About({ index, title, paragraph, gallery }: AboutProps) {
                 height={item.height}
                 caption={item.caption}
                 shape={item.shape}
+                shots={shots}
+                index={i}
+                title={viewer.title}
+                labels={{ open: item.openLabel, close: viewer.close, prev: viewer.prev, next: viewer.next, position: viewer.position }}
               />
             </Reveal>
           ))}

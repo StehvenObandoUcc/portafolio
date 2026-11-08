@@ -197,7 +197,15 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
         height: item.image.height,
         caption: item.caption[lang],
         shape: item.shape,
+        openLabel: format(dict.a11y.photoOpen, { caption: item.caption[lang] }),
       })),
+      viewer: {
+        title: dict.a11y.hobbies,
+        close: dict.a11y.photoClose,
+        prev: dict.a11y.photoPrev,
+        next: dict.a11y.photoNext,
+        position: dict.a11y.galleryPosition,
+      },
     },
     projects: {
       index: dict.projects.index,

@@ -39,6 +39,11 @@ export const es = {
     galleryPrev: "Captura anterior",
     galleryNext: "Captura siguiente",
     galleryPosition: "{n} de {total}",
+    hobbies: "Pasatiempos",
+    photoOpen: "Ver en grande: {caption}",
+    photoPrev: "Imagen anterior",
+    photoNext: "Imagen siguiente",
+    photoClose: "Cerrar",
   },
   nav: {
     home: "Inicio",

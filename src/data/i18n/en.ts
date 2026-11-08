@@ -34,6 +34,11 @@ export const en: Dictionary = {
     galleryPrev: "Previous screenshot",
     galleryNext: "Next screenshot",
     galleryPosition: "{n} of {total}",
+    hobbies: "Hobbies",
+    photoOpen: "View larger: {caption}",
+    photoPrev: "Previous image",
+    photoNext: "Next image",
+    photoClose: "Close",
   },
   nav: {
     home: "Home",
