@@ -81,7 +81,8 @@ export const projects: Project[] = [
       cover("projects/foodai/oscuro-01-inicio.jpg", 540, 1200, "Inicio en modo oscuro", "Home screen in dark mode"),
     ],
     githubUrl: "https://github.com/StehvenObandoUcc/App-mobile-front",
-    demo: { kind: "apk", url: TODO },
+    // Pre-release, so releases/latest would not resolve to it.
+    demo: { kind: "apk", url: "https://github.com/StehvenObandoUcc/App-mobile-front/releases/tag/v1.0.0-apk" },
   },
   {
     id: "veltro",
