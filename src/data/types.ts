@@ -36,7 +36,7 @@ export interface Project {
   /** First entry is the platform shown on the card tag. Empty means TODO. */
   platforms: Platform[];
   description: Localized;
-  /** Shown as tags, max 5 rendered. */
+  /** Every technology, shown as tags with its logo when one exists. */
   stack: string[];
   role: Localized;
   collaboration: Collaboration;

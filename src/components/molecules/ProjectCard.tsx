@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Button } from "@/components/atoms/Button";
 import type { IconName } from "@/components/atoms/Icon";
 import { Tag } from "@/components/atoms/Tag";
+import { ToolIcon } from "@/components/atoms/ToolIcon";
 import { ProjectGallery, type GalleryShot, type ProjectGalleryLabels } from "@/components/molecules/ProjectGallery";
 import { cn } from "@/lib/cn";
 
@@ -128,9 +129,12 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCa
 
         {project.stack.length > 0 && (
           <ul className="flex flex-wrap gap-1.5">
-            {project.stack.slice(0, 5).map((item) => (
+            {project.stack.map((item) => (
               <li key={item}>
-                <Tag>{item}</Tag>
+                <Tag>
+                  <ToolIcon name={item} size={12} />
+                  {item}
+                </Tag>
               </li>
             ))}
           </ul>
