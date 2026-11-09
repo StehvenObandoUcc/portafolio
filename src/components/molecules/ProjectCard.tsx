@@ -47,40 +47,21 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCa
   const screenshot = !project.cover.src.endsWith(".svg");
   const sizes = featured ? "(min-width: 1200px) 640px, (min-width: 640px) 90vw, 100vw" : "(min-width: 1200px) 380px, (min-width: 640px) 45vw, 100vw";
 
-  // The featured card is taller than one screenshot: from md it stacks two, framed on the paper well.
-  const visual =
-    featured && screenshot ? (
-      <div className="absolute inset-0 flex flex-col justify-center gap-4 p-4 md:p-8">
-        {[project.cover, project.shots[1]].filter(Boolean).map((shot, i) => (
-          <Image
-            key={shot.src}
-            src={shot.src}
-            alt={i === 0 ? shot.alt : ""}
-            width={shot.width}
-            height={shot.height}
-            sizes={sizes}
-            className={cn(
-              "h-auto max-h-full w-full rounded-sm border border-line object-contain object-top shadow-card transition-transform duration-700 ease-out group-hover:scale-[1.02]",
-              i > 0 && "hidden md:block",
-            )}
-          />
-        ))}
-      </div>
-    ) : (
-      <div className={screenshot ? "absolute inset-0" : "parallax-frame absolute inset-x-0 -top-[8%] -bottom-[8%]"}>
-        <Image
-          src={project.cover.src}
-          alt={project.cover.alt}
-          width={project.cover.width}
-          height={project.cover.height}
-          sizes={sizes}
-          className={cn(
-            "size-full transition-transform duration-700 ease-out group-hover:scale-[1.03]",
-            screenshot ? "object-contain" : "object-cover",
-          )}
-        />
-      </div>
-    );
+  const visual = (
+    <div className={screenshot ? "absolute inset-0" : "parallax-frame absolute inset-x-0 -top-[8%] -bottom-[8%]"}>
+      <Image
+        src={project.cover.src}
+        alt={project.cover.alt}
+        width={project.cover.width}
+        height={project.cover.height}
+        sizes={sizes}
+        className={cn(
+          "size-full transition-transform duration-700 ease-out group-hover:scale-[1.03]",
+          screenshot ? "object-contain" : "object-cover",
+        )}
+      />
+    </div>
+  );
 
   return (
     <article
