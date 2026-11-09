@@ -45,7 +45,7 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCa
   const titleId = `project-${project.id}-title`;
   // Real screenshots are shown whole; placeholder art fills the frame with parallax.
   const screenshot = !project.cover.src.endsWith(".svg");
-  const sizes = featured ? "(min-width: 1200px) 640px, (min-width: 640px) 90vw, 100vw" : "(min-width: 1200px) 380px, (min-width: 640px) 45vw, 100vw";
+  const sizes = "(min-width: 1200px) 380px, (min-width: 640px) 45vw, 100vw";
 
   const visual = (
     <div className={screenshot ? "absolute inset-0" : "parallax-frame absolute inset-x-0 -top-[8%] -bottom-[8%]"}>
@@ -67,17 +67,9 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCa
     <article
       data-tilt
       aria-labelledby={titleId}
-      className={cn(
-        "card card-interactive group flex h-full flex-col overflow-clip",
-        featured && "md:grid md:grid-cols-[1.15fr_1fr] md:items-stretch",
-      )}
+      className="card card-interactive group flex h-full flex-col overflow-clip"
     >
-      <div
-        className={cn(
-          "relative aspect-[16/10] overflow-clip border-b border-line bg-paper-2",
-          featured && "md:aspect-auto md:min-h-full md:border-r md:border-b-0",
-        )}
-      >
+      <div className="relative aspect-[16/10] overflow-clip border-b border-line bg-paper-2">
         {project.shots.length > 1 ? (
           <ProjectGallery title={project.title} shots={project.shots} labels={project.galleryLabels}>
             {visual}
@@ -91,19 +83,19 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCa
         </div>
       </div>
 
-      <div className={cn("flex flex-1 flex-col gap-4 p-5 sm:p-6", featured && "md:justify-center md:p-8 lg:p-10")}>
+      <div className="flex flex-1 flex-col gap-4 p-5 sm:p-6">
         {project.collaborationLabel && (
           <div className="flex">
             <Tag tone="marker">{project.collaborationLabel}</Tag>
           </div>
         )}
 
-        <h3 id={titleId} className={cn("text-h3 text-ink", featured && "md:text-[clamp(26px,2.4vw,34px)] md:tracking-[-0.025em]")}>
+        <h3 id={titleId} className="text-h3 text-ink">
           {project.title}
         </h3>
 
         {project.description && (
-          <p className={cn("text-[15px] leading-relaxed text-pretty text-ink-soft", featured ? "md:text-[16px]" : "line-clamp-2")}>
+          <p className="line-clamp-2 text-[15px] leading-relaxed text-pretty text-ink-soft">
             {project.description}
           </p>
         )}
@@ -131,7 +123,7 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCa
           project.context && <p className="text-[14px] leading-snug text-ink-mute">{project.context}</p>
         )}
 
-        <div className={cn("flex flex-wrap gap-2 pt-2", featured ? "md:mt-2" : "mt-auto")}>
+        <div className="mt-auto flex flex-wrap gap-2 pt-2">
           <Button
             href={project.githubUrl}
             external

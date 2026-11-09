@@ -83,7 +83,6 @@ export function ProjectGrid({ filters, filtersLabel, emptyLabel, items }: Projec
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9, y: 30 }}
               transition={{ duration: 0.55, ease }}
-              className={cn(item.featured && "sm:col-span-2")}
             >
               <Reveal index={i} motion="card" className="h-full">
                 {item.card}
