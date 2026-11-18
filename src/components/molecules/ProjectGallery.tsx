@@ -31,10 +31,12 @@ interface ProjectGalleryProps {
   children: ReactNode;
   /** Shot shown first when the gallery opens. */
   startIndex?: number;
+  /** Project galleries read as a case sheet: title and shot on the left, the project on the right. */
+  caseInfo?: { kicker?: string; text?: string; meta?: string };
 }
 
 /** The project cover opens a modal gallery of full, uncropped screenshots. */
-export function ProjectGallery({ title, shots, labels, children, startIndex = 0 }: ProjectGalleryProps) {
+export function ProjectGallery({ title, shots, labels, children, startIndex = 0, caseInfo }: ProjectGalleryProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [index, setIndex] = useState(0);
   const total = shots.length;
@@ -111,7 +113,7 @@ export function ProjectGallery({ title, shots, labels, children, startIndex = 0 
         <div className="relative grid place-items-center bg-paper-2 px-2 py-4 sm:px-16">
           {shot && (
             // A sized box: a lazy image with no size of its own would never load inside the dialog.
-            <div className="relative h-[min(42vh,600px)] w-full sm:h-[min(64vh,600px)]">
+            <div className={cn("relative h-[min(42vh,600px)] w-full", caseInfo ? "sm:h-[min(54vh,560px)]" : "sm:h-[min(64vh,600px)]")}>
               <Image
                 key={shot.src}
                 src={shot.src}
@@ -145,9 +147,49 @@ export function ProjectGallery({ title, shots, labels, children, startIndex = 0 
           )}
         </div>
 
-        {shot && <p className="px-4 pt-3 text-[14px] text-ink-soft sm:px-6">{shot.alt}</p>}
+        {caseInfo ? (
+          <div className="px-4 pt-4 pb-5 sm:px-6">
+            {total > 1 && (
+              <ul className="mb-5 flex gap-1.5">
+                {shots.map((item, i) => (
+                  <li key={item.src} className="flex-1">
+                    <button
+                      type="button"
+                      onClick={() => setIndex(i)}
+                      aria-label={labels.position.replace("{n}", String(i + 1)).replace("{total}", String(total))}
+                      aria-current={i === index ? "true" : undefined}
+                      className="group/dash block w-full py-2"
+                    >
+                      <span
+                        className={cn(
+                          "block h-[3px] rounded-pill transition-colors duration-300",
+                          i === index ? "bg-accent-600" : "bg-line-strong group-hover/dash:bg-ink-mute",
+                        )}
+                      />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] md:gap-10">
+              <div className="min-w-0">
+                {caseInfo.kicker && <p className="text-label mb-2 text-accent-600">{caseInfo.kicker}</p>}
+                <p className="text-[clamp(20px,1.2vw+14px,26px)] leading-[1.2] font-medium tracking-[-0.02em] text-balance text-ink">
+                  <span className="font-semibold">{title}</span>
+                  {shot && <span className="text-ink-soft"> — {shot.alt}</span>}
+                </p>
+              </div>
+              <div className="min-w-0">
+                {caseInfo.text && <p className="text-[15px] leading-relaxed text-pretty text-ink-soft">{caseInfo.text}</p>}
+                {caseInfo.meta && <p className="text-label mt-3 text-ink-mute">{caseInfo.meta}</p>}
+              </div>
+            </div>
+          </div>
+        ) : (
+          shot && <p className="px-4 pt-3 text-[14px] text-ink-soft sm:px-6">{shot.alt}</p>
+        )}
 
-        {total > 1 && (
+        {!caseInfo && total > 1 && (
           <ul className="flex gap-2 overflow-x-auto px-4 pt-3 pb-4 sm:px-6">
             {shots.map((item, i) => (
               <li key={item.src} className="flex-none">

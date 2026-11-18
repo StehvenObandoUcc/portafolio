@@ -1,3 +1,4 @@
+import { FocusText } from "@/components/atoms/FocusText";
 import type { HeadingParts } from "@/components/atoms/Heading";
 import { Reveal } from "@/components/atoms/Reveal";
 import { GalleryItem } from "@/components/molecules/GalleryItem";
@@ -9,6 +10,8 @@ export interface AboutProps {
   title: HeadingParts;
   /** Left out while it is still "TODO" in the data. */
   paragraph?: string;
+  /** Names in the paragraph shown as pills. */
+  keywords: string[];
   gallery: {
     id: string;
     src: string;
@@ -34,8 +37,8 @@ const cell = {
   square: "",
 };
 
-/** The personal side: an opening statement, then a full-width bento of photos. */
-export function About({ index, title, paragraph, gallery, viewer }: AboutProps) {
+/** The personal side: an opening statement, then a full-width lab grid of photos. */
+export function About({ index, title, paragraph, keywords, gallery, viewer }: AboutProps) {
   const shots = gallery.map(({ src, width, height, alt }) => ({ src, width, height, alt }));
   return (
     <section id="about" aria-labelledby="about-title" className="py-section-y">
@@ -44,9 +47,11 @@ export function About({ index, title, paragraph, gallery, viewer }: AboutProps) 
 
         {paragraph && (
           <Reveal className="mb-10 md:mb-14 md:ml-[4.25rem]">
-            <p className="max-w-[40ch] text-[clamp(20px,1.1vw+15px,30px)] leading-[1.4] font-medium tracking-[-0.015em] text-pretty text-ink">
-              {paragraph}
-            </p>
+            <FocusText
+              text={paragraph}
+              keywords={keywords}
+              className="focus-text max-w-[40ch] text-[clamp(20px,1.1vw+15px,30px)] leading-[1.45] font-medium tracking-[-0.015em] text-pretty text-ink"
+            />
           </Reveal>
         )}
 

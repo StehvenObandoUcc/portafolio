@@ -10,7 +10,7 @@ import type { Dictionary } from "@/data/i18n/es";
 import { learningLog } from "@/data/learning";
 import { projects } from "@/data/projects";
 import { site } from "@/data/site";
-import { skillGroups } from "@/data/skills";
+import { coreStack } from "@/data/skills";
 import { testimonials } from "@/data/testimonials";
 import type { DemoKind, Locale, Platform, ProjectFilter, Testimonial } from "@/data/types";
 import { format, getDictionary, hasLocale } from "@/lib/i18n";
@@ -63,6 +63,7 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
     id: project.id,
     title: project.title[lang],
     platforms: project.platforms,
+    platform: project.platforms[0],
     platformLabel: platformLabel(project.platforms[0]),
     description: known(project.description[lang]),
     stack: project.stack,
@@ -137,7 +138,8 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
 
   return {
     skipLabel: dict.a11y.skipToContent,
-    bandItems: skillGroups.flatMap((group) => group.items),
+    bandItems: coreStack.map((tool) => tool.name),
+    intro: dict.hero.intro,
     navbar: {
       locale: lang,
       items: SECTION_IDS.map((id) => ({ id, label: dict.nav[id], index: sectionIndex[id] })),
@@ -165,12 +167,17 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
     },
     toolbox: {
       title: dict.experience.skillsTitle,
-      groups: skillGroups.map((group) => ({
-        id: group.id,
-        icon: group.icon,
-        title: group.title[lang],
-        items: group.items,
+      items: coreStack.map((tool) => ({
+        id: tool.id,
+        name: tool.name,
+        icon: tool.icon,
+        note: tool.note?.[lang],
+        includes: tool.includes,
+        projects: projects
+          .filter((project) => project.stack.some((name) => tool.includes.includes(name)))
+          .map((project) => project.title[lang]),
       })),
+      labels: dict.experience.toolbox,
     },
     hero: {
       badge: dict.hero.badge,
@@ -184,11 +191,14 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
       stats: dict.hero.stats,
       comingSoonLabel: comingSoon,
       newTabLabel: newTab,
+      seal: dict.hero.seal,
+      monogram: site.monogram,
     },
     about: {
       index: dict.about.index,
       title: dict.about.title,
       paragraph: known(dict.about.paragraph),
+      keywords: dict.about.keywords,
       gallery: gallery.map((item) => ({
         id: item.id,
         src: item.image.src,
@@ -214,6 +224,7 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
       filters: FILTERS.map((id) => ({ id, label: dict.projects.filters[id] })),
       filtersLabel: dict.a11y.projectFilters,
       emptyLabel: dict.projects.empty,
+      techLabels: { active: dict.projects.techActive, clear: dict.projects.techClear },
       projects: projectCards,
       comingSoonLabel: comingSoon,
       newTabLabel: newTab,

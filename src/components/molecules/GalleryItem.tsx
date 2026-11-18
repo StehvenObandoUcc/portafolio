@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Icon } from "@/components/atoms/Icon";
 import { ProjectGallery, type GalleryShot, type ProjectGalleryLabels } from "@/components/molecules/ProjectGallery";
 import { cn } from "@/lib/cn";
 
@@ -38,9 +39,14 @@ export function GalleryItem({ src, alt, width, height, caption, shape, shots, in
           className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
         />
       </ProjectGallery>
-      <figcaption className="text-label pointer-events-none absolute bottom-3 left-3 rounded-pill bg-surface/90 px-2.5 py-1.5 text-ink backdrop-blur-sm">
-        {caption}
+      {/* Lab plate: name and plate number on a dark fade, an arrow that lifts on hover. */}
+      <figcaption className="lab-plate pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 px-3.5 pt-10 pb-3">
+        <span className="text-[14px] leading-tight font-medium">{caption}</span>
+        <span className="text-label tabular opacity-80">{String(index + 1).padStart(2, "0")}</span>
       </figcaption>
+      <span aria-hidden="true" className="lab-arrow pointer-events-none absolute top-3 right-3 grid size-8 place-items-center rounded-pill">
+        <Icon name="arrow-up-right" size={15} />
+      </span>
     </figure>
   );
 }

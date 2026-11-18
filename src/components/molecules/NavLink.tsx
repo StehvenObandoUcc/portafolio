@@ -25,14 +25,16 @@ export function NavLink({ href, label, active = false, variant = "bar", index, s
           active ? "text-accent-600" : "text-ink hover:text-accent-600",
         )}
       >
-        <span className="flex items-baseline gap-4">
-          {index && <span className="text-label text-accent-600 tabular">{index}</span>}
-          <span className="inline-block transition-transform duration-500 ease-out group-hover:translate-x-2">{label}</span>
-        </span>
+        {/* Book index: title, dotted leader, page number. */}
+        <span className="inline-block flex-none transition-transform duration-500 ease-out group-hover:translate-x-2">{label}</span>
         <span
           aria-hidden="true"
-          className={cn("size-1.5 rounded-full bg-accent-600 transition-opacity duration-300", active ? "opacity-100" : "opacity-0")}
+          className={cn(
+            "index-leader mb-[0.18em] min-w-6 flex-1 self-end transition-colors duration-300",
+            active ? "text-accent-600" : "text-line-strong group-hover:text-accent-300",
+          )}
         />
+        {index && <span className="text-label flex-none text-accent-600 tabular">{index}</span>}
       </a>
     );
   }

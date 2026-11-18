@@ -96,6 +96,17 @@ export interface SkillGroup {
   items: string[];
 }
 
+/** One cell of the logo wall: a main tool and the names it stands for. */
+export interface CoreTech {
+  id: string;
+  name: string;
+  /** Key for ToolIcon. */
+  icon: string;
+  /** Stack names (as written in projects.ts) that count as this tool. */
+  includes: string[];
+  note?: Localized;
+}
+
 export type LearningStatus = "inProgress" | "next";
 
 export interface LearningItem {

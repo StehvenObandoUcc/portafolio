@@ -4,11 +4,13 @@ import type { IconName } from "@/components/atoms/Icon";
 import { Tag } from "@/components/atoms/Tag";
 import { ToolIcon } from "@/components/atoms/ToolIcon";
 import { ProjectGallery, type GalleryShot, type ProjectGalleryLabels } from "@/components/molecules/ProjectGallery";
-import { cn } from "@/lib/cn";
+import type { Platform } from "@/data/types";
 
 export interface ProjectCardData {
   id: string;
   title: string;
+  /** First platform; tints the cover. */
+  platform?: Platform;
   platformLabel: string;
   /** Left out while it is still "TODO" in the data. */
   description?: string;
@@ -47,18 +49,27 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCa
   const screenshot = !project.cover.src.endsWith(".svg");
   const sizes = "(min-width: 1200px) 380px, (min-width: 640px) 45vw, 100vw";
 
-  const visual = (
-    <div className={screenshot ? "absolute inset-0" : "parallax-frame absolute inset-x-0 -top-[8%] -bottom-[8%]"}>
+  // A real screenshot stands whole on the platform-tinted ground, resting on the bottom edge.
+  const visual = screenshot ? (
+    <div className="absolute inset-x-[7%] top-[19%] bottom-0 flex items-end justify-center">
       <Image
         src={project.cover.src}
         alt={project.cover.alt}
         width={project.cover.width}
         height={project.cover.height}
         sizes={sizes}
-        className={cn(
-          "size-full transition-transform duration-700 ease-out group-hover:scale-[1.03]",
-          screenshot ? "object-contain" : "object-cover",
-        )}
+        className="project-shot h-auto max-h-full w-auto max-w-full transition-transform duration-700 ease-out group-hover:-translate-y-1.5"
+      />
+    </div>
+  ) : (
+    <div className="parallax-frame absolute inset-x-0 -top-[8%] -bottom-[8%]">
+      <Image
+        src={project.cover.src}
+        alt={project.cover.alt}
+        width={project.cover.width}
+        height={project.cover.height}
+        sizes={sizes}
+        className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
       />
     </div>
   );
@@ -69,9 +80,14 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCa
       aria-labelledby={titleId}
       className="card card-interactive group flex h-full flex-col overflow-clip"
     >
-      <div className="relative aspect-[16/10] overflow-clip border-b border-line bg-paper-2">
+      <div data-platform={project.platform} className="project-cover relative aspect-[16/10] overflow-clip border-b border-line">
         {project.shots.length > 1 ? (
-          <ProjectGallery title={project.title} shots={project.shots} labels={project.galleryLabels}>
+          <ProjectGallery
+            title={project.title}
+            shots={project.shots}
+            labels={project.galleryLabels}
+            caseInfo={{ text: project.description, meta: project.stack.join(" · "), kicker: project.platformLabel }}
+          >
             {visual}
           </ProjectGallery>
         ) : (

@@ -59,6 +59,8 @@ export const es = {
     // The cover page: the navbar counter and the mobile menu number it 00.
     index: "00",
     badge: "Disponible para prácticas y roles junior",
+    seal: "Disponible para prácticas · 2026",
+    intro: { loading: "Compilando proyectos", ready: "Listo" },
     titleLine1: "Ingeniero de Software",
     titleLine2: { before: "en formación, ", emphasis: "Full Stack", after: "" },
     lede: "Construyo aplicaciones de escritorio, móviles, wearables y web, del backend a la interfaz. Trabajo con Next.js, NestJS, Tauri y Kotlin, y despliego en la nube.",
@@ -73,6 +75,7 @@ export const es = {
   about: {
     index: "01",
     title: { before: "Sobre ", emphasis: "mí", after: "" },
+    keywords: ["Blender", "Frankenstein", "Stardew Valley", "Minecraft"],
     paragraph: "Fuera del código modelo y renderizo escenas en Blender, leo clásicos como Frankenstein y juego videojuegos como Stardew Valley y Minecraft.",
   },
   projects: {
@@ -99,6 +102,8 @@ export const es = {
     downloadApk: "Descargar .apk",
     empty: "Todavía no hay proyectos en esta categoría.",
     countSuffix: "proyectos",
+    techActive: "Con {tech}",
+    techClear: "Quitar el filtro de tecnología",
   },
   testimonials: {
     index: "03",
@@ -123,6 +128,7 @@ export const es = {
     englishTitle: "Inglés",
     englishLevel: "A2 — en progreso hacia B2",
     skillsTitle: "Herramientas con las que trabajo",
+    toolbox: { usedIn: "Usado en", noProject: "Todavía no está en un proyecto publicado", show: "Ver proyectos con {tech}" },
   },
   learning: {
     index: "05",

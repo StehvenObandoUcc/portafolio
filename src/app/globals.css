@@ -34,7 +34,7 @@
   --danger-ring: rgba(180, 35, 44, 0.1);
   --glare: rgba(255, 255, 255, 0.5);
   --shine: rgba(242, 238, 228, 0.28);
-  --grain-opacity: 0.045;
+  --grain-opacity: 0.075;
 
   --danger: #b4232c;
   --success: #17633c;
@@ -56,7 +56,7 @@
   --section-y: clamp(72px, 10vw, 140px);
   --nav-h: 68px;
   /* How long the intro curtain holds the page before the hero plays. */
-  --intro: 0.55s;
+  --intro: 1.05s;
 
   color-scheme: light;
 }
@@ -90,7 +90,7 @@
   --danger-ring: rgba(255, 122, 130, 0.18);
   --glare: rgba(169, 188, 255, 0.22);
   --shine: rgba(15, 22, 38, 0.3);
-  --grain-opacity: 0.07;
+  --grain-opacity: 0.1;
 
   --danger: #ff7a82;
   --success: #5fd39a;
@@ -1291,4 +1291,344 @@ main > section:not(#home) {
   main > section:not(#home) {
     content-visibility: visible;
   }
+}
+
+
+/* ─── referencias-v2 ─────────────────────────────────────────────── */
+
+/* Paper: html carries the ground so a slow, faint colour drift can sit
+   between it and the page (after p5aholic). */
+body {
+  background: transparent;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 34% at 28% 30%, color-mix(in srgb, var(--accent-300) 16%, transparent), transparent 70%),
+    radial-gradient(34% 30% at 76% 68%, color-mix(in srgb, var(--warm-400) 13%, transparent), transparent 70%);
+  animation: paper-drift 38s ease-in-out infinite alternate;
+}
+@keyframes paper-drift {
+  to { transform: translate3d(6%, -5%, 0) rotate(8deg); }
+}
+
+/* Intro: glass monogram over a grid, a dotted ring, and a status line (after Maxime Heckel and Aegis). */
+.intro-curtain {
+  animation-name: curtain-lift-long;
+  animation-duration: 1.65s;
+}
+@keyframes curtain-lift-long {
+  0%, 62% { visibility: visible; transform: translateY(0); }
+  100% { visibility: hidden; transform: translateY(-100%); }
+}
+.intro-glass {
+  position: relative;
+  width: min(80vw, 440px);
+}
+.intro-glass-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--on-accent);
+  overflow: visible;
+  transform: perspective(800px) rotateX(16deg) rotateY(-14deg);
+  animation: glass-turn 1.5s var(--ease-out) both;
+}
+.intro-glass-svg text {
+  font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  font-size: 156px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+.intro-glass-ground {
+  mask-image: radial-gradient(closest-side, #000 55%, transparent);
+}
+@keyframes glass-turn {
+  from { opacity: 0; transform: perspective(800px) rotateX(42deg) rotateY(-36deg) scale(0.84); }
+}
+.intro-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 74%;
+  translate: -50% -50%;
+  color: var(--on-accent);
+  opacity: 0.7;
+  animation: ring-spin 7s linear infinite;
+  pointer-events: none;
+}
+@keyframes ring-spin {
+  to { rotate: 360deg; }
+}
+.intro-status {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 12px;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.intro-status-loading,
+.intro-status-ready {
+  grid-area: 1 / 1;
+  justify-self: end;
+}
+.intro-status-loading { animation: status-loading 1.65s linear both; }
+.intro-status-ready { animation: status-ready 1.65s linear both; }
+@keyframes status-loading {
+  0%, 50% { opacity: 0.85; }
+  54%, 100% { opacity: 0; }
+}
+@keyframes status-ready {
+  0%, 52% { opacity: 0; }
+  56%, 100% { opacity: 1; }
+}
+@property --pct {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+.intro-percent {
+  opacity: 0.6;
+  counter-reset: pct var(--pct);
+  animation: pct-count 0.8s cubic-bezier(0.3, 0, 0.2, 1) both;
+}
+.intro-percent::after {
+  content: counter(pct) "%";
+}
+@keyframes pct-count {
+  to { --pct: 100; }
+}
+
+/* Turning sticker on the hero photo (after Cyd Stumpel). */
+.spin-seal {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(88px, 8.6vw, 118px);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: var(--accent-600);
+  color: var(--on-accent);
+  box-shadow: var(--shadow-lift);
+  rotate: -10deg;
+}
+.spin-seal-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: ring-spin 18s linear infinite;
+}
+.spin-seal-ring text {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 9.4px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  fill: currentColor;
+}
+.spin-seal-core {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Dither cat sitting on the rule above the hero stats (after peril.lol). */
+.dither-cat {
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  width: clamp(112px, 12vw, 164px);
+  aspect-ratio: 1;
+  margin-bottom: -2px;
+  pointer-events: none;
+}
+@media (max-width: 639px) {
+  .dither-cat {
+    bottom: -4px;
+    right: 4px;
+    width: 116px;
+  }
+}
+.dither-cat-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-soft);
+}
+.dither-cat[data-ready] .dither-cat-canvas {
+  opacity: 1;
+}
+
+/* Tool wall: logo cells on hairlines, a dark note on hover (after Lué Studio and basement.studio). */
+.tech-wall {
+  border-top: 1px solid var(--line-strong);
+  border-left: 1px solid var(--line-strong);
+}
+.tech-cell-wrap {
+  position: relative;
+  border-right: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+}
+.tech-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 100%;
+  min-height: clamp(124px, 12vw, 156px);
+  padding: 18px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s var(--ease-soft);
+}
+.tech-cell[aria-disabled] {
+  cursor: default;
+}
+.tech-logo {
+  margin-bottom: 4px;
+  color: var(--ink-mute);
+  transition: color 0.3s var(--ease-soft), transform 0.45s var(--ease-out);
+}
+.tech-name {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.tech-note {
+  font-size: 12.5px;
+  line-height: 1.3;
+  color: var(--ink-mute);
+}
+.tech-cell:hover,
+.tech-cell:focus-visible {
+  background: var(--surface);
+}
+.tech-cell:hover .tech-logo,
+.tech-cell:focus-visible .tech-logo {
+  color: var(--accent-600);
+  transform: translateY(-3px) scale(1.1);
+}
+.tech-card {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% - 12px);
+  z-index: 5;
+  display: grid;
+  gap: 3px;
+  width: max-content;
+  max-width: 230px;
+  padding: 10px 13px;
+  border-radius: var(--radius-sm);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 13.5px;
+  line-height: 1.35;
+  box-shadow: var(--shadow-card);
+  opacity: 0;
+  translate: -50% 6px;
+  pointer-events: none;
+  transition: opacity 0.2s var(--ease-soft), translate 0.35s var(--ease-out);
+}
+.tech-card .text-label {
+  color: color-mix(in srgb, var(--paper) 70%, transparent);
+}
+.tech-cell-wrap:hover .tech-card,
+.tech-cell-wrap:focus-within .tech-card {
+  opacity: 1;
+  translate: -50% 0;
+}
+
+/* About paragraph comes into focus clause by clause (after ped.ro). */
+.focus-text[data-focus="on"] .focus-part {
+  filter: blur(calc((1 - var(--focus, 0)) * 6px));
+  opacity: calc(0.22 + var(--focus, 0) * 0.78);
+  transition: filter 0.2s linear, opacity 0.2s linear;
+}
+.focus-pill {
+  display: inline-block;
+  padding: 0 0.36em 0.04em;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  line-height: 1.15;
+}
+
+/* About photos as lab plates (after Maxime Heckel's lab). */
+.lab-plate {
+  color: #f4f1ea;
+  background: linear-gradient(to top, rgba(10, 14, 26, 0.72), rgba(10, 14, 26, 0));
+}
+.lab-arrow {
+  background: rgba(244, 241, 234, 0.94);
+  color: #14213d;
+  opacity: 0;
+  translate: -4px 4px;
+  transition: opacity 0.3s var(--ease-soft), translate 0.4s var(--ease-out);
+}
+.group:hover .lab-arrow {
+  opacity: 1;
+  translate: 0 0;
+}
+@media (hover: none) {
+  .lab-arrow { opacity: 1; translate: 0 0; }
+}
+
+/* Project covers on a ground tinted by platform; the screenshot rests on the bottom edge (after Seán Halpin). */
+.project-cover {
+  --tint: var(--accent-100);
+  background: color-mix(in srgb, var(--tint) 60%, var(--paper-2));
+}
+.project-cover[data-platform="mobile"] { --tint: color-mix(in srgb, var(--warm-400) 42%, var(--paper)); }
+.project-cover[data-platform="wearable"] { --tint: color-mix(in srgb, var(--success) 26%, var(--paper)); }
+.project-cover[data-platform="web"] { --tint: color-mix(in srgb, var(--accent-300) 40%, var(--paper)); }
+.project-cover[data-platform="backend"] { --tint: color-mix(in srgb, var(--ink-mute) 22%, var(--paper)); }
+.project-shot {
+  border-radius: 8px 8px 0 0;
+  filter: drop-shadow(0 14px 26px rgba(20, 33, 61, 0.28));
+}
+
+/* Footer name runs edge to edge and is cut by the page's bottom (after peril.lol). */
+.footer-wordmark-cut {
+  --wm: clamp(48px, 13.3vw, 224px);
+  overflow: clip;
+  height: calc(var(--wm) * 0.6);
+  margin-top: clamp(28px, 4vw, 48px);
+  padding-inline: 1.2vw;
+}
+.footer-wordmark-cut .footer-wordmark {
+  font-size: var(--wm);
+  line-height: 0.8;
+}
+
+/* Mobile menu as a book index: dotted leader up to the section number (after Lynn Fisher). */
+.index-leader {
+  height: 4px;
+  background-image: radial-gradient(circle, currentColor 1.4px, transparent 1.9px);
+  background-size: 9px 4px;
+  background-repeat: repeat-x;
+  background-position: left center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after,
+  .spin-seal-ring,
+  .intro-ring {
+    animation: none;
+  }
+}
+:root[data-motion-pref="off"] body::after {
+  transform: none;
 }

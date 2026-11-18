@@ -19,6 +19,7 @@ export interface PortfolioTemplateProps {
   skipLabel: string;
   /** Tool names for the oversized running bands between sections. */
   bandItems: string[];
+  intro: { loading: string; ready: string };
   navbar: NavbarProps;
   hero: HeroProps;
   toolbox: ToolboxProps;
@@ -35,7 +36,7 @@ export interface PortfolioTemplateProps {
 export function PortfolioTemplate(props: PortfolioTemplateProps) {
   return (
     <MotionRoot>
-      <IntroCurtain monogram={props.navbar.monogram} wordmark={props.navbar.wordmark} />
+      <IntroCurtain monogram={props.navbar.monogram} wordmark={props.navbar.wordmark} status={props.intro} />
       <a
         href="#main"
         className="fixed top-3 left-3 z-50 -translate-y-24 rounded-pill bg-accent-600 px-4 py-3 text-[14px] font-medium text-on-accent transition-transform duration-200 focus-visible:translate-y-0"
@@ -68,9 +69,6 @@ export function PortfolioTemplate(props: PortfolioTemplateProps) {
         </Suspense>
         <Suspense>
           <NowLearning {...props.learning} />
-        </Suspense>
-        <Suspense>
-          <KineticBand items={props.bandItems} direction="right" />
         </Suspense>
         <Suspense>
           <Contact {...props.contact} />

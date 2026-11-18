@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
 import { Icon } from "@/components/atoms/Icon";
 import { cn } from "@/lib/cn";
 
@@ -13,10 +14,12 @@ interface PhotoFrameProps {
   priority?: boolean;
   sizes: string;
   className?: string;
+  /** Sticker pinned to the top-right corner. */
+  sticker?: ReactNode;
 }
 
 /** 4:5 photo in a hairline frame with a location tag. */
-export function PhotoFrame({ src, alt, width, height, tag, priority = false, sizes, className }: PhotoFrameProps) {
+export function PhotoFrame({ src, alt, width, height, tag, priority = false, sizes, className, sticker }: PhotoFrameProps) {
   return (
     <figure data-tilt className={cn("relative isolate", className)}>
       <div className="enter-photo relative aspect-[4/5] overflow-hidden rounded-lg border border-line-strong bg-paper-2">
@@ -34,6 +37,7 @@ export function PhotoFrame({ src, alt, width, height, tag, priority = false, siz
         <Icon name="map-pin" size={14} className="text-accent-600" />
         {tag}
       </figcaption>
+      {sticker && <div className="absolute -top-7 -right-4 z-[2] sm:-top-9 sm:-right-8">{sticker}</div>}
     </figure>
   );
 }

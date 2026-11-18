@@ -1,6 +1,8 @@
 import { Badge } from "@/components/atoms/Badge";
 import { Button } from "@/components/atoms/Button";
+import { DitherCat } from "@/components/atoms/DitherCat";
 import type { HeadingParts } from "@/components/atoms/Heading";
+import { SpinSeal } from "@/components/atoms/SpinSeal";
 import { PhotoFrame } from "@/components/molecules/PhotoFrame";
 import { StatItem } from "@/components/molecules/StatItem";
 import type { ImageAsset, Stat } from "@/data/types";
@@ -17,6 +19,9 @@ export interface HeroProps {
   stats: Stat[];
   comingSoonLabel: string;
   newTabLabel: string;
+  /** Lettering of the turning sticker on the photo. */
+  seal: string;
+  monogram: string;
 }
 
 /** First viewport: graph-paper ground, masked headline, photo, measurements. */
@@ -42,6 +47,7 @@ export function Hero(props: HeroProps) {
             tag={props.photoTag}
             priority
             sizes="(min-width: 1200px) 440px, (min-width: 900px) 38vw, 72vw"
+            sticker={<SpinSeal text={props.seal} monogram={props.monogram} />}
           />
         </div>
 
@@ -87,11 +93,15 @@ export function Hero(props: HeroProps) {
             </span>
           </div>
 
-          <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-7 sm:grid-cols-3 md:mt-14">
-            {props.stats.map((stat, index) => (
-              <StatItem key={stat.label} value={stat.value} label={stat.label} index={index} />
-            ))}
-          </dl>
+          {/* The cat sits on the rule above the stats, in the gap to the right of the buttons. */}
+          <div className="relative mt-12 md:mt-14">
+            <DitherCat />
+            <dl className="grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-7 sm:grid-cols-3">
+              {props.stats.map((stat, index) => (
+                <StatItem key={stat.label} value={stat.value} label={stat.label} index={index} />
+              ))}
+            </dl>
+          </div>
         </div>
       </div>
     </section>

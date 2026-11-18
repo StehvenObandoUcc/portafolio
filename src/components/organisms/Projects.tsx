@@ -11,6 +11,7 @@ export interface ProjectsProps {
   filters: { id: ProjectFilter; label: string }[];
   filtersLabel: string;
   emptyLabel: string;
+  techLabels: { active: string; clear: string };
   projects: (ProjectCardData & { platforms: Platform[] })[];
   comingSoonLabel: string;
   newTabLabel: string;
@@ -26,10 +27,12 @@ export function Projects(props: ProjectsProps) {
           filters={props.filters}
           filtersLabel={props.filtersLabel}
           emptyLabel={props.emptyLabel}
+          techLabels={props.techLabels}
           items={props.projects.map((project) => ({
             id: project.id,
             platforms: project.platforms,
             featured: project.featured,
+            stack: project.stack,
             card: (
               <ProjectCard
                 project={project}

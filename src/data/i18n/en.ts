@@ -53,6 +53,8 @@ export const en: Dictionary = {
   hero: {
     index: "00",
     badge: "Open to internships & junior roles",
+    seal: "Open to internships · 2026",
+    intro: { loading: "Compiling projects", ready: "Ready" },
     titleLine1: "Software Engineer",
     titleLine2: { before: "in training, ", emphasis: "Full Stack", after: "" },
     lede: "I build desktop, mobile, wearable and web apps, from the backend to the interface. I work with Next.js, NestJS, Tauri and Kotlin, and deploy to the cloud.",
@@ -67,6 +69,7 @@ export const en: Dictionary = {
   about: {
     index: "01",
     title: { before: "About ", emphasis: "me", after: "" },
+    keywords: ["Blender", "Frankenstein", "Stardew Valley", "Minecraft"],
     paragraph: "Away from code I model and render scenes in Blender, read classics like Frankenstein and play games like Stardew Valley and Minecraft.",
   },
   projects: {
@@ -93,6 +96,8 @@ export const en: Dictionary = {
     downloadApk: "Download .apk",
     empty: "No projects in this category yet.",
     countSuffix: "projects",
+    techActive: "With {tech}",
+    techClear: "Clear the tool filter",
   },
   testimonials: {
     index: "03",
@@ -117,6 +122,7 @@ export const en: Dictionary = {
     englishTitle: "English",
     englishLevel: "A2 — working toward B2",
     skillsTitle: "Tools I work with",
+    toolbox: { usedIn: "Used in", noProject: "Not in a published project yet", show: "Show projects with {tech}" },
   },
   learning: {
     index: "05",
