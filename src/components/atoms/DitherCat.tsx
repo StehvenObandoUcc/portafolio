@@ -17,7 +17,7 @@ const SPEED = 0.95;
  * strip with its own walk cycle, stops now and then, and turns to look when
  * the pointer comes close. three.js loads only once the strip is near the screen.
  */
-export function DitherCat({ mode = "patrol" }: { mode?: "patrol" | "follow" }) {
+export function DitherCat() {
   const holder = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -165,41 +165,9 @@ export function DitherCat({ mode = "patrol" }: { mode?: "patrol" | "follow" }) {
       // reduced motion for every page).
       const isStill = () => isMotionOff();
 
-      // Follow mode: walking is driven by the page scroll, not by a timer.
-      let lastScroll = window.scrollY;
-      let scrollSpeed = 0;
-      let idleFor = 0;
-
       const clock = new THREE.Clock();
       const step = (dt: number) => {
         const edge = halfW - halfLength - 0.1;
-        if (mode === "follow") {
-          const dy = window.scrollY - lastScroll;
-          lastScroll = window.scrollY;
-          const v = dt > 0 ? dy / dt : 0;
-          scrollSpeed += (Math.abs(v) - scrollSpeed) * Math.min(1, dt * 6);
-          idleFor = Math.abs(v) > 30 ? 0 : idleFor + dt;
-          if (Math.abs(v) > 30) dir = v > 0 ? 1 : -1;
-          const moving = idleFor < 0.35 && !near;
-          if (moving) {
-            const turning = Math.abs(FACING * dir - yaw) > 0.05;
-            yaw += (FACING * dir - yaw) * Math.min(1, dt * 7);
-            const pace = Math.min(2.4, 0.6 + scrollSpeed / 700);
-            if (walk) walk.timeScale += (pace - walk.timeScale) * Math.min(1, dt * 8);
-            if (!turning) x += dir * SPEED * pace * dt;
-            if (x < -edge) { x = -edge; dir = 1; }
-            if (x > edge) { x = edge; dir = -1; }
-          } else {
-            // Stopped: turn to look at the viewer (or the pointer when it is close).
-            const want = near ? (pointerX > x ? FACING * 0.45 : -FACING * 0.45) : FACING * 0.15 * dir;
-            yaw += (want - yaw) * Math.min(1, dt * 5);
-            if (walk) walk.timeScale += (0 - walk.timeScale) * Math.min(1, dt * 8);
-          }
-          cat.position.x = x;
-          cat.rotation.y = yaw;
-          mixer.update(dt);
-          return;
-        }
         if (near) {
           // Stop and look toward the pointer, a little toward the viewer.
           const want = pointerX > x ? FACING * 0.45 : -FACING * 0.45;
@@ -249,7 +217,7 @@ export function DitherCat({ mode = "patrol" }: { mode?: "patrol" | "follow" }) {
           mixer.update(0);
         }
         draw();
-        frame = visible && shown && !isStill() ? requestAnimationFrame(loop) : 0;
+        frame = visible && !isStill() ? requestAnimationFrame(loop) : 0;
       };
       const kick = () => {
         if (!frame) {
@@ -262,20 +230,6 @@ export function DitherCat({ mode = "patrol" }: { mode?: "patrol" | "follow" }) {
         if (visible) kick();
       });
       io.observe(el);
-      // The follower only shows once the hero (and its own cat) has scrolled away.
-      let shown = mode !== "follow";
-      const hero = mode === "follow" ? document.getElementById("home") : null;
-      const heroWatch = hero
-        ? new IntersectionObserver(([entry]) => {
-            shown = !entry.isIntersecting;
-            el.dataset.away = shown ? "true" : "false";
-            if (shown) {
-              lastScroll = window.scrollY;
-              kick();
-            }
-          })
-        : null;
-      if (hero && heroWatch) heroWatch.observe(hero);
       const stopMotion = subscribeMotion(kick);
       const themeWatch = new MutationObserver(() => {
         readInk();
@@ -287,7 +241,6 @@ export function DitherCat({ mode = "patrol" }: { mode?: "patrol" | "follow" }) {
       cleanup = () => {
         cancelAnimationFrame(frame);
         io.disconnect();
-        heroWatch?.disconnect();
         ro.disconnect();
         stopMotion();
         themeWatch.disconnect();
@@ -317,7 +270,7 @@ export function DitherCat({ mode = "patrol" }: { mode?: "patrol" | "follow" }) {
       gate.disconnect();
       cleanup();
     };
-  }, [mode]);
+  }, []);
 
-  return <div ref={holder} aria-hidden="true" className={mode === "follow" ? "dither-cat dither-cat-follow" : "dither-cat"} />;
+  return <div ref={holder} aria-hidden="true" className="dither-cat" />;
 }

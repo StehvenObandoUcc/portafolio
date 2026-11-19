@@ -241,7 +241,6 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
       filtersLabel: dict.a11y.projectFilters,
       emptyLabel: dict.projects.empty,
       techLabels: { active: dict.projects.techActive, clear: dict.projects.techClear },
-      ring: dict.projects.ring,
       projects: projectCards,
       comingSoonLabel: comingSoon,
       newTabLabel: newTab,
