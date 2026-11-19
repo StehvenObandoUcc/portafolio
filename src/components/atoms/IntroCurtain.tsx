@@ -15,6 +15,19 @@ export function IntroCurtain({ monogram, wordmark, status }: IntroCurtainProps) 
     <div aria-hidden="true" className="intro-curtain">
       <div className="intro-curtain-mark">
         <div className="intro-glass">
+          {/* Depth: the outline repeated behind itself, so the letters read as a solid block of glass. */}
+          {Array.from({ length: 9 }, (_, k) => (
+            <svg
+              key={k}
+              viewBox="0 0 360 220"
+              className="intro-depth"
+              style={{ transform: `translateZ(${-(k + 1) * 5}px)`, opacity: 0.55 - k * 0.05 }}
+            >
+              <text x="180" y="160" textAnchor="middle" fill="none" stroke="currentColor" strokeWidth="1">
+                {monogram}
+              </text>
+            </svg>
+          ))}
           <svg viewBox="0 0 360 220" className="intro-glass-svg">
             <defs>
               <pattern id="ig-grid" width="18" height="18" patternUnits="userSpaceOnUse">

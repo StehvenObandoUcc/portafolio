@@ -1,5 +1,7 @@
 import { Suspense } from "react";
+import { DitherCat } from "@/components/atoms/DitherCat";
 import { IntroCurtain } from "@/components/atoms/IntroCurtain";
+import { SmoothScroll } from "@/components/atoms/SmoothScroll";
 import { MotionRoot } from "@/components/atoms/MotionRoot";
 import { PointerEffects } from "@/components/atoms/PointerEffects";
 import { RevealObserver } from "@/components/atoms/RevealObserver";
@@ -79,6 +81,9 @@ export function PortfolioTemplate(props: PortfolioTemplateProps) {
       </Suspense>
       <RevealObserver />
       <PointerEffects />
+      <SmoothScroll />
+      {/* The cat keeps you company for the rest of the page once the hero is gone. */}
+      <DitherCat mode="follow" />
     </MotionRoot>
   );
 }

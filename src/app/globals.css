@@ -1305,9 +1305,28 @@ main > section:not(#home) {
   0%, 62% { visibility: visible; transform: translateY(0); }
   100% { visibility: hidden; transform: translateY(-100%); }
 }
+.intro-curtain-mark {
+  perspective: 900px;
+}
 .intro-glass {
   position: relative;
   width: min(80vw, 440px);
+  transform-style: preserve-3d;
+  transform: rotateX(14deg) rotateY(-12deg);
+  animation: glass-orbit 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes glass-orbit {
+  0% { opacity: 0; transform: rotateX(52deg) rotateY(-62deg) scale(0.78); }
+  55% { opacity: 1; transform: rotateX(8deg) rotateY(18deg) scale(1.02); }
+  100% { transform: rotateX(14deg) rotateY(-12deg) scale(1); }
+}
+.intro-depth {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: auto;
+  color: var(--on-accent);
+  overflow: visible;
 }
 .intro-glass-svg {
   display: block;
@@ -1315,10 +1334,9 @@ main > section:not(#home) {
   height: auto;
   color: var(--on-accent);
   overflow: visible;
-  transform: perspective(800px) rotateX(16deg) rotateY(-14deg);
-  animation: glass-turn 1.5s var(--ease-out) both;
 }
-.intro-glass-svg text {
+.intro-glass-svg text,
+.intro-depth text {
   font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   font-size: 156px;
   font-weight: 700;
@@ -1326,9 +1344,6 @@ main > section:not(#home) {
 }
 .intro-glass-ground {
   mask-image: radial-gradient(closest-side, #000 55%, transparent);
-}
-@keyframes glass-turn {
-  from { opacity: 0; transform: perspective(800px) rotateX(42deg) rotateY(-36deg) scale(0.84); }
 }
 .intro-ring {
   position: absolute;
@@ -1338,6 +1353,7 @@ main > section:not(#home) {
   translate: -50% -50%;
   color: var(--on-accent);
   opacity: 0.7;
+  transform: translateZ(-70px);
   animation: ring-spin 7s linear infinite;
   pointer-events: none;
 }
@@ -1617,4 +1633,115 @@ main > section:not(#home) {
 .spin-seal-lg {
   width: clamp(96px, 11vw, 148px);
   rotate: 8deg;
+}
+
+/* Following cat: fixed in the bottom-right corner once the hero is gone. */
+.dither-cat.dither-cat-follow {
+  position: fixed;
+  top: auto;
+  left: auto;
+  right: max(12px, calc((100vw - var(--container)) / 2 - 24px));
+  bottom: 0;
+  width: 240px;
+  height: 84px;
+  margin: 0;
+  border: 0;
+  z-index: 40;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-soft);
+}
+.dither-cat.dither-cat-follow[data-away="true"] {
+  opacity: 1;
+}
+@media (max-width: 639px) {
+  .dither-cat.dither-cat-follow {
+    display: none;
+  }
+}
+
+/* Project ring: the section pins and the scroll turns the ring (after Alche). */
+.ring-pin {
+  position: relative;
+  margin-block: clamp(8px, 2vw, 24px) clamp(40px, 6vw, 80px);
+}
+.ring-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  justify-items: center;
+  align-items: center;
+  padding-top: var(--nav-h);
+  perspective: 1600px;
+}
+.ring {
+  --w: clamp(250px, 40vw, 600px);
+  --r: calc(var(--w) * 0.5 / tan(180deg / var(--n)) * 1.14);
+  position: relative;
+  width: var(--w);
+  aspect-ratio: 16 / 10;
+  transform-style: preserve-3d;
+  transform: translateZ(calc(var(--r) * -1)) rotateX(-6deg) rotateY(var(--ring-turn, 0deg));
+}
+.ring-panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 9% 7% 0;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  transform: rotateY(calc(var(--i) * 360deg / var(--n))) translateZ(var(--r));
+  backface-visibility: hidden;
+  cursor: pointer;
+}
+.ring-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 14, 26, 1);
+  opacity: calc((1 - var(--facing, 1)) * 0.32);
+  pointer-events: none;
+}
+.ring-panel:focus-visible {
+  outline: 2px solid var(--accent-500);
+  outline-offset: 4px;
+}
+.ring-shot {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 8px 8px 0 0;
+  filter: drop-shadow(0 14px 26px rgba(20, 33, 61, 0.28));
+  transform: skewY(calc(var(--scroll-v, 0) * 1.5deg));
+}
+.ring-caption {
+  padding-bottom: clamp(28px, 7vh, 72px);
+  text-align: center;
+}
+:root[data-motion-pref="off"] .ring-pin {
+  display: none;
+}
+
+/* Covers lean a little with the scroll speed (after Cappen). */
+.project-shot {
+  transform: skewY(calc(var(--scroll-v, 0) * 1.4deg));
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }

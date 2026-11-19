@@ -96,6 +96,7 @@ export const en: Dictionary = {
     downloadApk: "Download .apk",
     empty: "No projects in this category yet.",
     countSuffix: "projects",
+    ring: { hint: "Keep scrolling to turn it", counter: "{n} / {total}", open: "Open {title}" },
     caseStudy: { open: "Read the case study", openAria: "Read the {title} case study", challenge: "The challenge", solution: "How it was solved" },
     techActive: "With {tech}",
     techClear: "Clear the tool filter",

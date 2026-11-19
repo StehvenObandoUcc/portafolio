@@ -102,6 +102,7 @@ export const es = {
     downloadApk: "Descargar .apk",
     empty: "Todavía no hay proyectos en esta categoría.",
     countSuffix: "proyectos",
+    ring: { hint: "Sigue bajando para girar", counter: "{n} / {total}", open: "Abrir {title}" },
     caseStudy: { open: "Ver caso de estudio", openAria: "Ver el caso de estudio de {title}", challenge: "El reto", solution: "Cómo se resolvió" },
     techActive: "Con {tech}",
     techClear: "Quitar el filtro de tecnología",
