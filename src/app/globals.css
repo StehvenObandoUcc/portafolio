@@ -1354,11 +1354,14 @@ main > section:not(#home) {
   color: var(--on-accent);
   opacity: 0.7;
   transform: translateZ(-70px);
-  animation: ring-spin 7s linear infinite;
+  animation: ring-turn-once 1.65s linear both;
   pointer-events: none;
 }
 @keyframes ring-spin {
   to { rotate: 360deg; }
+}
+@keyframes ring-turn-once {
+  to { rotate: 90deg; }
 }
 .intro-status {
   display: grid;

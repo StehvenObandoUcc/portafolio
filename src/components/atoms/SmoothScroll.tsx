@@ -16,10 +16,16 @@ export function SmoothScroll() {
     let disposed = false;
     const root = document.documentElement;
 
+    // --scroll-v lives on the projects section only (the covers are its only reader) and is
+    // written only when it changes: a custom property set on <html> every frame re-styles the whole page.
+    let lastV = "0.00";
     const raf = (time: number) => {
       lenis?.raf(time);
-      const v = lenis ? Math.max(-1, Math.min(1, lenis.velocity / 40)) : 0;
-      root.style.setProperty("--scroll-v", v.toFixed(3));
+      const v = (lenis ? Math.max(-1, Math.min(1, lenis.velocity / 40)) : 0).toFixed(2);
+      if (v !== lastV) {
+        lastV = v;
+        document.getElementById("projects")?.style.setProperty("--scroll-v", v);
+      }
       frame = requestAnimationFrame(raf);
     };
 
@@ -39,7 +45,7 @@ export function SmoothScroll() {
       cancelAnimationFrame(frame);
       lenis?.destroy();
       lenis = null;
-      root.style.setProperty("--scroll-v", "0");
+      document.getElementById("projects")?.style.removeProperty("--scroll-v");
     };
 
     // In-page links: glide to the target below the fixed navbar.

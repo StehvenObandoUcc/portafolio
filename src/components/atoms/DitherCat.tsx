@@ -26,10 +26,14 @@ export function DitherCat() {
     let disposed = false;
     let cleanup = () => {};
 
+    // Hand the main thread back between heavy steps so no single task blocks input.
+    const nextFrame = () => new Promise<void>((resolve) => requestAnimationFrame(() => setTimeout(resolve, 0)));
+
     const start = async () => {
-      const THREE = await import("three");
-      const { GLTFLoader } = await import("three/examples/jsm/loaders/GLTFLoader.js");
+      const THREE = await import("./catThree");
+      const { GLTFLoader } = THREE;
       if (disposed) return;
+      await nextFrame();
 
       const canvas = document.createElement("canvas");
       canvas.className = "dither-cat-canvas";
@@ -49,6 +53,7 @@ export function DitherCat() {
         renderer.dispose();
         return;
       }
+      await nextFrame();
 
       // Pass 1: the lit cat into a small texture.
       const scene = new THREE.Scene();
@@ -123,9 +128,13 @@ export function DitherCat() {
 
       // Strip size → render size and the walkable range.
       let halfW = 1;
+      let sizeKey = "";
       const resize = () => {
         const w = Math.max(1, Math.round(el.clientWidth / DOT));
         const h = Math.max(1, Math.round(el.clientHeight / DOT));
+        // Reallocating the buffers is costly: only when the strip really changed size.
+        if (`${w}x${h}` === sizeKey) return;
+        sizeKey = `${w}x${h}`;
         renderer.setSize(w, h, false);
         target.setSize(w, h);
         halfW = (VIEW_H * (w / h)) / 2;
@@ -208,15 +217,23 @@ export function DitherCat() {
       // Animate only while on screen; a still view gets one frame.
       let frame = 0;
       let visible = false;
+      // The walk cycle was animated at 24 fps: drawing faster costs GPU and main-thread
+      // time without looking any smoother, so frames are rendered at that rate.
+      const FRAME = 1 / 24;
+      let pending = 0;
       const loop = () => {
-        const dt = Math.min(0.05, clock.getDelta());
-        if (!isStill()) step(dt);
-        else {
-          if (walk) walk.timeScale = 0;
-          cat.rotation.y = FACING * 0.6 * dir;
-          mixer.update(0);
+        pending += Math.min(0.1, clock.getDelta());
+        if (pending >= FRAME || isStill()) {
+          const dt = Math.min(0.1, pending);
+          pending = 0;
+          if (!isStill()) step(dt);
+          else {
+            if (walk) walk.timeScale = 0;
+            cat.rotation.y = FACING * 0.6 * dir;
+            mixer.update(0);
+          }
+          draw();
         }
-        draw();
         frame = visible && !isStill() ? requestAnimationFrame(loop) : 0;
       };
       const kick = () => {
@@ -225,6 +242,18 @@ export function DitherCat() {
           frame = requestAnimationFrame(loop);
         }
       };
+      // Compile the shaders off the main thread where the driver allows it, before the first frame.
+      try {
+        await renderer.compileAsync(scene, camera);
+        await renderer.compileAsync(post, postCam);
+      } catch {
+        // Older drivers: they compile on first draw instead.
+      }
+      if (disposed) {
+        renderer.dispose();
+        canvas.remove();
+        return;
+      }
       const io = new IntersectionObserver(([entry]) => {
         visible = entry.isIntersecting;
         if (visible) kick();
@@ -254,12 +283,20 @@ export function DitherCat() {
       };
     };
 
-    // Load three.js only when the strip is about to be seen.
+    // Load three.js only when the strip is about to be seen, and only once the page has
+    // loaded and the browser is idle, so the cat never competes with the first paint or hydration.
+    let idleHandle = 0;
+    const whenIdle = () => {
+      const run = () => !disposed && start();
+      if ("requestIdleCallback" in window) idleHandle = window.requestIdleCallback(run, { timeout: 4000 });
+      else idleHandle = globalThis.setTimeout(run, 1500) as unknown as number;
+    };
+    const afterLoad = () => (document.readyState === "complete" ? whenIdle() : window.addEventListener("load", whenIdle, { once: true }));
     const gate = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
         gate.disconnect();
-        start();
+        afterLoad();
       },
       { rootMargin: "200px" },
     );
@@ -268,6 +305,9 @@ export function DitherCat() {
     return () => {
       disposed = true;
       gate.disconnect();
+      window.removeEventListener("load", whenIdle);
+      if ("cancelIdleCallback" in window) window.cancelIdleCallback(idleHandle);
+      else globalThis.clearTimeout(idleHandle);
       cleanup();
     };
   }, []);

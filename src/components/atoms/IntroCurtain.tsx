@@ -45,7 +45,8 @@ export function IntroCurtain({ monogram, wordmark, status }: IntroCurtainProps) 
                 <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="soft" />
                 <feSpecularLighting in="soft" surfaceScale="7" specularConstant="1.15" specularExponent="26" lightingColor="#ffffff" result="spec">
                   <fePointLight x="40" y="-90" z="200">
-                    <animate attributeName="x" values="-60;420;-60" dur="2.6s" repeatCount="indefinite" />
+                    {/* One sweep for the length of the curtain: an endless SMIL animation keeps repainting the filter after it lifts. */}
+                    <animate attributeName="x" values="-60;420" dur="1.6s" repeatCount="1" fill="freeze" />
                   </fePointLight>
                 </feSpecularLighting>
                 <feComposite in="spec" in2="SourceAlpha" operator="in" />
