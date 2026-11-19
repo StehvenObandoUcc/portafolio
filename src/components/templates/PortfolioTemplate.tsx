@@ -3,7 +3,6 @@ import { IntroCurtain } from "@/components/atoms/IntroCurtain";
 import { MotionRoot } from "@/components/atoms/MotionRoot";
 import { PointerEffects } from "@/components/atoms/PointerEffects";
 import { RevealObserver } from "@/components/atoms/RevealObserver";
-import { Garden } from "@/components/atoms/Sprout";
 import { KineticBand } from "@/components/molecules/KineticBand";
 import { About, type AboutProps } from "@/components/organisms/About";
 import { Contact, type ContactProps } from "@/components/organisms/Contact";
@@ -74,7 +73,6 @@ export function PortfolioTemplate(props: PortfolioTemplateProps) {
         <Suspense>
           <Contact {...props.contact} />
         </Suspense>
-        <Garden />
       </main>
       <Suspense>
         <Footer {...props.footer} />

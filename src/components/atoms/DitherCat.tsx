@@ -9,7 +9,7 @@ const DOT = 1.6;
 const VIEW_H = 2.2;
 /** Yaw that turns the model to face +x (to the right). */
 const FACING = Math.PI / 2;
-const SPEED = 0.55;
+const SPEED = 0.95;
 
 /**
  * A low-poly cat (CC0, "simple cat" by drummyfish on OpenGameArt) drawn as
@@ -147,7 +147,7 @@ export function DitherCat() {
       let dir = -1;
       let yaw = FACING * dir;
       let pauseLeft = 0;
-      let nextPause = 3 + Math.random() * 4;
+      let nextPause = 6 + Math.random() * 5;
       let near = false;
       let pointerX = 0;
 
@@ -160,8 +160,10 @@ export function DitherCat() {
       };
       window.addEventListener("pointermove", onMove, { passive: true });
 
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-      const isStill = () => isMotionOff() || reduced.matches;
+      // A small sprite walking in place is not a vestibular trigger, so only the
+      // portfolio's own pause button stops it (Windows with animations off reports
+      // reduced motion for every page).
+      const isStill = () => isMotionOff();
 
       const clock = new THREE.Clock();
       const step = (dt: number) => {
@@ -184,8 +186,8 @@ export function DitherCat() {
           if (x > edge) { x = edge; dir = -1; }
           nextPause -= dt;
           if (nextPause <= 0) {
-            pauseLeft = 1.4 + Math.random() * 2.2;
-            nextPause = 4 + Math.random() * 6;
+            pauseLeft = 0.9 + Math.random() * 1.2;
+            nextPause = 7 + Math.random() * 7;
           }
         }
         cat.position.x = x;
