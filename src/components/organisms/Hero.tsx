@@ -2,7 +2,6 @@ import { Badge } from "@/components/atoms/Badge";
 import { Button } from "@/components/atoms/Button";
 import { DitherCat } from "@/components/atoms/DitherCat";
 import type { HeadingParts } from "@/components/atoms/Heading";
-import { SpinSeal } from "@/components/atoms/SpinSeal";
 import { PhotoFrame } from "@/components/molecules/PhotoFrame";
 import { StatItem } from "@/components/molecules/StatItem";
 import type { ImageAsset, Stat } from "@/data/types";
@@ -19,9 +18,6 @@ export interface HeroProps {
   stats: Stat[];
   comingSoonLabel: string;
   newTabLabel: string;
-  /** Lettering of the turning sticker on the photo. */
-  seal: string;
-  monogram: string;
 }
 
 /** First viewport: graph-paper ground, masked headline, photo, measurements. */
@@ -47,7 +43,6 @@ export function Hero(props: HeroProps) {
             tag={props.photoTag}
             priority
             sizes="(min-width: 1200px) 440px, (min-width: 900px) 38vw, 72vw"
-            sticker={<SpinSeal text={props.seal} monogram={props.monogram} />}
           />
         </div>
 

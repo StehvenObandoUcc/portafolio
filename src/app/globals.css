@@ -1440,21 +1440,25 @@ body::after {
   letter-spacing: -0.02em;
 }
 
-/* Dither cat sitting on the rule above the hero stats (after peril.lol). */
+/* Dither cat walking on the rule above the hero stats, right of the buttons (after peril.lol). */
 .dither-cat {
   position: absolute;
+  left: 44%;
   right: 0;
   bottom: 100%;
-  width: clamp(112px, 12vw, 164px);
-  aspect-ratio: 1;
+  height: clamp(96px, 8.4vw, 124px);
   margin-bottom: -2px;
   pointer-events: none;
 }
+/* Phones: the buttons fill the row, so the cat walks a strip under the stats instead. */
 @media (max-width: 639px) {
   .dither-cat {
-    bottom: -4px;
-    right: 4px;
-    width: 116px;
+    left: 0;
+    top: 100%;
+    bottom: auto;
+    height: 84px;
+    margin-top: 12px;
+    border-bottom: 1px solid var(--line);
   }
 }
 .dither-cat-canvas {
@@ -1604,7 +1608,7 @@ body::after {
 .footer-wordmark-cut {
   --wm: clamp(48px, 13.3vw, 224px);
   overflow: clip;
-  height: calc(var(--wm) * 0.6);
+  height: calc(var(--wm) * 0.74);
   margin-top: clamp(28px, 4vw, 48px);
   padding-inline: 1.2vw;
 }
@@ -1631,4 +1635,88 @@ body::after {
 }
 :root[data-motion-pref="off"] body::after {
   transform: none;
+}
+
+/* Garden: line-drawn plants in the page margins that grow as they scroll into view. */
+.garden {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: none;
+  pointer-events: none;
+}
+@media (min-width: 1380px) {
+  .garden { display: block; }
+}
+.sprout {
+  position: absolute;
+  overflow: visible;
+}
+.sprout-left { left: max(0px, calc((100% - var(--container)) / 2 - 100px)); }
+.sprout-right { right: max(0px, calc((100% - var(--container)) / 2 - 100px)); }
+.sprout-stem {
+  fill: none;
+  stroke: color-mix(in srgb, var(--ink) 42%, transparent);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 2.2s var(--ease-out);
+}
+.sprout-leaf {
+  fill: color-mix(in srgb, var(--success) 30%, var(--paper));
+  stroke: color-mix(in srgb, var(--success) 65%, var(--ink));
+  stroke-width: 0.8;
+  transform-box: view-box;
+  transform-origin: 0 0;
+  transition: transform 0.7s var(--ease-out) calc(0.25s + var(--at, 0) * 1.7s);
+}
+.sprout-bud {
+  fill: var(--accent-500);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.6s var(--ease-out) 2.1s;
+}
+.sprout-bud-warm { fill: var(--warm-400); }
+:is([data-reveal="below"], [data-reveal="above"])[data-motion="sprout"] .sprout-stem { stroke-dashoffset: 1; transition-duration: 0s; }
+:is([data-reveal="below"], [data-reveal="above"])[data-motion="sprout"] :is(.sprout-leaf, .sprout-bud) { transform: scale(0); transition-duration: 0s; transition-delay: 0s; }
+
+/* Where scroll timelines exist, growth follows the scroll both ways. */
+@supports (animation-timeline: view()) {
+  .sprout { view-timeline: --sprout block; }
+  .sprout-stem {
+    animation: sprout-draw linear both;
+    animation-timeline: --sprout;
+    animation-range: entry 0% cover 55%;
+  }
+  .sprout-leaf {
+    animation: sprout-open linear both;
+    animation-timeline: --sprout;
+    animation-range: cover calc(8% + var(--at, 0) * 45%) cover calc(18% + var(--at, 0) * 45%);
+  }
+  .sprout-bud {
+    animation: sprout-open linear both;
+    animation-timeline: --sprout;
+    animation-range: cover 52% cover 62%;
+  }
+}
+@keyframes sprout-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes sprout-open {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+:root[data-motion-pref="off"] .sprout-stem { stroke-dashoffset: 0 !important; }
+:root[data-motion-pref="off"] :is(.sprout-leaf, .sprout-bud) { transform: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .sprout-stem { animation: none; stroke-dashoffset: 0 !important; }
+  .sprout-leaf, .sprout-bud { animation: none; transform: none !important; }
+}
+
+/* Bigger seal beside the contact heading. */
+.spin-seal-lg {
+  width: clamp(96px, 11vw, 148px);
+  rotate: 8deg;
 }

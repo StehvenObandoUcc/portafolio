@@ -32,8 +32,17 @@ interface ProjectGalleryProps {
   /** Shot shown first when the gallery opens. */
   startIndex?: number;
   /** Project galleries read as a case sheet: title and shot on the left, the project on the right. */
-  caseInfo?: { kicker?: string; text?: string; meta?: string };
+  caseInfo?: { id: string; kicker?: string; text?: string; meta?: string; study?: CaseStudy };
 }
+
+export interface CaseStudy {
+  challenge: string;
+  solution: string[];
+  labels: { open: string; openAria: string; challenge: string; solution: string };
+}
+
+/** Fired with a project id to open its gallery at the case study. */
+export const CASE_EVENT = "portfolio:case";
 
 /** The project cover opens a modal gallery of full, uncropped screenshots. */
 export function ProjectGallery({ title, shots, labels, children, startIndex = 0, caseInfo }: ProjectGalleryProps) {
@@ -44,11 +53,25 @@ export function ProjectGallery({ title, shots, labels, children, startIndex = 0,
 
   const go = useCallback((step: number) => setIndex((i) => (i + step + total) % total), [total]);
 
-  const open = () => {
+  const caseRef = useRef<HTMLDivElement>(null);
+  const open = useCallback(() => {
     setIndex(startIndex);
     dialogRef.current?.showModal();
     document.body.dataset.scrollLocked = "";
-  };
+  }, [startIndex]);
+
+  // The card's "case study" button opens the sheet scrolled to the challenge.
+  const caseId = caseInfo?.id;
+  useEffect(() => {
+    if (!caseId) return;
+    const onCase = (event: Event) => {
+      if ((event as CustomEvent<string>).detail !== caseId) return;
+      open();
+      requestAnimationFrame(() => caseRef.current?.scrollIntoView({ block: "start" }));
+    };
+    window.addEventListener(CASE_EVENT, onCase);
+    return () => window.removeEventListener(CASE_EVENT, onCase);
+  }, [caseId, open]);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -184,6 +207,25 @@ export function ProjectGallery({ title, shots, labels, children, startIndex = 0,
                 {caseInfo.meta && <p className="text-label mt-3 text-ink-mute">{caseInfo.meta}</p>}
               </div>
             </div>
+            {caseInfo.study && (
+              <div ref={caseRef} className="mt-6 grid scroll-mt-4 gap-6 border-t border-line pt-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] md:gap-10">
+                <div className="min-w-0">
+                  <p className="text-label mb-2 text-accent-600">{caseInfo.study.labels.challenge}</p>
+                  <p className="text-[17px] leading-relaxed text-pretty text-ink">{caseInfo.study.challenge}</p>
+                </div>
+                <div className="min-w-0">
+                  <p className="text-label mb-2 text-accent-600">{caseInfo.study.labels.solution}</p>
+                  <ol className="grid gap-3">
+                    {caseInfo.study.solution.map((step, i) => (
+                      <li key={i} className="flex gap-3 text-[15px] leading-relaxed text-pretty text-ink-soft">
+                        <span className="text-label mt-1 flex-none text-accent-600 tabular">{String(i + 1).padStart(2, "0")}</span>
+                        <span>{step}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           shot && <p className="px-4 pt-3 text-[14px] text-ink-soft sm:px-6">{shot.alt}</p>

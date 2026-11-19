@@ -30,7 +30,8 @@ async function getBuildYear() {
 export const instant = false;
 
 const SECTION_IDS =["home", "about", "projects", "testimonials", "experience", "learning", "contact"] as const;
-const FILTERS: ProjectFilter[] = ["all", "desktop", "mobile", "wearable", "web", "backend", "cloud"];
+// "cloud" stays a valid platform in the data but gets no chip until a project uses it.
+const FILTERS: ProjectFilter[] = ["all", "desktop", "mobile", "wearable", "web", "backend"];
 
 const demoIcon: Record<DemoKind, IconName> = { demo: "play", exe: "download", apk: "download" };
 
@@ -97,6 +98,18 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
         : project.demo.kind === "apk"
           ? dict.projects.downloadApk
           : dict.projects.demo,
+    caseStudy: project.caseStudy
+      ? {
+          challenge: project.caseStudy.challenge[lang],
+          solution: project.caseStudy.solution.map((step) => step[lang]),
+          labels: {
+            open: dict.projects.caseStudy.open,
+            openAria: format(dict.projects.caseStudy.openAria, { title: project.title[lang] }),
+            challenge: dict.projects.caseStudy.challenge,
+            solution: dict.projects.caseStudy.solution,
+          },
+        }
+      : undefined,
     demoIcon: demoIcon[project.demo.kind],
     demoUrl: project.demo.url,
   }));
@@ -113,6 +126,11 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
           organization: known(t.organization),
           linkedinUrl: known(t.linkedinUrl),
           photo: t.photo ? { src: t.photo.src, alt: t.photo.alt[lang] } : undefined,
+          // Every quote was given in Spanish: elsewhere it is a translation and says so.
+          translation:
+            lang !== "es"
+              ? { label: dict.testimonials.translated, originalLabel: dict.testimonials.original, original: t.quote.es }
+              : undefined,
         },
   );
 
@@ -191,8 +209,6 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
       stats: dict.hero.stats,
       comingSoonLabel: comingSoon,
       newTabLabel: newTab,
-      seal: dict.hero.seal,
-      monogram: site.monogram,
     },
     about: {
       index: dict.about.index,
@@ -295,6 +311,8 @@ function buildProps(lang: Locale, dict: Dictionary, buildYear: number): Portfoli
       index: dict.contact.index,
       title: dict.contact.title,
       heading: dict.contact.heading,
+      seal: dict.hero.seal,
+      monogram: site.monogram,
       directTitle: dict.contact.directTitle,
       email: {
         label: dict.contact.emailLabel,

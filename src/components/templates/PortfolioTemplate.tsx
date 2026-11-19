@@ -3,6 +3,7 @@ import { IntroCurtain } from "@/components/atoms/IntroCurtain";
 import { MotionRoot } from "@/components/atoms/MotionRoot";
 import { PointerEffects } from "@/components/atoms/PointerEffects";
 import { RevealObserver } from "@/components/atoms/RevealObserver";
+import { Garden } from "@/components/atoms/Sprout";
 import { KineticBand } from "@/components/molecules/KineticBand";
 import { About, type AboutProps } from "@/components/organisms/About";
 import { Contact, type ContactProps } from "@/components/organisms/Contact";
@@ -47,7 +48,7 @@ export function PortfolioTemplate(props: PortfolioTemplateProps) {
       {/* Each section is its own Suspense boundary so React hydrates the page
           in small pieces (selective hydration) instead of one long task.
           Nothing suspends: the HTML renders exactly the same. */}
-      <main id="main" tabIndex={-1} className="focus:outline-none">
+      <main id="main" tabIndex={-1} className="relative focus:outline-none">
         <Hero {...props.hero} />
         <Suspense>
           <Toolbox {...props.toolbox} />
@@ -73,6 +74,7 @@ export function PortfolioTemplate(props: PortfolioTemplateProps) {
         <Suspense>
           <Contact {...props.contact} />
         </Suspense>
+        <Garden />
       </main>
       <Suspense>
         <Footer {...props.footer} />

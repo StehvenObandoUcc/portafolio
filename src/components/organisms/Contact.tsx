@@ -1,6 +1,7 @@
 import type { HeadingParts } from "@/components/atoms/Heading";
 import { Icon, type IconName } from "@/components/atoms/Icon";
 import { MaskWords } from "@/components/atoms/MaskWords";
+import { SpinSeal } from "@/components/atoms/SpinSeal";
 import { Reveal } from "@/components/atoms/Reveal";
 import { TextLink } from "@/components/atoms/TextLink";
 import { ContactForm, type ContactFormCopy } from "@/components/molecules/ContactForm";
@@ -20,6 +21,9 @@ export interface ContactProps {
   index: string;
   title: HeadingParts;
   heading: HeadingParts;
+  /** Lettering of the turning sticker beside the heading. */
+  seal: string;
+  monogram: string;
   directTitle: string;
   email: { label: string; address: string; copyLabel: string; copiedLabel: string; copyFailedLabel: string; copyAria: string };
   channels: ContactChannel[];
@@ -35,10 +39,11 @@ export function Contact(props: ContactProps) {
       <div className="container-page">
         <SectionHeader id="contact-title" index={props.index} title={props.title} />
 
-        <Reveal motion="pop">
-          <p className="text-display mb-12 max-w-[16ch] text-ink md:mb-16">
+        <Reveal motion="pop" className="mb-12 flex items-end justify-between gap-6 md:mb-16">
+          <p className="text-display max-w-[16ch] text-ink">
             <MaskWords parts={props.heading} />
           </p>
+          <SpinSeal text={props.seal} monogram={props.monogram} className="spin-seal-lg flex-none" />
         </Reveal>
 
         <div className="grid gap-12 md:grid-cols-12 md:gap-10 lg:gap-16">

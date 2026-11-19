@@ -29,6 +29,27 @@ export const projects: Project[] = [
       cover("projects/pulso/27-equipo-general.png", 1280, 1224, "Vista general del equipo", "Team overview"),
       cover("projects/pulso/37-revision-detalle.png", 1280, 1280, "Detalle de una revisión de tarea", "Task review detail"),
     ],
+    caseStudy: {
+      // From the repository's README, docs/IA.md and ADR-0022.
+      challenge: {
+        es: "Los equipos pequeños que trabajan con IA no saben en qué se les va el tiempo, y las herramientas que lo miden terminan vigilando a las personas. Además, si una IA redacta los reportes, puede inventarse las cifras.",
+        en: "Small teams that work with AI don't know where their time goes, and the tools that measure it end up watching people. And if an AI writes the reports, it can make up the numbers.",
+      },
+      solution: [
+        {
+          es: "Un núcleo en Rust registra la actividad en el propio computador: los títulos de ventana se guardan cifrados ahí y a la nube solo suben los totales. No se registran teclas ni capturas.",
+          en: "A Rust core records activity on the computer itself: window titles stay there encrypted and only totals go to the cloud. No keystrokes, no screenshots.",
+        },
+        {
+          es: "Cada rol (propietario, administrador, miembro, observador) ve solo lo suyo, y esos permisos los aplica la base de datos con políticas RLS en Supabase.",
+          en: "Each role (owner, admin, member, observer) sees only what it should, and the database enforces it with RLS policies in Supabase.",
+        },
+        {
+          es: "Las cifras de los reportes las calcula SQL antes de llamar a la IA. La IA solo redacta; un validador revisa su respuesta y, si falla, el reporte sale de una plantilla sin IA. En pantalla los números siempre vienen de los datos.",
+          en: "SQL computes the report's figures before the AI is called. The AI only writes the text; a validator checks its answer and, if it fails, the report falls back to a template with no AI. The numbers on screen always come from the data.",
+        },
+      ],
+    },
     githubUrl: "https://github.com/StehvenObandoUcc/app-escritorio",
     demo: { kind: "exe", url: "https://github.com/StehvenObandoUcc/app-escritorio/releases/latest" },
   },
@@ -55,6 +76,27 @@ export const projects: Project[] = [
       cover("projects/recuerda/reloj-es-hoy.webp", 396, 396, "Reloj: dosis de hoy", "Watch: today's doses"),
       cover("projects/recuerda/reloj-es-asistente-respuesta.webp", 396, 396, "Reloj: respuesta del asistente por voz", "Watch: voice assistant reply"),
     ],
+    caseStudy: {
+      // From the repository's README.
+      challenge: {
+        es: "Quien toma medicación necesita que el aviso suene a su hora aunque no tenga internet, y quien lo cuida necesita saber si cada dosis se tomó, sin depender de un teléfono.",
+        en: "Someone on medication needs the reminder to ring on time even without internet, and their caregiver needs to know whether each dose was taken, without relying on a phone.",
+      },
+      solution: [
+        {
+          es: "El reloj descarga el plan de 7 días, lo guarda en Room y programa una alarma exacta por dosis: sin conexión sigue sonando.",
+          en: "The watch downloads a 7-day plan, stores it in Room and sets an exact alarm for each dose, so it keeps ringing offline.",
+        },
+        {
+          es: "Tomada, pospuesta u omitida se guarda al momento con un id único y se sube en lote cuando vuelve la red; la API es idempotente, así que reintentar nunca duplica una dosis.",
+          en: "Taken, snoozed or skipped is saved at once with a unique id and uploaded in a batch when the network is back; the API is idempotent, so a retry never duplicates a dose.",
+        },
+        {
+          es: "El reloj se vincula escribiendo en el panel web un código corto que muestra el reloj, sin teclado. Si una dosis no se registra, el backend avisa por Telegram o correo.",
+          en: "The watch is linked by typing a short code it shows into the web dashboard, with no keyboard on the watch. If a dose goes unrecorded, the backend sends an alert by Telegram or email.",
+        },
+      ],
+    },
     githubUrl: "https://github.com/StehvenObandoUcc/front-smartwatch",
     demo: { kind: "demo", url: "https://front-smartwatch.vercel.app" },
   },
@@ -80,6 +122,27 @@ export const projects: Project[] = [
       cover("projects/foodai/claro-11-resultado-escaneo.jpg", 540, 1200, "Alimentos reconocidos por la IA", "Food recognised by the AI"),
       cover("projects/foodai/oscuro-01-inicio.jpg", 540, 1200, "Inicio en modo oscuro", "Home screen in dark mode"),
     ],
+    caseStudy: {
+      // From the repository's README.
+      challenge: {
+        es: "Se bota comida porque no sabemos qué hay en la nevera ni cuándo vence, y decidir qué cocinar con lo que queda toma tiempo.",
+        en: "Food gets thrown away because we don't know what's in the fridge or when it expires, and deciding what to cook with what's left takes time.",
+      },
+      solution: [
+        {
+          es: "Basta una foto: la API la analiza con IA y devuelve cada alimento con su nivel de confianza. Los dudosos llegan sin marcar para que el usuario los confirme o corrija.",
+          en: "One photo is enough: the API analyses it with AI and returns each item with a confidence level. Uncertain ones arrive unchecked so the user confirms or corrects them.",
+        },
+        {
+          es: "Cada fecha de vencimiento dice de dónde salió (la etiqueta, el usuario o una estimación) y la app programa avisos locales antes de que algo se dañe.",
+          en: "Each expiry date says where it came from (the label, the user or an estimate), and the app schedules local alerts before anything goes off.",
+        },
+        {
+          es: "Las recetas se comparan con la despensa en el teléfono («Tienes todo», «Te falta 1»), y todo funciona sin conexión: los cambios esperan en una cola con reintentos hasta que vuelve la red.",
+          en: "Recipes are checked against the pantry on the phone (\u201cYou have everything\u201d, \u201cYou're missing 1\u201d), and it all works offline: changes wait in a retrying queue until the network is back.",
+        },
+      ],
+    },
     githubUrl: "https://github.com/StehvenObandoUcc/App-mobile-front",
     // Pre-release, so releases/latest would not resolve to it.
     demo: { kind: "apk", url: "https://github.com/StehvenObandoUcc/App-mobile-front/releases/tag/v1.0.0-apk" },

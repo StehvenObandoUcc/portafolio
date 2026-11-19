@@ -3,7 +3,8 @@ import { Button } from "@/components/atoms/Button";
 import type { IconName } from "@/components/atoms/Icon";
 import { Tag } from "@/components/atoms/Tag";
 import { ToolIcon } from "@/components/atoms/ToolIcon";
-import { ProjectGallery, type GalleryShot, type ProjectGalleryLabels } from "@/components/molecules/ProjectGallery";
+import { CaseButton } from "@/components/molecules/CaseButton";
+import { ProjectGallery, type CaseStudy, type GalleryShot, type ProjectGalleryLabels } from "@/components/molecules/ProjectGallery";
 import type { Platform } from "@/data/types";
 
 export interface ProjectCardData {
@@ -32,6 +33,8 @@ export interface ProjectCardData {
   /** Set when the repository is private; replaces "coming soon" on its links. */
   privateLabel?: string;
   demoLabel: string;
+  /** Challenge and solution, shown in the gallery's case sheet; the card gets a button to open it. */
+  caseStudy?: CaseStudy;
   demoIcon: IconName;
   demoUrl: string;
 }
@@ -86,7 +89,13 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCa
             title={project.title}
             shots={project.shots}
             labels={project.galleryLabels}
-            caseInfo={{ text: project.description, meta: project.stack.join(" · "), kicker: project.platformLabel }}
+            caseInfo={{
+              id: project.id,
+              text: project.description,
+              meta: project.stack.join(" · "),
+              kicker: project.platformLabel,
+              study: project.caseStudy,
+            }}
           >
             {visual}
           </ProjectGallery>
@@ -137,6 +146,10 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCa
           </p>
         ) : (
           project.context && <p className="text-[14px] leading-snug text-ink-mute">{project.context}</p>
+        )}
+
+        {project.caseStudy && project.shots.length > 1 && (
+          <CaseButton id={project.id} label={project.caseStudy.labels.open} ariaLabel={project.caseStudy.labels.openAria} />
         )}
 
         <div className="mt-auto flex flex-wrap gap-2 pt-2">

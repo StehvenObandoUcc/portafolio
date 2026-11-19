@@ -46,6 +46,8 @@ export interface Project {
   cover: ImageAsset;
   /** Extra screenshots shown in the project gallery, after the cover. */
   gallery?: ImageAsset[];
+  /** The problem the project set out to solve and how it was solved, taken from its repository. */
+  caseStudy?: { challenge: Localized; solution: Localized[] };
   /** GitHub URL or "TODO". */
   githubUrl: string;
   /** The repository is private: its links say so instead of "coming soon". */
@@ -123,6 +125,7 @@ export interface LearningItem {
 /** A quote in the person's own words or one they explicitly approved. */
 export interface Testimonial {
   id: string;
+  /** Every quote so far was given in Spanish; the other locale shows a labelled translation. */
   quote: Localized;
   name: string;
   role: Localized;

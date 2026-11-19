@@ -7,10 +7,10 @@ import type { Testimonial } from "./types";
 export const testimonials: Testimonial[] = [
   {
     id: "testimonial-1",
-    // Quoted verbatim, as he wrote it; shown in its original Spanish on /en too.
+    // Quoted verbatim, as he wrote it. /en shows a translation, labelled, with the original one click away.
     quote: {
       es: "La rapidéz con la que llegó a poner en producción el código y su portafolio es grandioso, sigue ese camino !!!",
-      en: "La rapidéz con la que llegó a poner en producción el código y su portafolio es grandioso, sigue ese camino !!!",
+      en: "How fast he got his code and his portfolio into production is great, keep going down that path!!!",
     },
     name: "Juan Alvarez",
     role: { es: "Líder técnico de software", en: "Software Technical Leader" },

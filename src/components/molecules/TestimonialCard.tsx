@@ -13,6 +13,8 @@ export type TestimonialCardData =
       organization?: string;
       linkedinUrl?: string;
       photo?: { src: string; alt: string };
+      /** Set when the quote is shown translated: the label and the words as given. */
+      translation?: { label: string; originalLabel: string; original: string };
     }
   | { pending: true; id: string; title: string; body: string; author: string };
 
@@ -65,6 +67,19 @@ export function TestimonialCard({ testimonial, linkedinLabel, comingSoonLabel, c
       {quoteMark}
       <blockquote className="flex-1">
         <p className="text-[17px] leading-relaxed text-pretty text-ink">{testimonial.quote}</p>
+        {testimonial.translation && (
+          <details className="group/orig mt-3">
+            <summary className="cursor-pointer list-none text-[13px] leading-snug text-ink-mute [&::-webkit-details-marker]:hidden">
+              {testimonial.translation.label} ·{" "}
+              <span className="text-accent-600 underline decoration-accent-300 underline-offset-4 group-open/orig:no-underline">
+                {testimonial.translation.originalLabel}
+              </span>
+            </summary>
+            <p lang="es" className="mt-2 border-l-2 border-line-strong pl-3 text-[15px] leading-relaxed text-pretty text-ink-soft italic">
+              {testimonial.translation.original}
+            </p>
+          </details>
+        )}
       </blockquote>
       <figcaption className="flex items-start gap-3 border-t border-line pt-5">
         {testimonial.photo ? (

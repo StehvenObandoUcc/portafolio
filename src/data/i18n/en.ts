@@ -96,6 +96,7 @@ export const en: Dictionary = {
     downloadApk: "Download .apk",
     empty: "No projects in this category yet.",
     countSuffix: "projects",
+    caseStudy: { open: "Read the case study", openAria: "Read the {title} case study", challenge: "The challenge", solution: "How it was solved" },
     techActive: "With {tech}",
     techClear: "Clear the tool filter",
   },
@@ -107,6 +108,8 @@ export const en: Dictionary = {
     pendingBody: "This space is for a real quote from a teacher, team lead or industry contact.",
     pendingAuthor: "Name — role · organization",
     linkedin: "View LinkedIn profile",
+    translated: "Translated from Spanish",
+    original: "Read the original",
   },
   experience: {
     index: "04",

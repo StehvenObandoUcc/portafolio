@@ -102,6 +102,7 @@ export const es = {
     downloadApk: "Descargar .apk",
     empty: "Todavía no hay proyectos en esta categoría.",
     countSuffix: "proyectos",
+    caseStudy: { open: "Ver caso de estudio", openAria: "Ver el caso de estudio de {title}", challenge: "El reto", solution: "Cómo se resolvió" },
     techActive: "Con {tech}",
     techClear: "Quitar el filtro de tecnología",
   },
@@ -113,6 +114,8 @@ export const es = {
     pendingBody: "Este espacio es para una cita real de un docente, líder de equipo o contacto de la industria.",
     pendingAuthor: "Nombre — cargo · organización",
     linkedin: "Ver perfil en LinkedIn",
+    translated: "Traducido del español",
+    original: "Leer el original",
   },
   experience: {
     index: "04",
