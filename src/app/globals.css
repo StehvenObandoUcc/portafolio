@@ -1439,39 +1439,6 @@ main > section:not(#home) {
   letter-spacing: -0.02em;
 }
 
-/* Dither cat walking on the rule above the hero stats, right of the buttons (after peril.lol). */
-.dither-cat {
-  position: absolute;
-  left: 50%;
-  right: 0;
-  bottom: 100%;
-  height: clamp(96px, 8.4vw, 124px);
-  margin-bottom: -2px;
-  pointer-events: none;
-}
-/* Phones: the buttons fill the row, so the cat walks a strip under the stats instead. */
-@media (max-width: 639px) {
-  .dither-cat {
-    left: 0;
-    top: 100%;
-    bottom: auto;
-    height: 84px;
-    margin-top: 12px;
-    border-bottom: 1px solid var(--line);
-  }
-}
-.dither-cat-canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-  image-rendering: pixelated;
-  opacity: 0;
-  transition: opacity 0.8s var(--ease-soft);
-}
-.dither-cat[data-ready] .dither-cat-canvas {
-  opacity: 1;
-}
-
 /* Tool wall: logo cells on hairlines, a dark note on hover (after Lué Studio and basement.studio). */
 .tech-wall {
   border-top: 1px solid var(--line-strong);
@@ -1638,6 +1605,66 @@ main > section:not(#home) {
   rotate: 8deg;
 }
 
+/* Build line under each section rule: the intro's "compiling" voice, typed once the rule is drawn. */
+.build-log {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.7s steps(18, end) 1.25s;
+}
+.build-log::first-letter {
+  color: var(--success);
+}
+:is([data-reveal="below"], [data-reveal="above"]) .build-log {
+  clip-path: inset(0 100% 0 0);
+  transition-duration: 0.2s;
+  transition-delay: 0s;
+}
+
+/* Rubber stamp pressed onto the contact form once the message goes out. */
+.ink-stamp {
+  position: absolute;
+  top: clamp(14px, 3vw, 26px);
+  right: clamp(14px, 3vw, 28px);
+  z-index: 1;
+  padding: 6px 14px;
+  border: 3px double currentColor;
+  border-radius: 10px;
+  color: var(--success);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: clamp(16px, 1.6vw, 20px);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  pointer-events: none;
+  rotate: -9deg;
+  opacity: 0.85;
+  /* Uneven ink: the press never covers the whole face of the stamp. */
+  mask-image: radial-gradient(circle at 30% 40%, #000 55%, rgba(0, 0, 0, 0.55) 80%, #000 100%);
+  animation: stamp-press 0.5s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+@keyframes stamp-press {
+  from {
+    opacity: 0;
+    scale: 1.8;
+    rotate: -18deg;
+  }
+  60% {
+    opacity: 0.95;
+  }
+  to {
+    opacity: 0.85;
+    scale: 1;
+    rotate: -9deg;
+  }
+}
+
 /* Covers lean a little with the scroll speed (after Cappen). */
 .project-shot {
   transform: skewY(calc(var(--scroll-v, 0) * 1.4deg));
@@ -1653,4 +1680,97 @@ html.lenis body {
 }
 .lenis.lenis-stopped {
   overflow: hidden;
+}
+
+/* Until the page has loaded (see lib/pageLoad.ts) the curtain holds on "compiling": its lift, its status
+   and every entrance under it wait, then the whole sequence plays from the start on a finished page.
+   The glass monogram keeps moving so the wait never looks frozen. */
+:root[data-loading]:not([data-motion-pref="off"]) {
+  overflow: hidden;
+}
+/* Only the timed intro and hero entrances are listed: a universal selector here would re-style the
+   whole page when the attribute goes away. */
+:root[data-loading] :is(
+    .intro-curtain, .intro-status-loading, .intro-status-ready, .intro-percent, .intro-ring,
+    .enter-nav, .enter-badge, .enter-line, .enter-unblur, .enter-lede, .enter-cta-1, .enter-cta-2,
+    .enter-photo img, .enter-stat, .hero-grid
+  ),
+:root[data-loading] :is(.enter-photo, .serif-em-ruled)::after {
+  animation-play-state: paused !important;
+}
+
+/* Motion that used to come from the motion library, now plain CSS. */
+.toast-pop {
+  animation: toast-pop 0.2s var(--ease-out) both;
+}
+@keyframes toast-pop {
+  from { opacity: 0; transform: translateY(10px) scale(0.9); }
+}
+.tab-underline {
+  width: 0;
+  opacity: 0;
+}
+.tab-underline[data-ready] {
+  opacity: 1;
+  transition:
+    transform 0.5s var(--ease-out),
+    width 0.5s var(--ease-out);
+}
+
+/* Mobile sheet: a circle opens from the menu button and closes back into it. */
+.sheet[data-state="open"] {
+  animation: sheet-open 0.65s cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+.sheet[data-state="closed"] {
+  pointer-events: none;
+  animation: sheet-close 0.65s cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+@keyframes sheet-open {
+  from { clip-path: circle(0px at calc(100% - 42px) 34px); }
+  to { clip-path: circle(150% at calc(100% - 42px) 34px); }
+}
+@keyframes sheet-close {
+  from { clip-path: circle(150% at calc(100% - 42px) 34px); }
+  to { clip-path: circle(0px at calc(100% - 42px) 34px); }
+}
+.sheet-item {
+  animation: sheet-item 0.6s var(--ease-out) both;
+  animation-delay: calc(0.18s + var(--i, 0) * 0.055s);
+}
+@keyframes sheet-item {
+  from { opacity: 0; transform: translateY(70%) rotate(3deg); }
+}
+.sheet-cta {
+  animation: sheet-cta 0.5s var(--ease-soft) both;
+  animation-delay: calc(0.2s + var(--i, 0) * 0.055s);
+}
+@keyframes sheet-cta {
+  from { opacity: 0; transform: translateY(24px); }
+}
+:root[data-motion-pref="off"] .sheet[data-state="closed"] {
+  display: none;
+}
+
+/* Project filter: a view transition. Only the cards are named, so the rest of the page swaps in place. */
+:root {
+  view-transition-name: none;
+}
+.project-cell {
+  view-transition-class: project;
+}
+::view-transition-group(*.project) {
+  animation-duration: 0.55s;
+  animation-timing-function: var(--ease-out);
+}
+::view-transition-new(*.project):only-child {
+  animation: project-in 0.55s var(--ease-out) both;
+}
+::view-transition-old(*.project):only-child {
+  animation: project-out 0.4s var(--ease-out) both;
+}
+@keyframes project-in {
+  from { opacity: 0; transform: translateY(30px) scale(0.9); }
+}
+@keyframes project-out {
+  to { opacity: 0; transform: translateY(30px) scale(0.9); }
 }

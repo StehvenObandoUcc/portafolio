@@ -1,6 +1,5 @@
 import { Badge } from "@/components/atoms/Badge";
 import { Button } from "@/components/atoms/Button";
-import { DitherCat } from "@/components/atoms/DitherCat";
 import type { HeadingParts } from "@/components/atoms/Heading";
 import { PhotoFrame } from "@/components/molecules/PhotoFrame";
 import { StatItem } from "@/components/molecules/StatItem";
@@ -88,9 +87,7 @@ export function Hero(props: HeroProps) {
             </span>
           </div>
 
-          {/* The cat sits on the rule above the stats, in the gap to the right of the buttons. */}
           <div className="relative mt-12 md:mt-14">
-            <DitherCat />
             <dl className="grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-7 sm:grid-cols-3">
               {props.stats.map((stat, index) => (
                 <StatItem key={stat.label} value={stat.value} label={stat.label} index={index} />

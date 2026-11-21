@@ -28,6 +28,8 @@ export interface ContactFormCopy {
   submit: string;
   sending: string;
   success: string;
+  /** One word stamped across the form once the message is sent. */
+  stamp: string;
   fallback: string;
   failure: string;
   /** Already formatted with {max}; {count} is replaced live. */
@@ -110,7 +112,12 @@ export function ContactForm(props: ContactFormProps) {
     status === "success" ? form.success : status === "fallback" ? form.fallback : status === "failure" ? form.failure : "";
 
   return (
-    <form noValidate onSubmit={submit} className="card p-6 sm:p-8" aria-describedby="contact-form-status">
+    <form noValidate onSubmit={submit} className="card relative p-6 sm:p-8" aria-describedby="contact-form-status">
+      {status === "success" && (
+        <span aria-hidden="true" className="ink-stamp">
+          {form.stamp}
+        </span>
+      )}
       <h3 className="text-h3 mb-6 text-ink">{form.title}</h3>
       <div className="grid gap-5 sm:grid-cols-2">
         <FormField id="contact-name" label={form.name} error={errors.name && form.errors[errors.name]}>

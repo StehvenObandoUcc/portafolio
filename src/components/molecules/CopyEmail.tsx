@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, m } from "motion/react";
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/atoms/Icon";
 import { cn } from "@/lib/cn";
@@ -43,21 +42,15 @@ export function CopyEmail({ address, copyLabel, copiedLabel, copyFailedLabel, co
         <span>{copyLabel}</span>
       </button>
       <span role="status" aria-live="polite" className="pointer-events-none absolute right-0 bottom-[calc(100%+8px)]">
-        <AnimatePresence>
-          {toast && (
-            <m.span
-              key={toast}
-              initial={{ opacity: 0, y: 10, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 6 }}
-              transition={{ duration: 0.2 }}
-              className="text-label inline-flex items-center gap-1.5 rounded-pill bg-ink px-3 py-1.5 whitespace-nowrap text-surface shadow-card"
-            >
-              <span className="size-1.5 rounded-full bg-accent-300" aria-hidden="true" />
-              {toast}
-            </m.span>
-          )}
-        </AnimatePresence>
+        {toast && (
+          <span
+            key={toast}
+            className="toast-pop text-label inline-flex items-center gap-1.5 rounded-pill bg-ink px-3 py-1.5 whitespace-nowrap text-surface shadow-card"
+          >
+            <span className="size-1.5 rounded-full bg-accent-300" aria-hidden="true" />
+            {toast}
+          </span>
+        )}
       </span>
     </span>
   );

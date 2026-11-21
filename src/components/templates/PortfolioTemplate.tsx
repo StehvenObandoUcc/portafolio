@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import { IntroCurtain } from "@/components/atoms/IntroCurtain";
 import { SmoothScroll } from "@/components/atoms/SmoothScroll";
-import { MotionRoot } from "@/components/atoms/MotionRoot";
 import { PointerEffects } from "@/components/atoms/PointerEffects";
 import { RevealObserver } from "@/components/atoms/RevealObserver";
+import { ToolSprite } from "@/components/atoms/ToolSprite";
 import { KineticBand } from "@/components/molecules/KineticBand";
 import { About, type AboutProps } from "@/components/organisms/About";
 import { Contact, type ContactProps } from "@/components/organisms/Contact";
@@ -18,6 +18,8 @@ import { Toolbox, type ToolboxProps } from "@/components/organisms/Toolbox";
 
 export interface PortfolioTemplateProps {
   skipLabel: string;
+  /** Every tool name drawn with a brand mark on the page, for the icon sprite. */
+  toolIcons: string[];
   /** Tool names for the oversized running bands between sections. */
   bandItems: string[];
   intro: { loading: string; ready: string };
@@ -36,7 +38,8 @@ export interface PortfolioTemplateProps {
 /** Single-page layout: every section in order, data in via props. */
 export function PortfolioTemplate(props: PortfolioTemplateProps) {
   return (
-    <MotionRoot>
+    <>
+      <ToolSprite tools={props.toolIcons} />
       <IntroCurtain monogram={props.navbar.monogram} wordmark={props.navbar.wordmark} status={props.intro} />
       <a
         href="#main"
@@ -81,6 +84,6 @@ export function PortfolioTemplate(props: PortfolioTemplateProps) {
       <RevealObserver />
       <PointerEffects />
       <SmoothScroll />
-    </MotionRoot>
+    </>
   );
 }

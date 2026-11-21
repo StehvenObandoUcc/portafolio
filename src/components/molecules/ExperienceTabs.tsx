@@ -1,7 +1,6 @@
 "use client";
 
-import { m } from "motion/react";
-import { useId, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { useId, useLayoutEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import type { HeadingParts } from "@/components/atoms/Heading";
 import { SectionHeader } from "@/components/molecules/SectionHeader";
 import { cn } from "@/lib/cn";
@@ -24,6 +23,23 @@ export function ExperienceTabs({ index, title, tabsLabel, tabs, panels }: Experi
   const [tab, setTab] = useState<ExperienceTabId>("work");
   const baseId = useId();
   const tabRefs = useRef<Record<ExperienceTabId, HTMLButtonElement | null>>({ work: null, academic: null });
+  const underline = useRef<HTMLSpanElement>(null);
+
+  // One underline for the tablist, slid under the selected tab (CSS transition on transform and width).
+  useLayoutEffect(() => {
+    const bar = underline.current;
+    const active = tabRefs.current[tab];
+    if (!bar || !active) return;
+    const place = () => {
+      bar.style.width = `${active.offsetWidth}px`;
+      bar.style.transform = `translateX(${active.offsetLeft}px)`;
+      bar.dataset.ready = "";
+    };
+    place();
+    const resize = new ResizeObserver(place);
+    resize.observe(active);
+    return () => resize.disconnect();
+  }, [tab]);
 
   const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     if (event.key !== "ArrowRight" && event.key !== "ArrowLeft" && event.key !== "Home" && event.key !== "End") return;
@@ -47,7 +63,7 @@ export function ExperienceTabs({ index, title, tabsLabel, tabs, panels }: Experi
         index={index}
         title={title}
         aside={
-          <div role="tablist" aria-label={tabsLabel} className="flex gap-6 border-b border-line-strong md:border-b-0">
+          <div role="tablist" aria-label={tabsLabel} className="relative flex gap-6 border-b border-line-strong md:border-b-0">
             {TAB_ORDER.map((id) => {
               const selected = tab === id;
               return (
@@ -70,16 +86,10 @@ export function ExperienceTabs({ index, title, tabsLabel, tabs, panels }: Experi
                   )}
                 >
                   {tabs[id]}
-                  {selected && (
-                    <m.span
-                      layoutId={`${baseId}-underline`}
-                      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                      className="absolute inset-x-0 -bottom-px h-0.5 rounded-pill bg-accent-600"
-                    />
-                  )}
                 </button>
               );
             })}
+            <span ref={underline} aria-hidden="true" className="tab-underline absolute -bottom-px left-0 h-0.5 rounded-pill bg-accent-600" />
           </div>
         }
       />

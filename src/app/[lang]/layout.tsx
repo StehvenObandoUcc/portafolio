@@ -5,6 +5,7 @@ import { PreferenceSync } from "@/components/atoms/PreferenceSync";
 import { site } from "@/data/site";
 import { getDictionary, hasLocale, locales } from "@/lib/i18n";
 import { motionBootScript } from "@/lib/motionPreference";
+import { loadGateBootScript } from "@/lib/pageLoad";
 import { themeBootScript } from "@/lib/themePreference";
 
 const geist = Geist({
@@ -84,7 +85,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
       suppressHydrationWarning
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeBootScript + motionBootScript }} />
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript + motionBootScript + loadGateBootScript }} />
       </head>
       <body>
         <PreferenceSync />

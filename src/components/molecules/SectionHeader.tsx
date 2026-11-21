@@ -15,6 +15,11 @@ interface SectionHeaderProps {
   className?: string;
 }
 
+/** A stable, made-up build time per page so the server and client print the same line. */
+function buildTime(index: string) {
+  return 180 + ((Number(index) * 137) % 260);
+}
+
 /**
  * Section title set like a notebook page: the page number sits in the
  * margin of the heading itself, above a ruled line.
@@ -43,6 +48,9 @@ export function SectionHeader({ index, title, subtitle, id, aside, className }: 
         </div>
         {aside && <div className="md:flex-none">{aside}</div>}
         <span aria-hidden="true" className="rule-line absolute inset-x-0 bottom-0 h-px bg-line-strong" />
+        <span aria-hidden="true" className="build-log">
+          ✓ {index} ok · {buildTime(index)}ms
+        </span>
       </div>
     </Reveal>
   );

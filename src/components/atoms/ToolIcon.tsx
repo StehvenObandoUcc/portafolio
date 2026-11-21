@@ -1,75 +1,45 @@
-import {
-  siCss,
-  siDocker,
-  siExpo,
-  siFastapi,
-  siFlask,
-  siGithub,
-  siGodotengine,
-  siGsap,
-  siHtml5,
-  siJavascript,
-  siJetpackcompose,
-  siKotlin,
-  siNestjs,
-  siNextdotjs,
-  siNodedotjs,
-  siOpenjdk,
-  siPostgresql,
-  siPython,
-  siReact,
-  siReacthookform,
-  siReactquery,
-  siRust,
-  siSqlite,
-  siSupabase,
-  siTailwindcss,
-  siTauri,
-  siTypescript,
-  siVercel,
-  siVite,
-  siVitest,
-  siZod,
-  type SimpleIcon,
-} from "simple-icons";
 import { Icon, type IconName } from "./Icon";
 
-/** Brand marks from Simple Icons (CC0), drawn in the current text colour. */
-const brands: Record<string, SimpleIcon> = {
-  "Next.js": siNextdotjs,
-  React: siReact,
-  "Tailwind CSS": siTailwindcss,
-  TypeScript: siTypescript,
-  NestJS: siNestjs,
-  "Node.js": siNodedotjs,
-  FastAPI: siFastapi,
-  Python: siPython,
-  Flask: siFlask,
-  Java: siOpenjdk,
-  Tauri: siTauri,
-  Rust: siRust,
-  Kotlin: siKotlin,
-  "Jetpack Compose (Wear OS)": siJetpackcompose,
-  "React Native": siReact,
-  Expo: siExpo,
-  Godot: siGodotengine,
-  PostgreSQL: siPostgresql,
-  Supabase: siSupabase,
-  SQLite: siSqlite,
-  Docker: siDocker,
-  "Git & GitHub": siGithub,
-  "Expo Router": siExpo,
-  "React Query": siReactquery,
-  "React Hook Form": siReacthookform,
-  Zod: siZod,
-  Vite: siVite,
-  Vitest: siVitest,
-  GSAP: siGsap,
-  HTML: siHtml5,
-  CSS: siCss,
-  JavaScript: siJavascript,
-  Vercel: siVercel,
-  GDScript: siGodotengine,
+/**
+ * Brand marks from Simple Icons (CC0), drawn in the current text colour. The paths live once in
+ * <ToolSprite /> (server-rendered); each icon here is a <use> of its symbol, so neither the HTML
+ * nor the client bundle repeats them.
+ */
+export const BRAND_SLUGS: Record<string, string> = {
+  "Next.js": "nextdotjs",
+  React: "react",
+  "Tailwind CSS": "tailwindcss",
+  TypeScript: "typescript",
+  NestJS: "nestjs",
+  "Node.js": "nodedotjs",
+  FastAPI: "fastapi",
+  Python: "python",
+  Flask: "flask",
+  Java: "openjdk",
+  Tauri: "tauri",
+  Rust: "rust",
+  Kotlin: "kotlin",
+  "Jetpack Compose (Wear OS)": "jetpackcompose",
+  "React Native": "react",
+  Expo: "expo",
+  Godot: "godotengine",
+  PostgreSQL: "postgresql",
+  Supabase: "supabase",
+  SQLite: "sqlite",
+  Docker: "docker",
+  "Git & GitHub": "github",
+  "Expo Router": "expo",
+  "React Query": "reactquery",
+  "React Hook Form": "reacthookform",
+  Zod: "zod",
+  Vite: "vite",
+  Vitest: "vitest",
+  GSAP: "gsap",
+  HTML: "html5",
+  CSS: "css",
+  JavaScript: "javascript",
+  Vercel: "vercel",
+  GDScript: "godotengine",
 };
 
 /** Tools with no mark in Simple Icons use a line icon instead. */
@@ -80,11 +50,11 @@ const fallbacks: Record<string, IconName> = {
 };
 
 export function ToolIcon({ name, size = 16 }: { name: string; size?: number }) {
-  const brand = brands[name];
-  if (brand) {
+  const slug = BRAND_SLUGS[name];
+  if (slug) {
     return (
       <svg aria-hidden="true" viewBox="0 0 24 24" width={size} height={size} fill="currentColor" className="flex-none">
-        <path d={brand.path} />
+        <use href={`#si-${slug}`} />
       </svg>
     );
   }

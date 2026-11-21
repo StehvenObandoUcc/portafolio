@@ -1,7 +1,6 @@
 "use client";
 
-import { AnimatePresence, m } from "motion/react";
-import { useEffect, useRef, type RefObject } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type RefObject } from "react";
 import { Button } from "@/components/atoms/Button";
 import { NavLink } from "@/components/molecules/NavLink";
 
@@ -20,11 +19,22 @@ interface MobileMenuProps {
 }
 
 const DESKTOP_QUERY = "(min-width: 900px)";
+/** Length of the closing circle in globals.css (.sheet[data-state="closed"]). */
+const CLOSE_MS = 650;
 
 /** Full-screen sheet for < 900px. Escape, link click, outside click and resize close it. */
 export function MobileMenu(props: MobileMenuProps) {
   const { open, onClose, toggleRef } = props;
   const listRef = useRef<HTMLUListElement>(null);
+  // The sheet stays mounted while its closing circle plays, then leaves.
+  const [present, setPresent] = useState(open);
+  if (open && !present) setPresent(true);
+
+  useEffect(() => {
+    if (open || !present) return;
+    const timer = window.setTimeout(() => setPresent(false), CLOSE_MS);
+    return () => window.clearTimeout(timer);
+  }, [open, present]);
 
   useEffect(() => {
     if (!open) return;
@@ -78,70 +88,51 @@ export function MobileMenu(props: MobileMenuProps) {
     };
   }, [open, onClose, toggleRef, props.id]);
 
-  const offset = 24;
+  if (!present) return null;
 
   return (
-    <AnimatePresence>
-      {open && (
-        <m.div
-          id={props.id}
-          key="sheet"
-          role="dialog"
-          aria-modal="true"
-          aria-label={props.label}
-          className="fixed inset-0 z-30 overflow-y-auto bg-[var(--paper-sheet)] pt-[var(--nav-h)] backdrop-blur-[20px] md:hidden"
-          initial={{ clipPath: "circle(0px at calc(100% - 42px) 34px)" }}
-          animate={{ clipPath: "circle(150% at calc(100% - 42px) 34px)" }}
-          exit={{ clipPath: "circle(0px at calc(100% - 42px) 34px)" }}
-          transition={{ duration: 0.65, ease: [0.76, 0, 0.24, 1] }}
-          onClick={(event) => {
-            if (event.target === event.currentTarget) onClose();
-          }}
-        >
-          <nav aria-label={props.label} className="container-page pt-6" onClick={(event) => {
-            if (event.target === event.currentTarget) onClose();
-          }}>
-            <ul ref={listRef} className="border-t border-line">
-              {props.items.map((item, index) => (
-                <m.li
-                  key={item.id}
-                  className="overflow-hidden"
-                  initial={{ opacity: 0, y: "70%", rotate: 3 }}
-                  animate={{ opacity: 1, y: 0, rotate: 0 }}
-                  transition={{ duration: 0.6, delay: 0.18 + index * 0.055, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <NavLink
-                    variant="sheet"
-                    href={`#${item.id}`}
-                    label={item.label}
-                    active={props.active === item.id}
-                    index={item.index}
-                    onClick={onClose}
-                  />
-                </m.li>
-              ))}
-            </ul>
-            <m.div
-              className="mt-8"
-              initial={{ opacity: 0, y: offset }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 + props.items.length * 0.055 }}
-            >
-              <Button
-                href={props.cvUrl}
-                external
-                icon="download"
-                iconPosition="start"
-                comingSoonLabel={props.comingSoonLabel}
-                newTabLabel={props.newTabLabel}
-                className="w-full"
-              >
-                {props.cvLabel}
-              </Button>
-            </m.div>
-          </nav>
-        </m.div>
-      )}
-    </AnimatePresence>
+    <div
+      id={props.id}
+      role="dialog"
+      aria-modal="true"
+      aria-label={props.label}
+      data-state={open ? "open" : "closed"}
+      className="sheet fixed inset-0 z-30 overflow-y-auto bg-[var(--paper-sheet)] pt-[var(--nav-h)] backdrop-blur-[20px] md:hidden"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
+      <nav aria-label={props.label} className="container-page pt-6" onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}>
+        <ul ref={listRef} className="border-t border-line">
+          {props.items.map((item, index) => (
+            <li key={item.id} className="sheet-item overflow-hidden" style={{ "--i": index } as CSSProperties}>
+              <NavLink
+                variant="sheet"
+                href={`#${item.id}`}
+                label={item.label}
+                active={props.active === item.id}
+                index={item.index}
+                onClick={onClose}
+              />
+            </li>
+          ))}
+        </ul>
+        <div className="sheet-cta mt-8" style={{ "--i": props.items.length } as CSSProperties}>
+          <Button
+            href={props.cvUrl}
+            external
+            icon="download"
+            iconPosition="start"
+            comingSoonLabel={props.comingSoonLabel}
+            newTabLabel={props.newTabLabel}
+            className="w-full"
+          >
+            {props.cvLabel}
+          </Button>
+        </div>
+      </nav>
+    </div>
   );
 }

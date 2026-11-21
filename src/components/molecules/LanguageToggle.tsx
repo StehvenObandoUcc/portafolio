@@ -33,6 +33,8 @@ export function LanguageToggle({ current, options, label }: LanguageToggleProps)
     event.preventDefault();
     setActive(locale);
     const target = `/${locale}${window.location.hash}`;
+    // Full load on purpose (see the component comment): router.push would keep the old locale's tree alive.
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination
     window.setTimeout(() => window.location.assign(target), 260);
   };
 

@@ -1,11 +1,12 @@
 "use client";
 
-import { AnimatePresence, m } from "motion/react";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
+import { flushSync } from "react-dom";
 import { Icon } from "@/components/atoms/Icon";
 import { Reveal } from "@/components/atoms/Reveal";
 import type { Platform, ProjectFilter } from "@/data/types";
 import { cn } from "@/lib/cn";
+import { isMotionOff } from "@/lib/motionPreference";
 import { TECH_EVENT, type TechFocus } from "@/lib/techFocus";
 
 export interface ProjectGridItem {
@@ -27,11 +28,22 @@ interface ProjectGridProps {
   items: ProjectGridItem[];
 }
 
-const ease = [0.16, 1, 0.3, 1] as const;
+/**
+ * Runs a filter change as a view transition: cards that stay slide to their
+ * new cell, the ones that leave or arrive scale and fade (see globals.css).
+ * Browsers without view transitions, and the navbar pause, just swap.
+ */
+function reflow(update: () => void) {
+  if (typeof document.startViewTransition !== "function" || isMotionOff()) {
+    update();
+    return;
+  }
+  document.startViewTransition(() => flushSync(update));
+}
 
 /**
  * Client island for the projects: filter chips and the grid that reflows
- * with a layout animation. The cards themselves arrive server-rendered.
+ * with a view transition. The cards themselves arrive server-rendered.
  */
 export function ProjectGrid({ filters, filtersLabel, emptyLabel, techLabels, items }: ProjectGridProps) {
   const [filter, setFilter] = useState<ProjectFilter>("all");
@@ -39,8 +51,10 @@ export function ProjectGrid({ filters, filtersLabel, emptyLabel, techLabels, ite
 
   useEffect(() => {
     const onTech = (event: Event) => {
-      setFilter("all");
-      setTech((event as CustomEvent<TechFocus>).detail);
+      reflow(() => {
+        setFilter("all");
+        setTech((event as CustomEvent<TechFocus>).detail);
+      });
     };
     window.addEventListener(TECH_EVENT, onTech);
     return () => window.removeEventListener(TECH_EVENT, onTech);
@@ -73,10 +87,12 @@ export function ProjectGrid({ filters, filtersLabel, emptyLabel, techLabels, ite
                 type="button"
                 aria-pressed={selected}
                 disabled={empty}
-                onClick={() => {
-                  setFilter(chip.id);
-                  setTech(null);
-                }}
+                onClick={() =>
+                  reflow(() => {
+                    setFilter(chip.id);
+                    setTech(null);
+                  })
+                }
                 className={cn(
                   "chip inline-flex h-11 md:h-10 pointer-coarse:h-11 flex-none items-center gap-2 rounded-pill border px-4 text-[14px] font-medium transition-[background-color,color,border-color] duration-200 ease-soft",
                   empty
@@ -98,7 +114,7 @@ export function ProjectGrid({ filters, filtersLabel, emptyLabel, techLabels, ite
               {techLabels.active.replace("{tech}", tech.label)}
               <button
                 type="button"
-                onClick={() => setTech(null)}
+                onClick={() => reflow(() => setTech(null))}
                 aria-label={techLabels.clear}
                 className="grid size-9 place-items-center rounded-pill transition-colors hover:bg-accent-100"
               >
@@ -109,24 +125,19 @@ export function ProjectGrid({ filters, filtersLabel, emptyLabel, techLabels, ite
         </div>
       </Reveal>
 
-      <m.ul layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-        <AnimatePresence mode="popLayout" initial={false}>
-          {visible.map((item, i) => (
-            <m.li
-              key={item.id}
-              layout
-              initial={{ opacity: 0, scale: 0.9, y: 30 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9, y: 30 }}
-              transition={{ duration: 0.55, ease }}
-            >
-              <Reveal index={i} motion="card" className="h-full">
-                {item.card}
-              </Reveal>
-            </m.li>
-          ))}
-        </AnimatePresence>
-      </m.ul>
+      <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+        {visible.map((item, i) => (
+          <li
+            key={item.id}
+            className="project-cell"
+            style={{ viewTransitionName: `project-${item.id.replace(/[^a-zA-Z0-9-]/g, "-")}` } as CSSProperties}
+          >
+            <Reveal index={i} motion="card" className="h-full">
+              {item.card}
+            </Reveal>
+          </li>
+        ))}
+      </ul>
 
       {visible.length === 0 && (
         <p role="status" className="rounded-lg border border-dashed border-line-strong px-6 py-12 text-center text-ink-soft">

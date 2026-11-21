@@ -159,6 +159,7 @@ export const en: Dictionary = {
       submit: "Send message",
       sending: "Sending…",
       success: "Thanks! Your message was sent.",
+      stamp: "Sent",
       fallback: "I opened your email app with the message ready to send.",
       failure: "It couldn't be sent. Please email me directly.",
       charCount: "{count} / {max}",
@@ -178,6 +179,7 @@ export const en: Dictionary = {
   footer: {
     builtWith: "Built with Next.js, deployed on Vercel",
     backToTop: "Back to top",
+    panel: { commit: "Commit", updated: "Last updated", localTime: "Time in Pasto", browser: "Browser", screen: "Viewport" },
   },
   notFound: {
     title: "Page not found",

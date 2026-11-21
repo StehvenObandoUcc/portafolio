@@ -26,6 +26,8 @@ export function Reveal({ children, index = 0, motion = "rise", className }: Reve
   return (
     <div
       data-reveal=""
+      // <RevealObserver /> may park the block ("below") before a lazily hydrated section catches up.
+      suppressHydrationWarning
       data-motion={motion}
       className={className}
       style={{ "--reveal-i": Math.min(index, 8) } as CSSProperties}

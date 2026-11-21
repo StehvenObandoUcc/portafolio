@@ -165,6 +165,7 @@ export const es = {
       submit: "Enviar mensaje",
       sending: "Enviando…",
       success: "¡Gracias! Tu mensaje fue enviado.",
+      stamp: "Enviado",
       fallback: "Abrí tu cliente de correo con el mensaje listo para enviar.",
       failure: "No se pudo enviar. Escríbeme directamente a mi correo.",
       charCount: "{count} / {max}",
@@ -184,6 +185,7 @@ export const es = {
   footer: {
     builtWith: "Hecho con Next.js y desplegado en Vercel",
     backToTop: "Volver arriba",
+    panel: { commit: "Commit", updated: "Actualizado", localTime: "Hora en Pasto", browser: "Navegador", screen: "Pantalla" },
   },
   notFound: {
     title: "Página no encontrada",
