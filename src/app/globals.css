@@ -1605,28 +1605,6 @@ main > section:not(#home) {
   rotate: 8deg;
 }
 
-/* Build line under each section rule: the intro's "compiling" voice, typed once the rule is drawn. */
-.build-log {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 10px);
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: var(--ink-soft);
-  white-space: nowrap;
-  clip-path: inset(0 0 0 0);
-  transition: clip-path 0.7s steps(18, end) 1.25s;
-}
-.build-log::first-letter {
-  color: var(--success);
-}
-:is([data-reveal="below"], [data-reveal="above"]) .build-log {
-  clip-path: inset(0 100% 0 0);
-  transition-duration: 0.2s;
-  transition-delay: 0s;
-}
-
 /* Rubber stamp pressed onto the contact form once the message goes out. */
 .ink-stamp {
   position: absolute;
