@@ -95,6 +95,7 @@ function buildProps(
     featured: Boolean(project.featured),
     featuredLabel: dict.projects.featured,
     cover: { ...project.cover, alt: project.cover.alt[lang] },
+    coverFill: project.coverFill,
     shots: [project.cover, ...(project.gallery ?? [])].map((shot) => ({ ...shot, alt: shot.alt[lang] })),
     galleryLabels: {
       open: format(dict.a11y.galleryOpen, { title: project.title[lang] }),

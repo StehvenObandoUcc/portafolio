@@ -44,6 +44,8 @@ export interface Project {
   context?: Localized;
   featured?: boolean;
   cover: ImageAsset;
+  /** The cover fills the whole frame instead of standing on the tinted ground (dark game art). */
+  coverFill?: boolean;
   /** Extra screenshots shown in the project gallery, after the cover. */
   gallery?: ImageAsset[];
   /** The problem the project set out to solve and how it was solved, taken from its repository. */

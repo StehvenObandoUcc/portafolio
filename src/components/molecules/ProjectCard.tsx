@@ -6,6 +6,7 @@ import { ToolIcon } from "@/components/atoms/ToolIcon";
 import { CaseButton } from "@/components/molecules/CaseButton";
 import { ProjectGallery, type CaseStudy, type GalleryShot, type ProjectGalleryLabels } from "@/components/molecules/ProjectGallery";
 import type { Platform } from "@/data/types";
+import { cn } from "@/lib/cn";
 
 export interface ProjectCardData {
   id: string;
@@ -35,6 +36,8 @@ export interface ProjectCardData {
   demoLabel: string;
   /** Challenge and solution, shown in the gallery's case sheet; the card gets a button to open it. */
   caseStudy?: CaseStudy;
+  /** Fill the cover frame edge to edge (dark game art). */
+  coverFill?: boolean;
   demoIcon: IconName;
   demoUrl: string;
 }
@@ -52,8 +55,21 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCa
   const screenshot = !project.cover.src.endsWith(".svg");
   const sizes = "(min-width: 1200px) 380px, (min-width: 640px) 45vw, 100vw";
 
-  // A real screenshot stands whole on the platform-tinted ground, resting on the bottom edge.
-  const visual = screenshot ? (
+  // Dark game art fills the frame; other screenshots stand whole on the
+  // platform-tinted ground, resting on the bottom edge.
+  const fill = screenshot && project.coverFill;
+  const visual = fill ? (
+    <div className="absolute inset-0">
+      <Image
+        src={project.cover.src}
+        alt={project.cover.alt}
+        width={project.cover.width}
+        height={project.cover.height}
+        sizes={sizes}
+        className="size-full object-cover object-left transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+      />
+    </div>
+  ) : screenshot ? (
     <div className="absolute inset-x-[7%] top-[19%] bottom-0 flex items-end justify-center">
       <Image
         src={project.cover.src}
@@ -102,7 +118,8 @@ export function ProjectCard({ project, comingSoonLabel, newTabLabel }: ProjectCa
         ) : (
           visual
         )}
-        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
+        {/* On a filled cover the tags drop to the bottom so they don't sit on the art's title. */}
+        <div className={cn("absolute left-3 flex flex-wrap gap-1.5", fill ? "bottom-3" : "top-3")}>
           <Tag tone="solid">{project.platformLabel}</Tag>
           {featured && <Tag tone="marker">{project.featuredLabel}</Tag>}
         </div>

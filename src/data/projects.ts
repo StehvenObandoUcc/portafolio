@@ -203,6 +203,7 @@ export const projects: Project[] = [
       en: "Course project · in progress · with David Alejandro Aza Jojoa and Paula Sofía Gonzales Zambrano",
     },
     cover: cover("project-video-game.jpg", 1268, 714, "Menú principal de Descending to my Heaven", "Descending to my Heaven main menu"),
+    coverFill: true,
     gallery: [
       cover("projects/game/juego2.jpg", 1285, 709, "Menú de pausa en el juego", "In-game pause menu"),
       cover("projects/game/juego3.jpg", 875, 495, "Captura del juego", "Gameplay screenshot"),
