@@ -83,18 +83,6 @@ export const technicalExperience: ExperienceItem[] = [
       en: ["3D boss rush with three tactical-AI bosses, released as a Windows executable (v1.0.0-rc1)."],
     },
   },
-  {
-    id: "huellas",
-    projectId: "huellas",
-    role: { es: TODO, en: TODO },
-    organization: { es: "Huellas de la guerra · documental web", en: "Huellas de la guerra · web documentary" },
-    period: { es: "oct 2026", en: "Oct 2026" },
-    stack: ["GSAP", "Vercel"],
-    outcomes: {
-      es: ["Sitio de narrativa por scroll en español e inglés, publicado en Vercel."],
-      en: ["Scroll-driven storytelling site in Spanish and English, published on Vercel."],
-    },
-  },
 ];
 
 export const degree: Degree = {

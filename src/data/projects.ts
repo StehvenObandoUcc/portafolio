@@ -58,8 +58,8 @@ export const projects: Project[] = [
     title: { es: "Recuerda", en: "Recuerda" },
     platforms: ["wearable", "web", "backend"],
     description: {
-      es: "Recordatorios de medicamentos: una app Wear OS independiente que suena a la hora de cada dosis y funciona sin internet, un panel web para quien cuida y una API que genera el plan de dosis y envía avisos.",
-      en: "Medication reminders: a standalone Wear OS app that rings at each dose and works offline, a web dashboard for caregivers, and an API that builds the dose plan and sends alerts.",
+      es: "Recordatorios de medicamentos en el reloj: una app Wear OS independiente que suena a la hora de cada dosis, funciona sin internet y responde por voz sobre el plan. La acompañan un panel web para quien cuida y una API que genera el plan y envía avisos.",
+      en: "Medication reminders on the wrist: a standalone Wear OS app that rings at each dose, works offline and answers spoken questions about the plan. A web dashboard for caregivers and an API that builds the plan and sends alerts back it up.",
     },
     stack: ["Kotlin", "Jetpack Compose (Wear OS)", "React", "TypeScript", "Tailwind CSS", "React Query", "FastAPI", "PostgreSQL", "Heroku", "Vitest"],
     role: {
@@ -67,14 +67,18 @@ export const projects: Project[] = [
       en: "Backend environment setup, API + worker, and the watch UI",
     },
     collaboration: "team",
-    cover: cover("project-recuerda.webp", 1440, 900, "Panel web de Recuerda con la adherencia de 7 días", "Recuerda web dashboard showing 7-day adherence"),
+    // The watch is the product; the web dashboard comes after it.
+    cover: cover("projects/recuerda/portada-relojes.png", 1318, 690, "Tres pantallas del reloj: dosis de hoy, próxima dosis y alerta", "Three watch screens: today's doses, next dose and an alert"),
     gallery: [
+      cover("projects/recuerda/reloj-es-inicio-reloj.png", 492, 690, "Reloj: la próxima dosis y cuánto falta", "Watch: the next dose and how long until it"),
+      cover("projects/recuerda/reloj-es-alerta-reloj.png", 492, 690, "Reloj: alerta de una dosis", "Watch: dose alert"),
+      cover("projects/recuerda/reloj-es-hoy-reloj.png", 492, 690, "Reloj: dosis de hoy", "Watch: today's doses"),
+      cover("projects/recuerda/reloj-es-mes-reloj.png", 492, 690, "Reloj: adherencia del mes", "Watch: this month's adherence"),
+      cover("projects/recuerda/reloj-es-asistente-respuesta-reloj.png", 492, 690, "Reloj: respuesta del asistente por voz", "Watch: voice assistant reply"),
+      cover("projects/recuerda/reloj-es-vincular-reloj.png", 492, 690, "Reloj: código para vincularlo al panel web", "Watch: code to link it to the web dashboard"),
+      cover("project-recuerda.webp", 1440, 900, "Panel web de Recuerda con la adherencia de 7 días", "Recuerda web dashboard showing 7-day adherence"),
       cover("projects/recuerda/hoy-escritorio-light-es.webp", 1440, 900, "Panel web: dosis de hoy", "Web dashboard: today's doses"),
       cover("projects/recuerda/medicamentos-escritorio-light-es.webp", 1440, 900, "Panel web: medicamentos", "Web dashboard: medications"),
-      cover("projects/recuerda/landing-escritorio-light-es.webp", 1440, 900, "Página de inicio de Recuerda", "Recuerda landing page"),
-      cover("projects/recuerda/reloj-es-alerta.webp", 396, 396, "Reloj: alerta de una dosis", "Watch: dose alert"),
-      cover("projects/recuerda/reloj-es-hoy.webp", 396, 396, "Reloj: dosis de hoy", "Watch: today's doses"),
-      cover("projects/recuerda/reloj-es-asistente-respuesta.webp", 396, 396, "Reloj: respuesta del asistente por voz", "Watch: voice assistant reply"),
     ],
     caseStudy: {
       // From the repository's README.
@@ -172,22 +176,6 @@ export const projects: Project[] = [
     demo: { kind: "demo", url: TODO },
   },
   {
-    id: "huellas",
-    title: { es: "Huellas de la guerra", en: "Huellas de la guerra" },
-    platforms: ["web"],
-    description: {
-      es: "Documental web con narrativa por scroll sobre los animales en el conflicto armado en Colombia, en español e inglés, publicado como sitio estático.",
-      en: "A scroll-driven web documentary about animals in Colombia's armed conflict, in Spanish and English, published as a static site.",
-    },
-    stack: ["HTML", "CSS", "JavaScript", "GSAP", "Lenis", "Vercel"],
-    role: { es: TODO, en: TODO },
-    collaboration: TODO,
-    cover: cover("project-huellas.jpg", 1440, 900, "Portada de Huellas de la guerra", "Huellas de la guerra cover page"),
-    githubUrl: TODO,
-    privateRepo: true,
-    demo: { kind: "demo", url: "https://huellas-de-la-guerra.vercel.app" },
-  },
-  {
     id: "video-game",
     title: { es: "Descending to my Heaven", en: "Descending to my Heaven" },
     platforms: ["desktop"],
@@ -209,9 +197,8 @@ export const projects: Project[] = [
       cover("projects/game/juego3.jpg", 875, 495, "Captura del juego", "Gameplay screenshot"),
       cover("projects/game/juego4.jpg", 879, 446, "Captura del juego", "Gameplay screenshot"),
     ],
-    // SoFzzz/Descending-to-my-Heaven; the download lives in the same repository.
-    githubUrl: TODO,
-    privateRepo: true,
-    demo: { kind: "exe", url: TODO },
+    githubUrl: "https://github.com/SoFzzz/Descending-to-my-Heaven",
+    // Pre-release, so releases/latest would not resolve to it.
+    demo: { kind: "exe", url: "https://github.com/SoFzzz/Descending-to-my-Heaven/releases/tag/v1.0.0-rc1" },
   },
 ];
