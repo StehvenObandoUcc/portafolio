@@ -1,7 +1,6 @@
 import { CurrentYear } from "@/components/atoms/CurrentYear";
 import { Icon } from "@/components/atoms/Icon";
 import { Logo } from "@/components/atoms/Logo";
-import { BuildPanel, type BuildPanelCopy } from "@/components/molecules/BuildPanel";
 import { SocialLinks, type SocialLinkData } from "@/components/molecules/SocialLinks";
 
 export interface FooterProps {
@@ -17,7 +16,6 @@ export interface FooterProps {
   socialLabel: string;
   backToTop: string;
   comingSoonLabel: string;
-  build: { copy: BuildPanelCopy; commit: string; updated: string; locale: string };
 }
 
 export function Footer(props: FooterProps) {
@@ -40,7 +38,6 @@ export function Footer(props: FooterProps) {
             </a>
           </div>
         </div>
-        <BuildPanel {...props.build} />
         <div className="flex flex-col gap-2 border-t border-line pt-6 sm:flex-row sm:justify-between">
           <p className="text-label text-ink-mute">
             © <CurrentYear fallback={props.buildYear} /> {props.fullName}

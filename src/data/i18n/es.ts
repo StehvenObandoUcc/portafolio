@@ -185,7 +185,6 @@ export const es = {
   footer: {
     builtWith: "Hecho con Next.js y desplegado en Vercel",
     backToTop: "Volver arriba",
-    panel: { commit: "Commit", updated: "Actualizado", localTime: "Hora en Pasto", browser: "Navegador", screen: "Pantalla" },
   },
   notFound: {
     title: "Página no encontrada",

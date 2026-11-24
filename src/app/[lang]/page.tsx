@@ -23,16 +23,6 @@ async function getBuildYear() {
   return new Date().getFullYear();
 }
 
-/** Commit and date of this build, printed in the footer's build sheet. */
-async function getBuildStamp() {
-  "use cache";
-  cacheLife("days");
-  return {
-    commit: (process.env.VERCEL_GIT_COMMIT_SHA ?? "local").slice(0, 7),
-    updated: new Date().toISOString().slice(0, 10),
-  };
-}
-
 /**
  * Both locales are prerendered (generateStaticParams in the layout). The only
  * navigation into this route is the ES/EN switch, which may block on `params`.
@@ -68,7 +58,6 @@ function buildProps(
   lang: Locale,
   dict: Dictionary,
   buildYear: number,
-  stamp: { commit: string; updated: string },
 ): PortfolioTemplateProps {
   const comingSoon = dict.a11y.comingSoon;
   const newTab = dict.a11y.opensInNewTab;
@@ -398,7 +387,6 @@ function buildProps(
       socialLabel: dict.a11y.socialLinks,
       backToTop: dict.footer.backToTop,
       comingSoonLabel: comingSoon,
-      build: { copy: dict.footer.panel, commit: stamp.commit, updated: stamp.updated, locale: lang },
     },
   };
 }
@@ -407,7 +395,7 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
 
-  const [dict, buildYear, stamp] = await Promise.all([getDictionary(lang), getBuildYear(), getBuildStamp()]);
+  const [dict, buildYear] = await Promise.all([getDictionary(lang), getBuildYear()]);
 
   const pending = testimonials.filter((t) => isPendingTestimonial(t, lang)).length;
   if (pending > 0) {
@@ -416,5 +404,5 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
     );
   }
 
-  return <PortfolioTemplate {...buildProps(lang, dict, buildYear, stamp)} />;
+  return <PortfolioTemplate {...buildProps(lang, dict, buildYear)} />;
 }

@@ -179,7 +179,6 @@ export const en: Dictionary = {
   footer: {
     builtWith: "Built with Next.js, deployed on Vercel",
     backToTop: "Back to top",
-    panel: { commit: "Commit", updated: "Last updated", localTime: "Time in Pasto", browser: "Browser", screen: "Viewport" },
   },
   notFound: {
     title: "Page not found",
