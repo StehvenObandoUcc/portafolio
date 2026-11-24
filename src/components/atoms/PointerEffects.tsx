@@ -11,6 +11,7 @@ const TILT = "[data-tilt]";
  * - buttons lean toward the cursor (--mx, --my)
  * - [data-tilt] surfaces tilt in 3D with a moving glare (--rx, --ry, --gx, --gy)
  * - the hero graph paper lights up under the cursor (--cx, --cy)
+ * Also clears a stuck text selection on the next click (see below).
  */
 export function PointerEffects() {
   useEffect(() => {
@@ -89,6 +90,25 @@ export function PointerEffects() {
       document.documentElement.removeEventListener("pointerleave", onLeave);
       cancelAnimationFrame(frame);
     };
+  }, []);
+
+  // Chrome keeps a text selection when the next click lands on an image or on
+  // user-select: none decoration, so the highlight seems stuck. Any click outside
+  // the selected text clears it (shift+click still extends it; fields keep their own).
+  useEffect(() => {
+    const onDown = (e: MouseEvent) => {
+      if (e.button !== 0 || e.shiftKey) return;
+      const selection = window.getSelection();
+      if (!selection || selection.isCollapsed || selection.rangeCount === 0) return;
+      if (e.target instanceof Element && e.target.closest("input, textarea, select, [contenteditable]")) return;
+      const rects = selection.getRangeAt(0).getClientRects();
+      for (const r of rects) {
+        if (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) return;
+      }
+      selection.removeAllRanges();
+    };
+    document.addEventListener("mousedown", onDown, true);
+    return () => document.removeEventListener("mousedown", onDown, true);
   }, []);
 
   return null;
